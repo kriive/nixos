@@ -19,6 +19,7 @@
     slurp
     autotiling
     distrobox
+    telegram-desktop
     nerd-fonts.jetbrains-mono
     inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
   ];

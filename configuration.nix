@@ -99,7 +99,6 @@
     with pkgs; [
       # Needed for flakes
       git
-      telegram-desktop
     ];
 
   environment.memoryAllocator.provider = "graphene-hardened";
