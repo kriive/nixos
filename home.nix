@@ -20,6 +20,7 @@
     autotiling
     distrobox
     telegram-desktop
+    senpai
     nerd-fonts.jetbrains-mono
     inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
   ];
@@ -62,6 +63,9 @@
 
     fish = {
       enable = true;
+      interactiveShellInit = ''
+        set fish_greeting # Disable greeting
+      '';
       plugins = with pkgs.fishPlugins; [{
         name = "tide";
         inherit (tide) src;
