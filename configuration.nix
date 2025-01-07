@@ -34,6 +34,7 @@
   # Enable "Silent Boot"
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
+  boot.initrd.kernelModules = [ "i915" ];
 
   # Use systemd-based initrd, to enable fancy Plymouth stuff.
   boot.initrd.systemd.enable = true;
@@ -56,6 +57,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -80,6 +82,10 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [
+    intel-media-driver
+  ];
 
   programs.dconf.enable = true;
   programs.command-not-found.enable = false;
@@ -153,6 +159,8 @@
       "bluez5.enable-hw-volume" = true;
     };
   };
+
+  services.fwupd.enable = true;
 
   virtualisation.containers.enable = true;
   virtualisation = {

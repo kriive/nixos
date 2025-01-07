@@ -48,8 +48,10 @@
     chromium = {
       enable = true;
       commandLineArgs = [
+        "--use-gl=angle"
+        "--use-angle=vulkan"
+        "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,VaapiIgnoreDriverChecks,UseMultiPlaneFormatForHardwareVideo,TouchpadOverscrollHistoryNavigation"
         "--ozone-platform-hint=auto"
-        "--enable-features=TouchpadOverscrollHistoryNavigation"
       ];
       extensions = [
         { id = "nngceckbapebfimnlniiiahkandclblb"; }
