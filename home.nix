@@ -8,6 +8,7 @@
     ./home/sway.nix
     ./home/tofi.nix
     ./home/mako.nix
+    ./home/senpai.nix
   ];
 
   home.username = "kriive";
@@ -20,7 +21,6 @@
     autotiling
     distrobox
     telegram-desktop
-    senpai
     nerd-fonts.jetbrains-mono
     inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
   ];
