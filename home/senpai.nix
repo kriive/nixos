@@ -1,5 +1,0 @@
-{ ... }:
-
-{
-  programs.senpai.enable = true;
-}
