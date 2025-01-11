@@ -16,6 +16,7 @@
         "Samsung Electric Company U28E570 HTPKA02864" = { scale = "2"; };
 
         "*" = { bg = "#111416 solid_color"; };
+        # "*" = { bg = "${./files/thinkpad-mountains.jpg} fill"; };
       };
 
       input = {
