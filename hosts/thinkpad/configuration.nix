@@ -1,12 +1,6 @@
-{ pkgs, lib, ... }:
+{ self, pkgs, lib, inputs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use Linux Kernel hardened image.
@@ -53,7 +47,7 @@
   # It will just not appear on screen unless a key is pressed
   boot.loader.timeout = 0;
 
-  networking.hostName = "k-thinkpad"; # Define your hostname.
+  networking.hostName = "thinkpad"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -172,6 +166,23 @@
 
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
+  # Enable Home Manager.
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+  home-manager.users.kriive = import ./home.nix;
+  home-manager.extraSpecialArgs = {
+    inherit inputs;
+  };
+
+  # MicroVM startup.
+  microvm.vms = {
+    pwn = {
+      flake = self;
+      updateFlake = "git+file:///home/kriive/nixos";
     };
   };
 

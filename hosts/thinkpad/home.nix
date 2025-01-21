@@ -83,6 +83,11 @@
   services = {
     swayosd.enable = true;
     mpris-proxy.enable = true;
+    wlsunset = {
+      enable = true;
+      latitude = "44.801483";
+      longitude = "10.327904";
+    };
   };
 
   home.stateVersion = "24.11";
