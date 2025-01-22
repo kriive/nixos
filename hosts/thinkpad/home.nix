@@ -20,7 +20,9 @@
     autotiling
     distrobox
     telegram-desktop
+    fastfetch
     senpai
+    ghidra
     nerd-fonts.jetbrains-mono
     inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
   ];
@@ -30,6 +32,7 @@
   home.sessionVariables = { NIXOS_OZONE_WL = "1"; };
   home.shellAliases = {
     cat = "bat";
+    ls = "eza";
   };
 
   home.pointerCursor = {
@@ -71,6 +74,15 @@
         inherit (tide) src;
       }];
       package = inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fish;
+    };
+
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+      enableBashIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
     };
 
     bash = { enable = true; };

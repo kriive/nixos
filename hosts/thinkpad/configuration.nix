@@ -1,8 +1,6 @@
 { self, pkgs, lib, inputs, ... }:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # Use Linux Kernel hardened image.
   boot.kernelPackages = pkgs.linuxPackages_6_12_hardened;
 
@@ -10,6 +8,7 @@
   boot.kernel.sysctl = {
     "kernel.unprivileged_userns_clone" = "1";
   };
+
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
@@ -84,7 +83,6 @@
   programs.dconf.enable = true;
   programs.command-not-found.enable = false;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kriive = {
     isNormalUser = true;
     description = "Manuel Romei";

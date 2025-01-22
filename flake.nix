@@ -12,7 +12,7 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
+      url = "github:nix-community/lanzaboote";
 
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,6 +48,7 @@
           microvm.nixosModules.microvm
           ./modules/common
           ./hosts/pwn
+          home-manager.nixosModules.home-manager
         ];
       };
     };

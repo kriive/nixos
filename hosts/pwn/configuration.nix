@@ -1,20 +1,46 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   networking.hostName = "pwn";
-  users.users.root.password = "";
 
   services.openssh = {
     enable = true;
     ports = [ 22 ];
     settings = {
       PasswordAuthentication = true;
-      AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
+      AllowUsers = [ "kriive" ];
       UseDns = true;
       X11Forwarding = false;
-      PermitEmptyPasswords = "yes";
-      PermitRootLogin = "yes"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+      PermitRootLogin = "no";
     };
+  };
+
+  users.users.kriive = {
+    isNormalUser = true;
+    password = "test";
+    description = "Manuel Romei";
+    extraGroups = [ "wheel" ];
+  };
+
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
+  # Enable Home Manager.
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+
+  home-manager.users.kriive = import ./home.nix;
+  home-manager.extraSpecialArgs = {
+    inherit inputs;
   };
 
   microvm = {
@@ -29,11 +55,7 @@
       mac = "02:00:00:00:00:01";
     }];
     shares = [{
-      # use proto = "virtiofs" for MicroVMs that are started by systemd
-      proto = "virtiofs";
       tag = "ro-store";
-      # a host's /nix/store will be picked up so that no
-      # squashfs/erofs will be built for it.
       source = "/nix/store";
       mountPoint = "/nix/.ro-store";
     }];
@@ -46,4 +68,12 @@
     hypervisor = "qemu";
     socket = "control.socket";
   };
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.11"; # Did you read the comment?
 }
