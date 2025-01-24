@@ -8,6 +8,7 @@
     ./home/sway.nix
     ./home/tofi.nix
     ./home/mako.nix
+    ./home/fish.nix
   ];
 
   home.username = "kriive";
@@ -15,6 +16,7 @@
 
   home.packages = with pkgs; [
     eza
+    bat
     swayosd
     slurp
     autotiling
@@ -66,18 +68,6 @@
         { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
         { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; }
       ];
-    };
-
-    fish = {
-      enable = true;
-      interactiveShellInit = ''
-        set fish_greeting # Disable greeting
-      '';
-      plugins = with pkgs.fishPlugins; [{
-        name = "tide";
-        inherit (tide) src;
-      }];
-      package = inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fish;
     };
 
     zoxide = {
