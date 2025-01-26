@@ -20,7 +20,7 @@
       };
 
       input = {
-        "1739:0:Synaptics_TM3471-020" = {
+        "2:7:SynPS/2_Synaptics_TouchPad" = {
           tap = "enabled";
           tap_button_map = "lrm";
           dwt = "enabled"; # disable-while-typing enabled
