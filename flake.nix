@@ -26,6 +26,11 @@
       url = "github:astro/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    idapro = {
+      url = "git+ssh://git@github.com/kriive/idapro.nix.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, microvm, fish-nixpkgs, home-manager, lanzaboote, ... }@inputs: {

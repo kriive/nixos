@@ -27,6 +27,7 @@
     ghidra
     nerd-fonts.jetbrains-mono
     inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
+    inputs.idapro.packages."${pkgs.system}".ida-pro
   ];
 
   fonts.fontconfig.enable = true;

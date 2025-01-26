@@ -50,6 +50,28 @@
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
+          "idapro",
+          "nixpak",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736143030,
+        "narHash": "sha256-+hu54pAoLDEZT9pjHlqL9DNzWz0NbUn8NEAHP7PQPzU=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "b905f6fc23a9051a6e1b741e1438dbfc0634c6de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_2": {
+      "inputs": {
+        "nixpkgs-lib": [
           "lanzaboote",
           "nixpkgs"
         ]
@@ -108,6 +130,33 @@
         "type": "github"
       }
     },
+    "hercules-ci-effects": {
+      "inputs": {
+        "flake-parts": [
+          "idapro",
+          "nixpak",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "idapro",
+          "nixpak",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736917206,
+        "narHash": "sha256-JTBWmyGf8K1Rwb+gviHIUzRJk/sITtT+72HXFkTZUjo=",
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "rev": "afd0a42e8c61ebb56899315ee4084a8b2e4ff425",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -115,11 +164,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737704314,
-        "narHash": "sha256-zta8jvOQ2wRCZmiwFEnS5iCulWAh8e+fLUlQxrgOBjM=",
+        "lastModified": 1737762889,
+        "narHash": "sha256-5HGG09bh/Yx0JA8wtBMAzt0HMCL1bYZ93x4IqzVExio=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a0428685572b134f6594e7d7f5db5e1febbab2d7",
+        "rev": "daf04c5950b676f47a794300657f1d3d14c1a120",
         "type": "github"
       },
       "original": {
@@ -128,11 +177,32 @@
         "type": "github"
       }
     },
+    "idapro": {
+      "inputs": {
+        "nixpak": "nixpak",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737632933,
+        "narHash": "sha256-lemex3QhXFUCNj7gNKyi52VvP37FclUP+E2sX1BSUaY=",
+        "ref": "refs/heads/main",
+        "rev": "0d2082549bd3ab2a602a5b56b6bfe4563e4773af",
+        "revCount": 7,
+        "type": "git",
+        "url": "ssh://git@github.com/kriive/idapro.nix.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/kriive/idapro.nix.git"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
         "flake-compat": "flake-compat",
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -175,13 +245,36 @@
         "type": "github"
       }
     },
+    "nixpak": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "hercules-ci-effects": "hercules-ci-effects",
+        "nixpkgs": [
+          "idapro",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736994075,
+        "narHash": "sha256-yOzglaBQJ0JwatApugbtsFb23oxXKg8UInAexsCZAB8=",
+        "owner": "nixpak",
+        "repo": "nixpak",
+        "rev": "51c2cc07ba6a57f9c1c776be1da3883e1d72f81b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixpak",
+        "repo": "nixpak",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1737622296,
-        "narHash": "sha256-GWHH9ljsR0LR29IEruJnKVVk6veeQpo7kfolyDyCVGQ=",
+        "lastModified": 1737717945,
+        "narHash": "sha256-ET91TMkab3PmOZnqiJQYOtSGvSTvGeHoegAv4zcTefM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "055c50feaa548eadca66407630961b77f3ebb750",
+        "rev": "ecd26a469ac56357fd333946a99086e992452b6a",
         "type": "github"
       },
       "original": {
@@ -238,6 +331,7 @@
       "inputs": {
         "fish-nixpkgs": "fish-nixpkgs",
         "home-manager": "home-manager",
+        "idapro": "idapro",
         "lanzaboote": "lanzaboote",
         "microvm": "microvm",
         "nixpkgs": "nixpkgs"
