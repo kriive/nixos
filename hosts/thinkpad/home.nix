@@ -9,6 +9,10 @@
     ./home/tofi.nix
     ./home/mako.nix
     ./home/fish.nix
+    ./home/zathura.nix
+    ./home/imv.nix
+    ./home/tmux.nix
+    ./home/mpv.nix
   ];
 
   home.username = "kriive";
@@ -25,6 +29,9 @@
     fastfetch
     senpai
     ghidra
+    htop
+    btop
+    nixfmt-rfc-style
     nerd-fonts.jetbrains-mono
     inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
     inputs.idapro.packages."${pkgs.system}".ida-pro

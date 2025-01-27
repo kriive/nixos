@@ -23,6 +23,14 @@
   };
 
   virtualisation.containers.enable = true;
+  virtualisation.containers.storage.settings.storage = {
+    rootless_storage_path = "/containers/nonroot";
+    graphroot = "/containers/graphroot";
+    runroot = "/containers/runroot";
+  };
+  virtualisation.containers.containersConf.settings.engine = {
+    env = ["TMPDIR=/containers/tmpdir"];
+  };
   virtualisation = {
     podman = {
       enable = true;
@@ -44,21 +52,41 @@
   };
 
   microvm = {
-    volumes = [{
-      mountPoint = "/var";
-      image = "var.img";
-      size = 256;
-    }];
+    vcpu = 2;
+    mem = 4096;
+
+    volumes = [
+      {
+        mountPoint = "/var";
+        image = "var.img";
+        size = 256;
+      }
+      {
+        mountPoint = "/containers";
+        image = "containers.img";
+        size = 20000;
+      }
+    ];
+
     interfaces = [{
       type = "user";
       id = "vm-a1";
       mac = "02:00:00:00:00:01";
     }];
-    shares = [{
-      tag = "ro-store";
-      source = "/nix/store";
-      mountPoint = "/nix/.ro-store";
-    }];
+
+    shares = [
+      {
+        tag = "ro-store";
+        source = "/nix/store";
+        mountPoint = "/nix/.ro-store";
+      }
+      {
+        proto = "virtiofs";
+        tag = "home2";
+        source = "/home/kriive/pwn";
+        mountPoint = "/home/kriive";
+      }
+    ];
 
     forwardPorts = [
       { host.port = 2222; guest.port = 22; }

@@ -5,7 +5,7 @@
     enable = true;
     defaultEditor = true;
     languages = {
-      language = [{ name = "nix"; formatter = { command = "nixpkgs-fmt"; }; }];
+      language = [{ name = "nix"; formatter = { command = "nixfmt"; }; }];
     };
     settings = {
       theme = "base16_transparent";
