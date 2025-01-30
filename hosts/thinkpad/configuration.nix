@@ -118,6 +118,7 @@
   };
 
   services.dbus.enable = true;
+  services.hardware.bolt.enable = true;
   services.tailscale.enable = true;
 
   services.chrony = {

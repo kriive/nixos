@@ -23,14 +23,17 @@
   };
 
   virtualisation.containers.enable = true;
+
   virtualisation.containers.storage.settings.storage = {
     rootless_storage_path = "/containers/nonroot";
     graphroot = "/containers/graphroot";
     runroot = "/containers/runroot";
   };
+
   virtualisation.containers.containersConf.settings.engine = {
     env = ["TMPDIR=/containers/tmpdir"];
   };
+
   virtualisation = {
     podman = {
       enable = true;
