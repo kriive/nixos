@@ -1,6 +1,12 @@
 { inputs, pkgs, ... }:
 
 {
+  programs.direnv = {
+    enable = true;
+    enableFishIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
+  };
+
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
@@ -46,10 +52,12 @@
       set -U fish_pager_color_secondary_completion 
       set -U fish_pager_color_secondary_background 
     '';
-    plugins = with pkgs.fishPlugins; [{
-      name = "tide";
-      inherit (tide) src;
-    }];
+    plugins = with pkgs.fishPlugins; [
+      {
+        name = "tide";
+        inherit (tide) src;
+      }
+    ];
     package = inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fish;
   };
 }
