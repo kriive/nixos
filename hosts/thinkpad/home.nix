@@ -13,7 +13,6 @@
     ./home/imv.nix
     ./home/tmux.nix
     ./home/mpv.nix
-    ./home/zed.nix
   ];
 
   home.username = "kriive";
