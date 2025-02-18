@@ -35,6 +35,7 @@
     nerd-fonts.jetbrains-mono
     inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
     inputs.idapro.packages."${pkgs.system}".ida-pro
+    gcr
   ];
 
   fonts.fontconfig.enable = true;
@@ -102,6 +103,7 @@
       latitude = "44.801483";
       longitude = "10.327904";
     };
+    gnome-keyring.enable = true;
   };
 
   home.stateVersion = "24.11";
