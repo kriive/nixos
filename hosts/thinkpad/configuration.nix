@@ -1,4 +1,10 @@
-{ self, pkgs, lib, inputs, ... }:
+{
+  self,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   # Use Linux Kernel hardened image.
@@ -8,6 +14,8 @@
   boot.kernel.sysctl = {
     "kernel.unprivileged_userns_clone" = "1";
   };
+
+  boot.supportedFilesystems = [ "ntfs" ];
 
   boot.lanzaboote = {
     enable = true;
@@ -83,22 +91,25 @@
 
   programs.dconf.enable = true;
   programs.command-not-found.enable = false;
+  programs.ssh.startAgent = true;
 
   users.users.kriive = {
     isNormalUser = true;
     description = "Manuel Romei";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.chromium.enableWideVine = true;
 
-  environment.systemPackages =
-    with pkgs; [
-      # Needed for flakes
-      git
-    ];
+  environment.systemPackages = with pkgs; [
+    # Needed for flakes
+    git
+  ];
 
   environment.memoryAllocator.provider = "graphene-hardened";
 
@@ -125,7 +136,10 @@
   services.chrony = {
     enable = true;
     enableNTS = true;
-    servers = [ "paris.time.system76.com" "time.cloudflare.com" ];
+    servers = [
+      "paris.time.system76.com"
+      "time.cloudflare.com"
+    ];
   };
 
   services.greetd = {
