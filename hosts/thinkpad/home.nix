@@ -2,18 +2,18 @@
 
 {
   imports = [
-    ./home/waybar.nix
-    ./home/foot.nix
-    ./home/helix.nix
-    ./home/sway.nix
-    ./home/tofi.nix
-    ./home/mako.nix
-    ./home/fish.nix
-    ./home/zathura.nix
-    ./home/imv.nix
-    ./home/tmux.nix
-    ./home/mpv.nix
-    ./home/gtk.nix
+    ../../home-manager/waybar.nix
+    ../../home-manager/foot.nix
+    ../../home-manager/helix.nix
+    ../../home-manager/sway.nix
+    ../../home-manager/tofi.nix
+    ../../home-manager/mako.nix
+    ../../home-manager/fish.nix
+    ../../home-manager/zathura.nix
+    ../../home-manager/imv.nix
+    ../../home-manager/tmux.nix
+    ../../home-manager/mpv.nix
+    ../../home-manager/gtk.nix
   ];
 
   home.username = "kriive";
