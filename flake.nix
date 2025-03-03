@@ -22,18 +22,13 @@
       url = "github:nixos/nixpkgs?ref=fish";
     };
 
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     idapro = {
       url = "git+ssh://git@github.com/kriive/idapro.nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, microvm, fish-nixpkgs, home-manager, lanzaboote, ... }@inputs: {
+  outputs = { self, nixpkgs, fish-nixpkgs, home-manager, lanzaboote, ... }@inputs: {
     nixosConfigurations = {
       thinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -41,18 +36,7 @@
         modules = [
           ./modules/common
           ./hosts/thinkpad
-          microvm.nixosModules.host
           lanzaboote.nixosModules.lanzaboote
-          home-manager.nixosModules.home-manager
-        ];
-      };
-      pwn = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs self; };
-        modules = [
-          microvm.nixosModules.microvm
-          ./modules/common
-          ./hosts/pwn
           home-manager.nixosModules.home-manager
         ];
       };

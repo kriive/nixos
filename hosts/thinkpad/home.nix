@@ -13,6 +13,7 @@
     ./home/imv.nix
     ./home/tmux.nix
     ./home/mpv.nix
+    ./home/gtk.nix
   ];
 
   home.username = "kriive";
@@ -24,7 +25,6 @@
     swayosd
     slurp
     autotiling
-    distrobox
     telegram-desktop
     fastfetch
     senpai
@@ -41,9 +41,9 @@
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    _JAVA_AWT_WM_NONREPARENTING="1";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
-  
+
   home.shellAliases = {
     cat = "bat";
     ls = "eza";
@@ -58,7 +58,9 @@
   dconf = {
     enable = true;
     settings = {
-      "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
     };
   };
 
@@ -87,7 +89,9 @@
       ];
     };
 
-    bash = { enable = true; };
+    bash = {
+      enable = true;
+    };
 
     wlogout = {
       enable = true;

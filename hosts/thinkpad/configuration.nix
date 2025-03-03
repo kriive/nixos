@@ -94,12 +94,15 @@
   programs.command-not-found.enable = false;
   programs.ssh.startAgent = true;
 
+  programs.virt-manager.enable = true;
+  
   users.users.kriive = {
     isNormalUser = true;
     description = "Manuel Romei";
     extraGroups = [
       "networkmanager"
       "wheel"
+      "libvirtd"
     ];
   };
 
@@ -172,6 +175,8 @@
   services.fwupd.enable = true;
 
   virtualisation.containers.enable = true;
+  virtualisation.libvirtd.enable = true;
+
   virtualisation = {
     podman = {
       enable = true;
@@ -191,14 +196,6 @@
   home-manager.users.kriive = import ./home.nix;
   home-manager.extraSpecialArgs = {
     inherit inputs;
-  };
-
-  # MicroVM startup.
-  microvm.vms = {
-    pwn = {
-      flake = self;
-      updateFlake = "git+file:///home/kriive/nixos";
-    };
   };
 
   # This value determines the NixOS release from which the default
