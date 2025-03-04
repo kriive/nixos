@@ -1,6 +1,65 @@
 { inputs, pkgs, ... }:
 
 {
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    escapeTime = 0;
+    mouse = true;
+    keyMode = "vi";
+    prefix = "C-a";
+    extraConfig = ''
+    bind | split-window -h
+    bind - split-window -v
+    unbind '"'
+    unbind %
+    unbind C-Left
+    unbind C-Right
+
+    bind -n M-h select-pane -L
+    bind -n M-l select-pane -R
+    bind -n M-k select-pane -U
+    bind -n M-j select-pane -D
+    '';
+    shell = "${inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fish}/bin/fish";
+  };
+
+  programs.helix = {
+    enable = true;
+    defaultEditor = true;
+    languages = {
+      language = [{ name = "nix"; formatter = { command = "nixfmt"; }; }];
+    };
+    settings = {
+      theme = "base16_transparent";
+      editor = {
+        true-color = true;
+        color-modes = true;
+        idle-timeout = 75;
+        indent-guides.render = true;
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        };
+        soft-wrap.enable = true;
+      };
+
+      keys.normal = {
+        g = { a = "code_action"; };
+        "0" = "goto_line_start";
+        "$" = "goto_line_end";
+      };
+
+      keys.select = {
+        "0" = "goto_line_start";
+        "$" = "goto_line_end";
+      };
+
+      keys.insert = { j = { k = "normal_mode"; }; };
+    };
+  };
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
@@ -58,5 +117,38 @@
       }
     ];
     package = inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fish;
+  };
+
+  home.packages = with pkgs; [
+    eza
+    bat
+    fastfetch
+    htop
+    btop
+    ripgrep
+    nixfmt-rfc-style
+    inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
+  ];
+
+  home.shellAliases = {
+    cat = "bat";
+    ls = "eza";
+  };
+
+  programs = {
+    ripgrep.enable = true;
+
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+      enableBashIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
+    };
+
+    bash = {
+      enable = true;
+    };
   };
 }
