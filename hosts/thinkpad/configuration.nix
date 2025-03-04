@@ -157,6 +157,8 @@
   };
 
   security.rtkit.enable = true;
+  security.sudo-rs.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -187,15 +189,6 @@
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
     };
-  };
-
-  # Enable Home Manager.
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-
-  home-manager.users.kriive = import ./home.nix;
-  home-manager.extraSpecialArgs = {
-    inherit inputs;
   };
 
   # This value determines the NixOS release from which the default

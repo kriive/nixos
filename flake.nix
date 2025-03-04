@@ -28,18 +28,45 @@
     };
   };
 
-  outputs = { self, nixpkgs, fish-nixpkgs, home-manager, lanzaboote, ... }@inputs: {
-    nixosConfigurations = {
-      thinkpad = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs self; };
-        modules = [
-          ./modules/common
-          ./hosts/thinkpad
-          lanzaboote.nixosModules.lanzaboote
-          home-manager.nixosModules.home-manager
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      fish-nixpkgs,
+      home-manager,
+      lanzaboote,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      homeConfigurations."pwn" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [ ./hosts/pwn/home.nix ];
+      };
+      nixosConfigurations = {
+        thinkpad = nixpkgs.lib.nixosSystem {
+          system = system;
+          specialArgs = { inherit inputs self; };
+          modules = [
+            ./modules/common
+            ./hosts/thinkpad
+            lanzaboote.nixosModules.lanzaboote
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.kriive = import ./hosts/thinkpad/home.nix;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+              };
+            }
+          ];
+        };
       };
     };
-  };
 }
