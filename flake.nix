@@ -45,8 +45,13 @@
       homeConfigurations."pwn" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
         modules = [ ./hosts/pwn/home.nix ];
       };
+
       nixosConfigurations = {
         thinkpad = nixpkgs.lib.nixosSystem {
           system = system;
