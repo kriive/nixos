@@ -177,7 +177,10 @@
   services.fwupd.enable = true;
 
   virtualisation.containers.enable = true;
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
+  };
 
   virtualisation = {
     podman = {
