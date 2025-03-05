@@ -26,7 +26,6 @@
     ghidra
     nixfmt-rfc-style
     nerd-fonts.jetbrains-mono
-    inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
     inputs.idapro.packages."${pkgs.system}".ida-pro
   ];
 

@@ -18,10 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fish-nixpkgs = {
-      url = "github:nixos/nixpkgs?ref=fish";
-    };
-
     idapro = {
       url = "git+ssh://git@github.com/kriive/idapro.nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +28,6 @@
     {
       self,
       nixpkgs,
-      fish-nixpkgs,
       home-manager,
       lanzaboote,
       ...

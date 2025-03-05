@@ -21,7 +21,7 @@
     bind -n M-k select-pane -U
     bind -n M-j select-pane -D
     '';
-    shell = "${inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fish}/bin/fish";
+    shell = "${pkgs.fish}/bin/fish";
   };
 
   programs.helix = {
@@ -116,7 +116,6 @@
         inherit (tide) src;
       }
     ];
-    package = inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fish;
   };
 
   home.packages = with pkgs; [
@@ -127,7 +126,7 @@
     btop
     ripgrep
     nixfmt-rfc-style
-    inputs.fish-nixpkgs.legacyPackages."${pkgs.system}".fishPlugins.tide
+    fishPlugins.tide
   ];
 
   home.shellAliases = {
