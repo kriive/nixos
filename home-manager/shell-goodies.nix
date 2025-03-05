@@ -9,17 +9,17 @@
     keyMode = "vi";
     prefix = "C-a";
     extraConfig = ''
-    bind | split-window -h
-    bind - split-window -v
-    unbind '"'
-    unbind %
-    unbind C-Left
-    unbind C-Right
+      bind | split-window -h
+      bind - split-window -v
+      unbind '"'
+      unbind %
+      unbind C-Left
+      unbind C-Right
 
-    bind -n M-h select-pane -L
-    bind -n M-l select-pane -R
-    bind -n M-k select-pane -U
-    bind -n M-j select-pane -D
+      bind -n M-h select-pane -L
+      bind -n M-l select-pane -R
+      bind -n M-k select-pane -U
+      bind -n M-j select-pane -D
     '';
     shell = "${pkgs.fish}/bin/fish";
   };
@@ -28,7 +28,14 @@
     enable = true;
     defaultEditor = true;
     languages = {
-      language = [{ name = "nix"; formatter = { command = "nixfmt"; }; }];
+      language = [
+        {
+          name = "nix";
+          formatter = {
+            command = "nixfmt";
+          };
+        }
+      ];
     };
     settings = {
       theme = "base16_transparent";
@@ -46,7 +53,9 @@
       };
 
       keys.normal = {
-        g = { a = "code_action"; };
+        g = {
+          a = "code_action";
+        };
         "0" = "goto_line_start";
         "$" = "goto_line_end";
       };
@@ -56,7 +65,11 @@
         "$" = "goto_line_end";
       };
 
-      keys.insert = { j = { k = "normal_mode"; }; };
+      keys.insert = {
+        j = {
+          k = "normal_mode";
+        };
+      };
     };
   };
 

@@ -95,7 +95,7 @@
   programs.ssh.startAgent = true;
 
   programs.virt-manager.enable = true;
-  
+
   users.users.kriive = {
     isNormalUser = true;
     description = "Manuel Romei";

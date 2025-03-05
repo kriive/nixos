@@ -2,7 +2,7 @@
 
 {
   programs.swaylock.enable = true;
-  
+
   wayland.windowManager.sway = {
     enable = true;
     xwayland = true;
@@ -13,9 +13,13 @@
       terminal = "footclient";
       defaultWorkspace = "workspace number 1";
       output = {
-        "Samsung Electric Company U28E570 HTPKA02864" = { scale = "2"; };
+        "Samsung Electric Company U28E570 HTPKA02864" = {
+          scale = "2";
+        };
 
-        "*" = { bg = "#111416 solid_color"; };
+        "*" = {
+          bg = "#111416 solid_color";
+        };
         # "*" = { bg = "${./files/thinkpad-mountains.jpg} fill"; };
       };
 
@@ -43,10 +47,12 @@
         }
       ];
 
-      bars = [{
-        id = "mainBar";
-        command = "${pkgs.waybar}/bin/waybar";
-      }];
+      bars = [
+        {
+          id = "mainBar";
+          command = "${pkgs.waybar}/bin/waybar";
+        }
+      ];
 
       keybindings = lib.mkOptionDefault {
         "XF86AudioRaiseVolume" = "exec swayosd-client --output-volume raise";
@@ -57,8 +63,8 @@
         "XF86MonBrightnessUp" = "exec swayosd-client --brightness raise";
         "XF86MonBrightnessDown" = "exec swayosd-client --brightness lower";
         "${modifier}+space" = "exec tofi-drun | xargs swaymsg exec --";
-        "${modifier}+Ctrl+l" = ''
-          exec swaylock --color 101415 --indicator-radius 100 --indicator-thickness 7 --indicator-caps-lock --text-ver-color 00000000 --ring-color 404040 --key-hl-color cdcd00 --text-color ffc107 --line-color 00000000 --inside-color 00000088 --separator-color 00000000 "$@"'';
+        "${modifier}+Ctrl+l" =
+          ''exec swaylock --color 101415 --indicator-radius 100 --indicator-thickness 7 --indicator-caps-lock --text-ver-color 00000000 --ring-color 404040 --key-hl-color cdcd00 --text-color ffc107 --line-color 00000000 --inside-color 00000088 --separator-color 00000000 "$@"'';
       };
     };
 

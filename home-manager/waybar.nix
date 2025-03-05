@@ -17,20 +17,27 @@
           "clock"
           "custom/power"
         ];
-        "sway/window" = { max-length = 50; };
+        "sway/window" = {
+          max-length = 50;
+        };
         network = {
           format = "{ifname}";
           format-wifi = "{icon}";
           format-ethernet = "󰈀";
           format-disconnected = "";
           tooltip-format = "{ifname} via {gwaddr} ";
-          tooltip-format-wifi =
-            "{essid} ({signalStrength}%) {icon} - {ipaddr}/{cidr}";
+          tooltip-format-wifi = "{essid} ({signalStrength}%) {icon} - {ipaddr}/{cidr}";
           tooltip-format-ethernet = "{ifname}  - {ipaddr}/{cidr}";
           tooltip-format-disconnected = "Disconnected";
           on-click = "footclient -e 'nmtui-connect'";
           max-length = 50;
-          format-icons = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
+          format-icons = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
+          ];
         };
         battery = {
           format = "{icon}";
@@ -38,8 +45,32 @@
           format-warning = "{icon}󰈅";
           format-critical = "{icon}󰈅";
           format-icons = {
-            charging = [ "󰢟" "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰢞" "󰂊" "󰂋" "󰂅" ];
-            default = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            charging = [
+              "󰢟"
+              "󰢜"
+              "󰂆"
+              "󰂇"
+              "󰂈"
+              "󰢝"
+              "󰂉"
+              "󰢞"
+              "󰂊"
+              "󰂋"
+              "󰂅"
+            ];
+            default = [
+              "󰂎"
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
           };
           states = {
             critical = 15;
