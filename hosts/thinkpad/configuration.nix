@@ -113,6 +113,7 @@
   environment.systemPackages = with pkgs; [
     # Needed for flakes
     git
+    podman-compose
   ];
 
   environment.memoryAllocator.provider = "graphene-hardened";

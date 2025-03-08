@@ -27,6 +27,7 @@
     nixfmt-rfc-style
     nerd-fonts.jetbrains-mono
     inputs.idapro.packages."${pkgs.system}".ida-pro
+    unzip
   ];
 
   fonts.fontconfig.enable = true;
