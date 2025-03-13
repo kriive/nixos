@@ -22,6 +22,8 @@
       url = "git+ssh://git@github.com/kriive/idapro.nix.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri.url = "github:sodiboo/niri-flake";
   };
 
   outputs =
@@ -30,6 +32,7 @@
       nixpkgs,
       home-manager,
       lanzaboote,
+      niri,
       ...
     }@inputs:
     let
@@ -56,6 +59,7 @@
             ./hosts/thinkpad
             lanzaboote.nixosModules.lanzaboote
             home-manager.nixosModules.home-manager
+            niri.nixosModules.niri
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

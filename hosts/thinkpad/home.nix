@@ -12,6 +12,7 @@
     ../../home-manager/mpv.nix
     ../../home-manager/gtk.nix
     ../../home-manager/shell-goodies.nix
+    ../../home-manager/niri.nix
   ];
 
   home.username = "kriive";
@@ -51,7 +52,7 @@
       };
     };
   };
-
+  
   programs = {
     chromium = {
       enable = true;

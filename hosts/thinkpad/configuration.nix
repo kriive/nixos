@@ -88,12 +88,13 @@
   hardware.graphics.enable = true;
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
+    vaapiIntel
   ];
 
   programs.dconf.enable = true;
   programs.command-not-found.enable = false;
   programs.ssh.startAgent = true;
-
+  programs.niri.enable = true;
   programs.virt-manager.enable = true;
 
   users.users.kriive = {
@@ -109,6 +110,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.chromium.enableWideVine = true;
+
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
 
   environment.systemPackages = with pkgs; [
     # Needed for flakes
