@@ -26,6 +26,11 @@
     senpai
     ghidra
     nixfmt-rfc-style
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-emoji
+    liberation_ttf
+    proggyfonts
     nerd-fonts.jetbrains-mono
     inputs.idapro.packages."${pkgs.system}".ida-pro
     unzip
