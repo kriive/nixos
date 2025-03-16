@@ -69,6 +69,8 @@
       ];
     };
 
+    firefox.enable = true;
+
     wlogout = {
       enable = true;
     };
