@@ -54,6 +54,8 @@
   # It will just not appear on screen unless a key is pressed
   boot.loader.timeout = 0;
 
+  fonts.enableDefaultPackages = true;
+
   networking.hostName = "thinkpad"; # Define your hostname.
 
   # Enable networking
