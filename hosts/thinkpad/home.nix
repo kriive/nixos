@@ -40,8 +40,8 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = ["Source Serif Pro"];
-      sansSerif = ["Source Sans Pro"];
+      serif = ["DejaVu Serif"];
+      sansSerif = ["DejaVu Sans"];
       monospace = ["JetBrainsMono NF Regular"];
       emoji = ["Noto Color Emoji"];
     };
@@ -71,9 +71,9 @@
     chromium = {
       enable = true;
       commandLineArgs = [
-        "--use-gl=angle"
-        "--use-angle=vulkan"
-        "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,VaapiIgnoreDriverChecks,UseMultiPlaneFormatForHardwareVideo,TouchpadOverscrollHistoryNavigation"
+      #   "--use-gl=angle"
+      #   "--use-angle=vulkan"
+      #   "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,VaapiIgnoreDriverChecks,UseMultiPlaneFormatForHardwareVideo,TouchpadOverscrollHistoryNavigation"
         "--ozone-platform-hint=auto"
       ];
       extensions = [
