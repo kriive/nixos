@@ -14,7 +14,20 @@
   boot.kernel.sysctl = {
     "kernel.unprivileged_userns_clone" = "1";
   };
-
+  fonts.enableDefaultPackages = true; # Background fonts
+  fonts.packages = with pkgs; [
+    noto-fonts-color-emoji
+    cantarell-fonts
+    twitter-color-emoji
+    source-code-pro
+    gentium
+  ];
+  fonts.fontconfig.defaultFonts = {
+    serif = [ "Gentium Plus" ];
+    sansSerif = [ "Cantarell" ];
+    monospace = [ "Source Code Pro" ];
+    emoji = [ "Twitter Color Emoji" ];
+  };
   boot.supportedFilesystems = [ "ntfs" ];
 
   boot.lanzaboote = {
@@ -53,8 +66,6 @@
   # It's still possible to open the bootloader list by pressing any key
   # It will just not appear on screen unless a key is pressed
   boot.loader.timeout = 0;
-
-  fonts.enableDefaultPackages = true;
 
   networking.hostName = "thinkpad"; # Define your hostname.
 

@@ -29,14 +29,23 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-    liberation_ttf
-    proggyfonts
+    dejavu_fonts
+    source-serif-pro
+    source-sans-pro
     nerd-fonts.jetbrains-mono
     inputs.idapro.packages."${pkgs.system}".ida-pro
     unzip
   ];
 
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      serif = ["Source Serif Pro"];
+      sansSerif = ["Source Sans Pro"];
+      monospace = ["JetBrainsMono NF Regular"];
+      emoji = ["Noto Color Emoji"];
+    };
+  };
 
   home.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -57,7 +66,7 @@
       };
     };
   };
-  
+
   programs = {
     chromium = {
       enable = true;
