@@ -140,6 +140,8 @@
   services.dbus.enable = true;
   services.hardware.bolt.enable = true;
   services.tailscale.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
 
   services.chrony = {
     enable = true;
