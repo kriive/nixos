@@ -1,8 +1,14 @@
-{ pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 
 {
   home.packages = with pkgs; [
     xwayland-satellite
+    inputs.astal-bar.packages."x86_64-linux".default
   ];
 
   programs.niri = {
@@ -11,9 +17,10 @@
       outputs = {
         "Samsung Electric Company U28E570 HTPKA02864" = {
           scale = 2;
+          background-color = "#111416";
         };
 
-        "*" = {
+        "eDPI-1" = {
           background-color = "#111416";
         };
       };
@@ -32,7 +39,7 @@
 
       spawn-at-startup = [
         { command = [ "xwayland-satellite" ]; }
-        { command = [ "waybar" ]; }
+        { command = [ "bash" "-c" "cd /home/kriive/astal-bar && kaneru" ]; }
         {
           command = [
             "foot"
@@ -64,8 +71,24 @@
         with config.lib.niri.actions;
         let
           sh = spawn "bash" "-c";
+          set-volume = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@";
+          brillo = spawn "${pkgs.brillo}/bin/brillo" "-q" "-u" "300000";
+          playerctl = spawn "${pkgs.playerctl}/bin/playerctl";
         in
         {
+          "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+          "XF86AudioMicMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+
+          "XF86AudioPlay".action = playerctl "play-pause";
+          "XF86AudioStop".action = playerctl "pause";
+          "XF86AudioPrev".action = playerctl "previous";
+          "XF86AudioNext".action = playerctl "next";
+
+          "XF86AudioRaiseVolume".action = set-volume "5%+";
+          "XF86AudioLowerVolume".action = set-volume "5%-";
+
+          "XF86MonBrightnessUp".action = brillo "-A" "5";
+          "XF86MonBrightnessDown".action = brillo "-U" "5";
           "Mod+Return".action.spawn = "footclient";
           "Mod+space".action = sh ''tofi-drun | xargs niri msg action spawn --'';
           "Mod+Shift+q".action = close-window;
@@ -158,9 +181,9 @@
 
           "Mod+Shift+Minus".action.set-window-height = "-10%";
           "Mod+Shift+Equal".action.set-window-height = "+10%";
-          "Print".action = screenshot;
-          # "Ctrl+Print".action = screenshot-screen;
-          "Alt+Print".action = screenshot-window;
+          "Print".action.screenshot-screen = [];
+          "Mod+Shift+Alt+S".action = screenshot-window;
+          "Mod+Shift+S".action = screenshot;
           "Mod+Shift+E".action = quit;
           "Mod+Shift+P".action = power-off-monitors;
           "Mod+Shift+Ctrl+T".action = toggle-debug-tint;

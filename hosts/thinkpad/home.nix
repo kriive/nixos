@@ -6,7 +6,6 @@
     ../../home-manager/foot.nix
     ../../home-manager/sway.nix
     ../../home-manager/tofi.nix
-    ../../home-manager/mako.nix
     ../../home-manager/zathura.nix
     ../../home-manager/imv.nix
     ../../home-manager/mpv.nix

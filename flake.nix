@@ -24,6 +24,11 @@
     };
 
     niri.url = "github:sodiboo/niri-flake";
+
+    astal-bar = {
+      url = "github:kriive/astal-bar";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
