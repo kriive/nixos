@@ -20,7 +20,7 @@
           background-color = "#111416";
         };
 
-        "eDPI-1" = {
+        "eDP-1" = {
           background-color = "#111416";
         };
       };

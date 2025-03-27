@@ -34,6 +34,8 @@
     nerd-fonts.jetbrains-mono
     inputs.idapro.packages."${pkgs.system}".ida-pro
     unzip
+    brillo
+    python314
   ];
 
   fonts.fontconfig = {
