@@ -1,41 +1,36 @@
-{
-  self,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ inputs, config, pkgs, lib, ... }:
 
 {
-  # Use Linux Kernel hardened image.
-  boot.kernelPackages = pkgs.linuxPackages_6_12_hardened;
+  imports =
+    [
+      # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      inputs.nix-mineral.nixosModules.nix-mineral
+      inputs.lanzaboote.nixosModules.lanzaboote
+    ];
 
-  # Enable unprivileged user namespaces to allow chromium sandbox to work.
-  boot.kernel.sysctl = {
-    "kernel.unprivileged_userns_clone" = "1";
-  };
-
-  boot.supportedFilesystems = [ "ntfs" ];
-
+  # Bootloader.
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
   };
 
-  # Disable systemd-boot, as lanzaboote is going to replace it.
+  # Lanzaboote currently replaces the systemd-boot module.
+  # This setting is usually set to true in configuration.nix
+  # generated at installation time. So we force it to false
+  # for now.
   boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable Plymouth.
   boot.plymouth = {
     enable = true;
     theme = "bgrt";
   };
-
-  # Enable "Silent Boot"
-  boot.consoleLogLevel = 0;
-  boot.initrd.verbose = false;
-  boot.initrd.kernelModules = [ "i915" ];
 
   # Use systemd-based initrd, to enable fancy Plymouth stuff.
   boot.initrd.systemd.enable = true;
@@ -54,15 +49,27 @@
   # It will just not appear on screen unless a key is pressed
   boot.loader.timeout = 0;
 
-  networking.hostName = "thinkpad"; # Define your hostname.
+  networking.hostName = "nixos"; # Define your hostname.
+  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.firewall.enable = true;
-  networking.firewall.checkReversePath = "loose";
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [
+    intel-media-driver
+    vpl-gpu-rt
+  ];
+  hardware.enableRedistributableFirmware = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -79,121 +86,104 @@
     LC_TIME = "it_IT.UTF-8";
   };
 
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+
+  # Enable Flatpaks.
+  services.flatpak.enable = true;
+  services.tailscale = {
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+
+  services.fprintd.enable = true;
+
+  # Enable sound with pipewire.
+  services.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
+  };
+
+  services.fwupd.enable = true;
+
   security.polkit.enable = true;
-  security.pam.services.swaylock = { };
+  security.rtkit.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [
-    intel-media-driver
-  ];
-
-  programs.dconf.enable = true;
-  programs.command-not-found.enable = false;
-  programs.ssh.startAgent = true;
-
-  programs.virt-manager.enable = true;
-
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kriive = {
     isNormalUser = true;
     description = "Manuel Romei";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "libvirtd"
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
+    packages = with pkgs; [
+      xwayland-satellite
     ];
+  };
+
+  programs.dms-shell = {
+    enable = true;
+    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+  };
+  programs.niri = {
+    enable = true;
+    package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri;
+  };
+  programs.virt-manager.enable = true;
+  programs.seahorse.enable = true;
+
+  services.displayManager.dms-greeter = {
+    enable = true;
+    compositor.name = "niri";
+    configHome = "/home/kriive";
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.chromium.enableWideVine = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # Needed for flakes
+    helix
     git
-    podman-compose
   ];
 
-  environment.memoryAllocator.provider = "graphene-hardened";
-
-  xdg.portal = {
-    enable = true;
-
-    config = {
-      sway = {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-      };
-    };
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-    ];
+  environment.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
-  services.dbus.enable = true;
-  services.hardware.bolt.enable = true;
-  services.tailscale.enable = true;
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
 
-  services.chrony = {
-    enable = true;
-    enableNTS = true;
-    servers = [
-      "paris.time.system76.com"
-      "time.cloudflare.com"
-    ];
-  };
+  # List services that you want to enable:
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
-        user = "greeter";
-      };
-    };
-  };
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
 
-  security.rtkit.enable = true;
-  security.sudo-rs.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  services.pipewire.wireplumber.extraConfig."10-bluez" = {
-    "monitor.bluez.properties" = {
-      "bluez5.enable-sbc-xq" = true;
-      "bluez5.enable-msbc" = true;
-      "bluez5.enable-hw-volume" = true;
-    };
-  };
-
-  services.fwupd.enable = true;
-
-  virtualisation.containers.enable = true;
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.vhostUserPackages = with pkgs; [ virtiofsd ];
-  };
-
-  virtualisation = {
-    podman = {
-      enable = true;
-
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  networking.firewall.enable = true;
+  networking.firewall.checkReversePath = "loose";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -201,5 +191,38 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
+
+  nix-mineral = {
+    enable = true;
+
+    preset = "maximum";
+
+    extras.system.hardened-malloc = true;
+    extras.system.unprivileged-userns = true;
+    extras.system.secure-chrony = true;
+    extras.misc.usbguard.enable = false;
+    filesystems.normal."/var/lib" = {
+      enable = true;
+      options."noexec" = false;
+      options."exec" = true;
+    };
+  };
+
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+    };
+  };
 }

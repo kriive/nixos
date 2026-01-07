@@ -1,25 +1,31 @@
 {
-  description = "kriive thinkpad's configuration";
-
   inputs = {
-    nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-unstable";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-mineral = {
+      url = "github:cynicsketch/nix-mineral/"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+      url = "github:nix-community/lanzaboote/v1.0.0";
 
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    idapro = {
-      url = "git+ssh://git@github.com/kriive/idapro.nix.git";
+    niri = {
+      url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -29,38 +35,22 @@
       self,
       nixpkgs,
       home-manager,
-      lanzaboote,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      homeConfigurations."pwn" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-
-        modules = [ ./hosts/pwn/home.nix ];
-      };
-
       nixosConfigurations = {
         thinkpad = nixpkgs.lib.nixosSystem {
           system = system;
           specialArgs = { inherit inputs self; };
           modules = [
-            ./modules/common
             ./hosts/thinkpad
-            lanzaboote.nixosModules.lanzaboote
-            home-manager.nixosModules.home-manager
-            {
+            home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-
-              home-manager.users.kriive = import ./hosts/thinkpad/home.nix;
+              home-manager.users.kriive = ./hm/home.nix;
               home-manager.extraSpecialArgs = {
                 inherit inputs;
               };
