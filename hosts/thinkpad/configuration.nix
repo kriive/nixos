@@ -34,6 +34,7 @@
 
   # Use systemd-based initrd, to enable fancy Plymouth stuff.
   boot.initrd.systemd.enable = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     "quiet"
     "splash"
@@ -42,6 +43,9 @@
     "rd.systemd.show_status=false"
     "rd.udev.log_level=3"
     "udev.log_priority=3"
+    "btusb.enable_autosuspend=0"
+    # This is needed for smooth trackpad.
+    "psmouse.synaptics_intertouch=1"
   ];
 
   # Hide the OS choice for bootloaders.
@@ -49,7 +53,7 @@
   # It will just not appear on screen unless a key is pressed
   boot.loader.timeout = 0;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nix-thinkpad"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -88,7 +92,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
+  services.upower.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
   # Enable Flatpaks.
@@ -163,6 +167,9 @@
 
   environment.sessionVariables = {
     _JAVA_AWT_WM_NONREPARENTING = "1";
+    NIXOS_OZONE_WL = "1";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -202,6 +209,7 @@
     extras.system.unprivileged-userns = true;
     extras.system.secure-chrony = true;
     extras.misc.usbguard.enable = false;
+    extras.network.bluetooth-kmodules = true;
     filesystems.normal."/var/lib" = {
       enable = true;
       options."noexec" = false;

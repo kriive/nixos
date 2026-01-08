@@ -6,189 +6,289 @@
 }:
 
 {
-  home.packages = with pkgs; [
-    xwayland-satellite
-    inputs.astal-bar.packages."x86_64-linux".default
-  ];
+  home.file."/home/kriive/.config/niri/config.kdl" = {
+    text = ''
 
-  programs.niri = {
-    settings = {
-      prefer-no-csd = true;
-      outputs = {
-        "Samsung Electric Company U28E570 HTPKA02864" = {
-          scale = 2;
-          background-color = "#111416";
-        };
+cursor {
+    // Imposta il nome del tema e la dimensione
+    xcursor-theme "Bibata-Modern-Classic"
+}
 
-        "eDP-1" = {
-          background-color = "#111416";
-        };
-      };
-
-      environment = {
-        CLUTTER_BACKEND = "wayland";
-        DISPLAY = ":0";
-        GDK_BACKEND = "wayland";
-        MOZ_ENABLE_WAYLAND = "1";
-        NIXOS_OZONE_WL = "1";
-        QT_QPA_PLATFORM = "wayland";
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-        _JAVA_AWT_WM_NONREPARENTING = "1";
-        SDL_VIDEODRIVER = "wayland";
-      };
-
-      spawn-at-startup = [
-        { command = [ "xwayland-satellite" ]; }
-        { command = [ "bash" "-c" "cd /home/kriive/astal-bar && kaneru" ]; }
-        {
-          command = [
-            "foot"
-            "--server"
-          ];
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            variant "altgr-intl"
+            options "compose:menu,level3:ralt_switch"
         }
-      ];
 
-      input = {
-        touchpad = {
-          click-method = "clickfinger";
-          dwt = true;
-          dwtp = true;
-          natural-scroll = true;
-          scroll-method = "two-finger";
-          tap = true;
-          tap-button-map = "left-right-middle";
-          accel-profile = "adaptive";
-        };
-        focus-follows-mouse.enable = true;
-        warp-mouse-to-focus = true;
-        workspace-auto-back-and-forth = true;
-        keyboard.xkb.layout = "us";
-        keyboard.xkb.variant = "altgr-intl";
-        keyboard.xkb.options = "compose:menu,level3:ralt_switch";
-      };
+        // Enable numlock on startup, omitting this setting disables it.
+        numlock
+    }
 
-      binds =
-        with config.lib.niri.actions;
-        let
-          sh = spawn "bash" "-c";
-          set-volume = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@";
-          brillo = spawn "${pkgs.brillo}/bin/brillo" "-q" "-u" "300000";
-          playerctl = spawn "${pkgs.playerctl}/bin/playerctl";
-        in
-        {
-          "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
-          "XF86AudioMicMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle";
+    // Next sections include libinput settings.
+    // Omitting settings disables them, or leaves them at their default values.
+    // All commented-out settings here are examples, not defaults.
+    touchpad {
+        // off
+        click-method "clickfinger"
+        tap
+        dwt
+        dwtp
+        // drag false
+        // drag-lock
+        natural-scroll
+        // accel-speed 0.2
+        accel-profile "adaptive"
+        scroll-method "two-finger"
+        // disabled-on-external-mouse
+    }
 
-          "XF86AudioPlay".action = playerctl "play-pause";
-          "XF86AudioStop".action = playerctl "pause";
-          "XF86AudioPrev".action = playerctl "previous";
-          "XF86AudioNext".action = playerctl "next";
+    mouse {
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "no-scroll"
+    }
 
-          "XF86AudioRaiseVolume".action = set-volume "5%+";
-          "XF86AudioLowerVolume".action = set-volume "5%-";
+    trackpoint {
+        // off
+        // natural-scroll
+        // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "on-button-down"
+        // scroll-button 273
+        // scroll-button-lock
+        // middle-emulation
+    }
 
-          "XF86MonBrightnessUp".action = brillo "-A" "5";
-          "XF86MonBrightnessDown".action = brillo "-U" "5";
-          "Mod+Return".action.spawn = "footclient";
-          "Mod+space".action = sh ''tofi-drun | xargs niri msg action spawn --'';
-          "Mod+Shift+q".action = close-window;
-          "Mod+Left".action = focus-column-left;
-          "Mod+Down".action = focus-window-down;
-          "Mod+Up".action = focus-window-up;
-          "Mod+Right".action = focus-column-right;
-          "Mod+h".action = focus-column-left;
-          "Mod+j".action = focus-window-down;
-          "Mod+k".action = focus-window-up;
-          "Mod+l".action = focus-column-right;
-          "Mod+Shift+Left".action = move-column-left;
-          "Mod+Shift+Down".action = move-window-down;
-          "Mod+Shift+Up".action = move-window-up;
-          "Mod+Shift+Right".action = move-column-right;
-          "Mod+Shift+H".action = move-column-left;
-          "Mod+Shift+J".action = move-window-down;
-          "Mod+Shift+K".action = move-window-up;
-          "Mod+Shift+L".action = move-column-right;
-          "Mod+Home".action = focus-column-first;
-          "Mod+End".action = focus-column-last;
-          "Mod+Ctrl+Home".action = move-column-to-first;
-          "Mod+Ctrl+End".action = move-column-to-last;
-          # "Mod+Ctrl+Left".action = focus-monitor-left;
-          # "Mod+Ctrl+Down".action = focus-monitor-down;
-          # "Mod+Ctrl+Up".action = focus-monitor-up;
-          # "Mod+Ctrl+Right".action = focus-monitor-right;
-          "Mod+Shift+WheelScrollDown".action = focus-column-right;
-          "Mod+Shift+WheelScrollUp".action = focus-column-left;
-          "Mod+Ctrl+Shift+WheelScrollDown".action = move-column-right;
-          "Mod+Ctrl+Shift+WheelScrollUp".action = move-column-left;
-          "Mod+Ctrl+H".action = focus-monitor-left;
-          "Mod+Ctrl+J".action = focus-monitor-down;
-          "Mod+Ctrl+K".action = focus-monitor-up;
-          "Mod+Ctrl+L".action = focus-monitor-right;
+    // Uncomment this to make the mouse warp to the center of newly focused windows.
+    warp-mouse-to-focus
 
-          "Mod+Shift+Ctrl+Left".action = move-column-to-monitor-left;
-          "Mod+Shift+Ctrl+Down".action = move-column-to-monitor-down;
-          "Mod+Shift+Ctrl+Up".action = move-column-to-monitor-up;
-          "Mod+Shift+Ctrl+Right".action = move-column-to-monitor-right;
-          "Mod+Shift+Ctrl+H".action = move-column-to-monitor-left;
-          "Mod+Shift+Ctrl+J".action = move-column-to-monitor-down;
-          "Mod+Shift+Ctrl+K".action = move-column-to-monitor-up;
-          "Mod+Shift+Ctrl+L".action = move-column-to-monitor-right;
+    // Focus windows and outputs automatically when moving the mouse into them.
+    // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
+    focus-follows-mouse max-scroll-amount="0%"
+}
 
-          "Mod+Page_Down".action = focus-workspace-down;
-          "Mod+Page_Up".action = focus-workspace-up;
-          "Mod+U".action = focus-workspace-down;
-          "Mod+I".action = focus-workspace-up;
-          "Mod+Shift+Page_Down".action = move-column-to-workspace-down;
-          "Mod+Shift+Page_Up".action = move-column-to-workspace-up;
-          "Mod+Shift+U".action = move-column-to-workspace-down;
-          "Mod+Shift+I".action = move-column-to-workspace-up;
+// You can configure outputs by their name, which you can find
+// by running `niri msg outputs` while inside a niri instance.
+// The built-in laptop monitor is usually called "eDP-1".
+// Find more information on the wiki:
+// https://yalter.github.io/niri/Configuration:-Outputs
+// Remember to uncomment the node by removing "/-"!
+output "Samsung Electric Company U28E570 HTPKA02864" {
+    mode "3840x2160@59.996"
+    scale 1.75
+    
+    // position x=2194 y=0
+}
 
-          # "Mod+Shift+Page_Down".action = move-workspace-down;
-          # "Mod+Shift+Page_Up".action = move-workspace-up;
-          # "Mod+Shift+U".action = move-workspace-down;
-          # "Mod+Shift+I".action = move-workspace-up;
+hotkey-overlay {
+    skip-at-startup
+}
 
-          "Mod+1".action.focus-workspace = 1;
-          "Mod+2".action.focus-workspace = 2;
-          "Mod+3".action.focus-workspace = 3;
-          "Mod+4".action.focus-workspace = 4;
-          "Mod+5".action.focus-workspace = 5;
-          "Mod+6".action.focus-workspace = 6;
-          "Mod+7".action.focus-workspace = 7;
-          "Mod+8".action.focus-workspace = 8;
-          "Mod+9".action.focus-workspace = 9;
+prefer-no-csd
 
-          "Mod+Shift+1".action.move-column-to-workspace = 1;
-          "Mod+Shift+2".action.move-column-to-workspace = 2;
-          "Mod+Shift+3".action.move-column-to-workspace = 3;
-          "Mod+Shift+4".action.move-column-to-workspace = 4;
-          "Mod+Shift+5".action.move-column-to-workspace = 5;
-          "Mod+Shift+6".action.move-column-to-workspace = 6;
-          "Mod+Shift+7".action.move-column-to-workspace = 7;
-          "Mod+Shift+8".action.move-column-to-workspace = 8;
-          "Mod+Shift+9".action.move-column-to-workspace = 9;
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
-          "Mod+Comma".action = consume-window-into-column;
-          "Mod+Period".action = expel-window-from-column;
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
 
-          "Mod+R".action = switch-preset-column-width;
-          "Mod+F".action = maximize-column;
-          "Mod+Shift+F".action = fullscreen-window;
-          "Mod+C".action = center-column;
+    Mod+O repeat=false { toggle-overview; }
+    Mod+Q repeat=false { close-window; }
 
-          "Mod+Minus".action.set-column-width = "-10%";
-          "Mod+Equal".action.set-column-width = "+10%";
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
 
-          "Mod+Shift+Minus".action.set-window-height = "-10%";
-          "Mod+Shift+Equal".action.set-window-height = "+10%";
-          "Print".action.screenshot-screen = [];
-          "Mod+Shift+Alt+S".action = screenshot-window;
-          "Mod+Shift+S".action = screenshot;
-          "Mod+Shift+E".action = quit;
-          "Mod+Shift+P".action = power-off-monitors;
-          "Mod+Shift+Ctrl+T".action = toggle-debug-tint;
-        };
-    };
-    package = pkgs.niri-unstable;
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+
+    Mod+Shift+Left  { focus-monitor-left; }
+    Mod+Shift+Down  { focus-monitor-down; }
+    Mod+Shift+Up    { focus-monitor-up; }
+    Mod+Shift+Right { focus-monitor-right; }
+    Mod+Shift+H     { focus-monitor-left; }
+    Mod+Shift+J     { focus-monitor-down; }
+    Mod+Shift+K     { focus-monitor-up; }
+    Mod+Shift+L     { focus-monitor-right; }
+
+    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+U              { focus-workspace-down; }
+    Mod+I              { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+    Mod+Ctrl+U         { move-column-to-workspace-down; }
+    Mod+Ctrl+I         { move-column-to-workspace-up; }
+
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up   { move-workspace-up; }
+    Mod+Shift+U         { move-workspace-down; }
+    Mod+Shift+I         { move-workspace-up; }
+
+    // You can bind mouse wheel scroll ticks using the following syntax.
+    // These binds will change direction based on the natural-scroll setting.
+    //
+    // To avoid scrolling through workspaces really fast, you can use
+    // the cooldown-ms property. The bind will be rate-limited to this value.
+    // You can set a cooldown on any bind, but it's most useful for the wheel.
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+
+    // Usually scrolling up and down with Shift in applications results in
+    // horizontal scrolling; these binds replicate that.
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    // You can refer to workspaces by index. However, keep in mind that
+    // niri is a dynamic workspace system, so these commands are kind of
+    // "best effort". Trying to refer to a workspace index bigger than
+    // the current workspace count will instead refer to the bottommost
+    // (empty) workspace.
+    //
+    // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
+    // will all refer to the 3rd workspace.
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    // Consume one window from the right to the bottom of the focused column.
+    Mod+Comma  { consume-window-into-column; }
+    // Expel the bottom window from the focused column to the right.
+    Mod+Period { expel-window-from-column; }
+
+    Mod+R { switch-preset-column-width; }
+    // Cycling through the presets in reverse order is also possible.
+    // Mod+R { switch-preset-column-width-back; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+
+    // While maximize-column leaves gaps and borders around the window,
+    // maximize-window-to-edges doesn't: the window expands to the edges of the screen.
+    // This bind corresponds to normal window maximizing,
+    // e.g. by double-clicking on the titlebar.
+    Mod+M { maximize-window-to-edges; }
+
+    // Expand the focused column to space not taken up by other fully visible columns.
+    // Makes the column "fill the rest of the space".
+    Mod+Ctrl+F { expand-column-to-available-width; }
+
+    Mod+C { center-column; }
+
+    // Center all fully visible columns on screen.
+    Mod+Ctrl+C { center-visible-columns; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    // Finer height adjustments when in column with other windows.
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // Move the focused window between the floating and the tiling layout.
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    // Toggle tabbed column display mode.
+    // Windows in this column will appear as vertical tabs,
+    // rather than stacked on top of each other.
+    Mod+W { toggle-column-tabbed-display; }
+
+    // Actions to switch layouts.
+    // Note: if you uncomment these, make sure you do NOT have
+    // a matching layout switch hotkey configured in xkb options above.
+    // Having both at once on the same hotkey will break the switching,
+    // since it will switch twice upon pressing the hotkey (once by xkb, once by niri).
+    // Mod+Space       { switch-layout "next"; }
+    // Mod+Shift+Space { switch-layout "prev"; }
+
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+
+    // Applications such as remote-desktop clients and software KVM switches may
+    // request that niri stops processing the keyboard shortcuts defined here
+    // so they may, for example, forward the key presses as-is to a remote machine.
+    // It's a good idea to bind an escape hatch to toggle the inhibitor,
+    // so a buggy application can't hold your session hostage.
+    //
+    // The allow-inhibiting=false property can be applied to other binds as well,
+    // which ensures niri always processes them, even when an inhibitor is active.
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+
+    // The quit action will show a confirmation dialog to avoid accidental exits.
+    Mod+Shift+E { quit; }
+    Ctrl+Alt+Delete { quit; }
+
+    // Powers off the monitors. To turn them back on, do any input like
+    // moving the mouse or pressing any other key.
+    Mod+Shift+P { power-off-monitors; }
+}
+include "./dms/wpblur.kdl"
+include "./dms/alttab.kdl"
+include "./dms/colors.kdl"
+include "./dms/layout.kdl"
+include "./dms/binds.kdl"
+
+window-rule {
+    geometry-corner-radius 0
+    clip-to-geometry true
+}
+layout {
+    // Set gaps around windows in logical pixels.
+    gaps 16
+}
+    '';
   };
 }

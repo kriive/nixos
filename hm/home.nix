@@ -7,8 +7,16 @@
     ./zathura.nix
     ./mpv.nix
     ./imv.nix
+    ./niri.nix
   ];
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 32; # Imposta qui la dimensione (es. 24, 32, 48)
+  };
+  
   gtk = {
     enable = true;
     theme = {
@@ -17,6 +25,16 @@
     };
   };
   
+  services.gammastep = {
+    enable = true;
+
+    # Coordinates based location
+    provider = "manual";
+
+    latitude = "44.8";
+    longitude = "10.33";
+  };
+
   home.username = "kriive";
   home.homeDirectory = "/home/kriive";
 
