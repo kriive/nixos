@@ -42,7 +42,8 @@
     adw-gtk3
     telegram-desktop
     nerd-fonts.jetbrains-mono
-    wineWowPackages.waylandFull
+    wineWowPackages.stableFull
+    winetricks
     ghidra
     delfin
   ];

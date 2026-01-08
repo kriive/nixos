@@ -64,7 +64,10 @@
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver
     vpl-gpu-rt
@@ -159,6 +162,7 @@
   environment.systemPackages = with pkgs; [
     helix
     git
+    dnsmasq
   ];
 
   environment.sessionVariables = {
@@ -212,6 +216,13 @@
       options."noexec" = false;
       options."exec" = true;
     };
+    filesystems.normal."/tmp" = {
+      enable = true;
+      options."noexec" = false;
+      options."exec" = true;
+    };
+    settings.system.multilib = true;
+    extras.network.tcp-window-scaling = true;
   };
 
   virtualisation.docker = {
@@ -228,6 +239,7 @@
       package = pkgs.qemu_kvm;
       runAsRoot = true;
       swtpm.enable = true;
+      vhostUserPackages = with pkgs; [ virtiofsd ];
     };
   };
 }
