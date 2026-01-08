@@ -8,6 +8,7 @@
     ./mpv.nix
     ./imv.nix
     ./niri.nix
+    ./opencode.nix
   ];
 
   home.pointerCursor = {
