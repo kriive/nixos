@@ -211,16 +211,7 @@
     extras.misc.usbguard.enable = false;
     extras.network.bluetooth-kmodules = true;
     settings.etc.kicksecure-bluetooth = false;
-    filesystems.normal."/var/lib" = {
-      enable = true;
-      options."noexec" = false;
-      options."exec" = true;
-    };
-    filesystems.normal."/tmp" = {
-      enable = true;
-      options."noexec" = false;
-      options."exec" = true;
-    };
+    filesystems.enable = false;
     settings.system.multilib = true;
     extras.network.tcp-window-scaling = true;
   };
