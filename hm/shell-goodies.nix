@@ -133,7 +133,7 @@
     htop
     btop
     ripgrep
-    nixfmt-rfc-style
+    nixfmt
     fishPlugins.tide
   ];
 

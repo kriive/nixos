@@ -35,13 +35,12 @@ input {
         tap
         dwt
         dwtp
-        // drag false
-        // drag-lock
         natural-scroll
         // accel-speed 0.2
-        accel-profile "adaptive"
+        accel-profile "flat"
         scroll-method "two-finger"
         // disabled-on-external-mouse
+        tap-button-map "left-right-middle"
     }
 
     mouse {

@@ -1,13 +1,18 @@
-{ inputs, config, pkgs, lib, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.nix-mineral.nixosModules.nix-mineral
-      inputs.lanzaboote.nixosModules.lanzaboote
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.nix-mineral.nixosModules.nix-mineral
+    inputs.lanzaboote.nixosModules.lanzaboote
+  ];
 
   # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
@@ -50,7 +55,7 @@
   boot.loader.timeout = 0;
 
   networking.hostName = "nix-thinkpad"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -93,6 +98,7 @@
   services.printing.enable = true;
   services.upower.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  services.hardware.bolt.enable = true;
 
   # Enable Flatpaks.
   services.flatpak.enable = true;
@@ -123,12 +129,18 @@
   security.polkit.enable = true;
   security.rtkit.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.doas.fprintAuth = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kriive = {
     isNormalUser = true;
     description = "Manuel Romei";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+      "docker"
+    ];
     packages = with pkgs; [
       xwayland-satellite
     ];
@@ -155,7 +167,10 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.chromium.enableWideVine = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -169,7 +184,6 @@
     _JAVA_AWT_WM_NONREPARENTING = "1";
     NIXOS_OZONE_WL = "1";
     QT_QPA_PLATFORM = "wayland";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 
   # Some programs need SUID wrappers, can be configured further or are

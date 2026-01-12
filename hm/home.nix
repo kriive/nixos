@@ -1,5 +1,8 @@
 { pkgs, inputs, ... }:
 
+let
+  pkgsMaster = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
+in
 {
   imports = [
     ./shell-goodies.nix
@@ -45,7 +48,7 @@
     nerd-fonts.jetbrains-mono
     wineWowPackages.stableFull
     winetricks
-    ghidra
+    pkgsMaster.ghidra
     delfin
   ];
 
