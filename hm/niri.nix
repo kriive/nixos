@@ -278,6 +278,7 @@ include "./dms/wpblur.kdl"
 include "./dms/alttab.kdl"
 include "./dms/colors.kdl"
 include "./dms/layout.kdl"
+include "./dms/cursor.kdl"
 include "./dms/binds.kdl"
 
 window-rule {

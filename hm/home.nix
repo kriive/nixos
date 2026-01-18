@@ -1,8 +1,5 @@
 { pkgs, inputs, ... }:
 
-let
-  pkgsMaster = inputs.nixpkgs-master.legacyPackages.${pkgs.system};
-in
 {
   imports = [
     ./shell-goodies.nix
@@ -20,13 +17,22 @@ in
     name = "Bibata-Modern-Classic";
     size = 32; # Imposta qui la dimensione (es. 24, 32, 48)
   };
-  
+
   gtk = {
     enable = true;
     theme = {
       name = "adw-gtk3";
       package = pkgs.adw-gtk3;
     };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "qtct";
   };
   
   services.gammastep = {
@@ -48,7 +54,7 @@ in
     nerd-fonts.jetbrains-mono
     wineWowPackages.stableFull
     winetricks
-    pkgsMaster.ghidra
+    ghidra
     delfin
   ];
 

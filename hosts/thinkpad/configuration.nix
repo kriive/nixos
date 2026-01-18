@@ -107,8 +107,6 @@
     useRoutingFeatures = "client";
   };
 
-  services.fprintd.enable = true;
-
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   services.pipewire = {
@@ -129,7 +127,6 @@
   security.polkit.enable = true;
   security.rtkit.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
-  security.pam.services.doas.fprintAuth = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kriive = {
