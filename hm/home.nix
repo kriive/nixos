@@ -33,7 +33,7 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
+    platformTheme.name = "qt6ct";
   };
   
   services.gammastep = {

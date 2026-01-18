@@ -128,6 +128,16 @@
   security.rtkit.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
+  security.doas = {
+    enable = true;
+    extraRules = [
+      {
+        groups = [ "wheel" ];
+        persist = true;
+      }
+    ];
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kriive = {
     isNormalUser = true;

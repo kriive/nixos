@@ -1,11 +1,14 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.foot = {
     enable = true;
 
+    server.enable = true;
+
     settings = {
       main = {
+        include = "${config.xdg.configHome}/foot/dank-colors.ini";
         shell = "fish";
         font = "JetBrainsMono Nerd Font:size=12";
         dpi-aware = "no";

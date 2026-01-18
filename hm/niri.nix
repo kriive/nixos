@@ -70,19 +70,6 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-// You can configure outputs by their name, which you can find
-// by running `niri msg outputs` while inside a niri instance.
-// The built-in laptop monitor is usually called "eDP-1".
-// Find more information on the wiki:
-// https://yalter.github.io/niri/Configuration:-Outputs
-// Remember to uncomment the node by removing "/-"!
-output "Samsung Electric Company U28E570 HTPKA02864" {
-    mode "3840x2160@59.996"
-    scale 1.75
-    
-    // position x=2194 y=0
-}
-
 hotkey-overlay {
     skip-at-startup
 }
@@ -280,15 +267,7 @@ include "./dms/colors.kdl"
 include "./dms/layout.kdl"
 include "./dms/cursor.kdl"
 include "./dms/binds.kdl"
-
-window-rule {
-    geometry-corner-radius 0
-    clip-to-geometry true
-}
-layout {
-    // Set gaps around windows in logical pixels.
-    gaps 16
-}
+include "./dms/outputs.kdl"
     '';
   };
 }
