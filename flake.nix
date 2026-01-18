@@ -2,6 +2,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    go-librespot = {
+      url = "github:kriive/go-librespot";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +40,7 @@
       self,
       nixpkgs,
       home-manager,
+      go-librespot,
       ...
     }@inputs:
     let
@@ -47,7 +53,9 @@
           specialArgs = { inherit inputs self; };
           modules = [
             ./hosts/thinkpad
-            home-manager.nixosModules.home-manager {
+            home-manager.nixosModules.home-manager
+            go-librespot.nixosModules.default
+            {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.kriive = ./hm/home.nix;

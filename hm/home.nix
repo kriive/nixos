@@ -9,6 +9,7 @@
     ./imv.nix
     ./niri.nix
     ./opencode.nix
+    ./librespot.nix
   ];
 
   home.pointerCursor = {

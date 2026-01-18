@@ -85,6 +85,26 @@
         "type": "github"
       }
     },
+    "go-librespot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768761023,
+        "narHash": "sha256-Asa+VK+yzVEIgAw5NFxSQR4CPU0mKJDR1FHymPBOG/Q=",
+        "owner": "kriive",
+        "repo": "go-librespot",
+        "rev": "0c3863fca4f7ad10e22eed20a115e79b8d2c7b00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kriive",
+        "repo": "go-librespot",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -248,6 +268,7 @@
     },
     "root": {
       "inputs": {
+        "go-librespot": "go-librespot",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "niri": "niri",
