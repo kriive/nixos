@@ -17,6 +17,7 @@
       device_name = "thinkpad";
       bitrate = 320;
       audio_backend = "pulseaudio";
+      mpris_enabled = true;
     };
   };
 

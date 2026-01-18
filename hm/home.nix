@@ -9,7 +9,8 @@
     ./imv.nix
     ./niri.nix
     ./opencode.nix
-    ./librespot.nix
+    ./go-librespot.nix
+    ./spotify-player.nix
   ];
 
   home.pointerCursor = {
