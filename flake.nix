@@ -13,7 +13,7 @@
     };
 
     quickshell = {
-      url = "github:kriive/quickshell";
+      url = "github:quickshell-mirror/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
