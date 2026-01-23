@@ -11,6 +11,7 @@
     ./opencode.nix
     ./go-librespot.nix
     ./spotify-player.nix
+    ./vesktop.nix
   ];
 
   home.pointerCursor = {
