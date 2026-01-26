@@ -232,6 +232,7 @@
     extras.misc.usbguard.enable = false;
     extras.network.bluetooth-kmodules = true;
     settings.etc.kicksecure-bluetooth = false;
+    settings.network.ip-forwarding = true;
     filesystems.enable = false;
     settings.system.multilib = true;
     extras.network.tcp-window-scaling = true;
