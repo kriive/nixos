@@ -59,6 +59,9 @@
     winetricks
     ghidra
     delfin
+    unzip
+    zip
+    p7zip
   ];
 
   programs = {
