@@ -72,6 +72,7 @@
       #   "--use-angle=vulkan"
         "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,VaapiIgnoreDriverChecks,UseMultiPlaneFormatForHardwareVideo,TouchpadOverscrollHistoryNavigation"
         "--ozone-platform-hint=auto"
+        "--disable-pinch"
       ];
       extensions = [
         { id = "nngceckbapebfimnlniiiahkandclblb"; }
