@@ -92,11 +92,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771699842,
-        "narHash": "sha256-geSqx2IxGi4xsXBKT+6jL8QM5ycM0W+U0x/83rqt9tA=",
+        "lastModified": 1771712821,
+        "narHash": "sha256-mlUzIAK8BjTlTD49KDUhyB85pVlBYn2jm3y9gW02H5w=",
         "owner": "kriive",
         "repo": "go-librespot",
-        "rev": "73eb645c4b7840ead62173915b814cdc1fa07ec1",
+        "rev": "6ba62111d8159d0e4d4ee2b14542d6b23ef1646f",
         "type": "github"
       },
       "original": {
@@ -199,11 +199,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771115839,
-        "narHash": "sha256-hbFMCziZpIQRQbCvL2LwUdkvkCK7j0Xyn/EGDlsJICs=",
+        "lastModified": 1771710604,
+        "narHash": "sha256-YasT2kbwSMMf0/wjZSMjXmP5/zecAcagBK6feoPVLZs=",
         "owner": "cynicsketch",
         "repo": "nix-mineral",
-        "rev": "47ffa0f27b7ee8847a39092bf23334deeb80536e",
+        "rev": "4ce411a984edf0c18a29025ac88d56e7a953d855",
         "type": "github"
       },
       "original": {
