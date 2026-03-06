@@ -55,13 +55,17 @@
     adw-gtk3
     telegram-desktop
     nerd-fonts.jetbrains-mono
-    wineWowPackages.stableFull
+    wineWow64Packages.waylandFull
     winetricks
     ghidra
     delfin
     unzip
     zip
     p7zip
+    ethtool
+    inputs.codex.packages.${pkgs.system}.default
+    dig
+    mtr
   ];
 
   programs = {
