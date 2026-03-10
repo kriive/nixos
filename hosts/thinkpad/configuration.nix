@@ -33,6 +33,8 @@
     theme = "bgrt";
   };
 
+  documentation.man.enable = true;
+
   # Use systemd-based initrd, to enable fancy Plymouth stuff.
   boot.initrd.systemd.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;

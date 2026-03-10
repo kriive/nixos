@@ -12,6 +12,7 @@
     ./go-librespot.nix
     ./spotify-player.nix
     ./vesktop.nix
+    ./zed.nix
   ];
 
   home.pointerCursor = {
@@ -66,6 +67,7 @@
     inputs.codex.packages.${pkgs.system}.default
     dig
     mtr
+    jujutsu
   ];
 
   programs = {
@@ -76,7 +78,7 @@
       #   "--use-angle=vulkan"
         "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,VaapiIgnoreDriverChecks,UseMultiPlaneFormatForHardwareVideo,TouchpadOverscrollHistoryNavigation"
         "--ozone-platform-hint=auto"
-        "--disable-pinch"
+        # "--disable-pinch"
       ];
       extensions = [
         { id = "nngceckbapebfimnlniiiahkandclblb"; }

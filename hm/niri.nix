@@ -13,7 +13,12 @@ cursor {
     // Imposta il nome del tema e la dimensione
     xcursor-theme "Bibata-Modern-Classic"
 }
-
+// Disable the hot corners.
+gestures {
+    hot-corners {
+        off
+    }
+}
 input {
     keyboard {
         xkb {

@@ -13,7 +13,7 @@
         font = "JetBrainsMono Nerd Font:size=12";
         dpi-aware = "no";
       };
-      colors = {
+      colors-dark = {
         foreground = "eeeeec";
         background = "111416";
         regular0 = "000000";
