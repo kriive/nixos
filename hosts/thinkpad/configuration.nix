@@ -42,6 +42,7 @@
   boot.initrd.kernelModules = [ "xe" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
+    "xe.force_probe=9a49"
     "module_blacklist=i915"
     "iommu=pt"
     "intel_iommu=on"
