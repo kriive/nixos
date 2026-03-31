@@ -10,6 +10,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./privilege-hardening.nix
+    ./runtime-services.nix
     inputs.nix-mineral.nixosModules.nix-mineral
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
@@ -37,11 +39,14 @@
 
   # Use systemd-based initrd, to enable fancy Plymouth stuff.
   boot.initrd.systemd.enable = true;
+  boot.initrd.kernelModules = [ "xe" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
+    "module_blacklist=i915"
+    "iommu=pt"
+    "intel_iommu=on"
     "quiet"
     "splash"
-    "boot.shell_on_fail"
     "loglevel=3"
     "rd.systemd.show_status=false"
     "rd.udev.log_level=3"
@@ -116,31 +121,12 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   services.fwupd.enable = true;
-
   security.polkit.enable = true;
   security.rtkit.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
 
-  security.doas = {
-    enable = true;
-    extraRules = [
-      {
-        groups = [ "wheel" ];
-        persist = true;
-      }
-    ];
-  };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kriive = {
     isNormalUser = true;
     description = "Manuel Romei";
@@ -150,27 +136,39 @@
       "libvirtd"
       "docker"
     ];
-    packages = with pkgs; [
-      xwayland-satellite
-    ];
   };
 
-  programs.dms-shell = {
+  programs.dank-material-shell = {
     enable = true;
     quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+
+    systemd = {
+      enable = true; # Systemd service for auto-start
+      restartIfChanged = true; # Auto-restart dms.service when dank-material-shell changes
+    };
+
+    # Core features
+    enableSystemMonitoring = true; # System monitoring widgets (dgop)
+    enableVPN = true; # VPN management widget
+    enableDynamicTheming = true; # Wallpaper-based theming (matugen)
+    enableAudioWavelength = true; # Audio visualizer (cava)
+    enableCalendarEvents = true; # Calendar integration (khal)
+    enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
   };
+
+  programs.dank-material-shell.greeter = {
+    enable = true;
+    compositor.name = "niri"; # Or "hyprland" or "sway"
+    configHome = "/home/kriive";
+    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+  };
+
   programs.niri = {
     enable = true;
     package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri;
   };
   programs.virt-manager.enable = true;
   programs.seahorse.enable = true;
-
-  services.displayManager.dms-greeter = {
-    enable = true;
-    compositor.name = "niri";
-    configHome = "/home/kriive";
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -195,23 +193,6 @@
     QT_QPA_PLATFORM = "wayland";
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = true;
   networking.firewall.checkReversePath = "loose";
 
@@ -242,10 +223,6 @@
 
   virtualisation.docker = {
     enable = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
   };
 
   virtualisation.libvirtd = {
@@ -257,4 +234,11 @@
       vhostUserPackages = with pkgs; [ virtiofsd ];
     };
   };
+
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [Touchpad Pressure Override]
+    MatchUdevType=touchpad
+    MatchName=*Synaptics TM3512-010*
+    AttrPressureRange=10:8
+  '';
 }

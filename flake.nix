@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     go-librespot = {
       url = "github:kriive/go-librespot";
@@ -36,6 +36,11 @@
       url = "github:sadjow/codex-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -44,6 +49,7 @@
       nixpkgs,
       home-manager,
       go-librespot,
+      dms,
       ...
     }@inputs:
     let
@@ -58,6 +64,8 @@
             ./hosts/thinkpad
             home-manager.nixosModules.home-manager
             go-librespot.nixosModules.default
+            dms.nixosModules.dank-material-shell
+            dms.nixosModules.greeter
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

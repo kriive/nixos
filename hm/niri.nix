@@ -24,7 +24,7 @@ input {
         xkb {
             layout "us"
             variant "altgr-intl"
-            options "compose:menu,level3:ralt_switch"
+            options "compose:menu,lv3:ralt_switch"
         }
 
         // Enable numlock on startup, omitting this setting disables it.
@@ -36,16 +36,16 @@ input {
     // All commented-out settings here are examples, not defaults.
     touchpad {
         // off
-        click-method "clickfinger"
+        // click-method "clickfinger"
         tap
-        dwt
-        dwtp
+        // dwt
+        // dwtp
         natural-scroll
-        // accel-speed 0.2
-        accel-profile "flat"
-        scroll-method "two-finger"
-        // disabled-on-external-mouse
-        tap-button-map "left-right-middle"
+        // // accel-speed 0.2
+        // accel-profile "flat"
+        // scroll-method "two-finger"
+        // // disabled-on-external-mouse
+        // tap-button-map "left-right-middle"
     }
 
     mouse {
