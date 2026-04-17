@@ -13,7 +13,43 @@
     ./spotify-player.nix
     ./vesktop.nix
     ./zed.nix
+    inputs.dms.homeModules.dank-material-shell
+    inputs.dms.homeModules.niri
+    inputs.danksearch.homeModules.dsearch
   ];
+
+  programs.niri = {
+    package = pkgs.niri-unstable;
+  };
+
+  programs.dsearch.enable = true;
+
+  programs.dank-material-shell = {
+    enable = true;
+    systemd = {
+      enable = true;
+    };
+
+    niri = {
+      enableSpawn = false;
+      enableKeybinds = false;
+      includes = {
+        enable = true;
+      };
+    };
+
+    settings = import ./dms.nix;
+
+    # Core features
+    enableSystemMonitoring = true; # System monitoring widgets (dgop)
+    enableVPN = true; # VPN management widget
+    enableDynamicTheming = true; # Wallpaper-based theming (matugen)
+    enableAudioWavelength = true; # Audio visualizer (cava)
+    enableCalendarEvents = true; # Calendar integration (khal)
+    enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
+
+    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+  };
 
   home.pointerCursor = {
     gtk.enable = true;
@@ -28,6 +64,7 @@
       name = "adw-gtk3";
       package = pkgs.adw-gtk3;
     };
+    gtk4.theme = null;
     iconTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
@@ -38,7 +75,7 @@
     enable = true;
     platformTheme.name = "qt6ct";
   };
-  
+
   services.gammastep = {
     enable = true;
 
@@ -74,8 +111,8 @@
     chromium = {
       enable = true;
       commandLineArgs = [
-      #   "--use-gl=angle"
-      #   "--use-angle=vulkan"
+        #   "--use-gl=angle"
+        #   "--use-angle=vulkan"
         "--enable-features=Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,AcceleratedVideoDecodeLinuxZeroCopyGL,AcceleratedVideoEncoder,VaapiIgnoreDriverChecks,UseMultiPlaneFormatForHardwareVideo,TouchpadOverscrollHistoryNavigation"
         "--ozone-platform-hint=auto"
         # "--disable-pinch"
@@ -84,10 +121,9 @@
         { id = "nngceckbapebfimnlniiiahkandclblb"; }
         { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
         { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; }
-     ];
+      ];
     };
   };
-
 
   home.stateVersion = "25.11";
 

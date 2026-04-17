@@ -28,7 +28,7 @@
     };
 
     niri = {
-      url = "github:YaLTeR/niri";
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -41,6 +41,11 @@
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    danksearch = {
+      url = "github:AvengeMedia/danksearch";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -49,6 +54,7 @@
       nixpkgs,
       home-manager,
       go-librespot,
+      niri,
       dms,
       ...
     }@inputs:
@@ -64,8 +70,24 @@
             ./hosts/thinkpad
             home-manager.nixosModules.home-manager
             go-librespot.nixosModules.default
-            dms.nixosModules.dank-material-shell
-            dms.nixosModules.greeter
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.kriive = ./hm/home.nix;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+              };
+            }
+          ];
+        };
+        t14 = nixpkgs.lib.nixosSystem {
+          system = system;
+          specialArgs = { inherit inputs self; };
+          modules = [
+            ./hosts/t14
+            home-manager.nixosModules.home-manager
+            go-librespot.nixosModules.default
+            niri.nixosModules.niri
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
