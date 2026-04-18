@@ -37,4 +37,7 @@
     MatchName=*Synaptics TM3512-010*
     AttrPressureRange=10:8
   '';
+
+  services.throttled.enable = true;
+  services.thermald.enable = true;
 }

@@ -81,7 +81,7 @@
     in
     {
       nixosConfigurations = {
-        t15 = mkHost "t15" ./hosts/thinkpad;
+        t15 = mkHost "t15" ./hosts/t15;
         t14 = mkHost "t14" ./hosts/t14;
       };
     };

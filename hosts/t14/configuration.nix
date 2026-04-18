@@ -8,7 +8,6 @@
     ../common/base.nix
     ./hardware-configuration.nix
   ];
-  services.power-profiles-daemon.enable = true;
 
   systemd.services.battery-charge-thresholds = {
     description = "Apply battery charge thresholds";

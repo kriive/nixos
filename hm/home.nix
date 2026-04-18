@@ -16,6 +16,7 @@ in
 
 {
   imports = [
+    ./ghidra.nix
     ./shell-goodies.nix
     ./foot.nix
     ./zathura.nix
@@ -109,7 +110,6 @@ in
     nerd-fonts.jetbrains-mono
     wineWow64Packages.waylandFull
     winetricks
-    ghidra
     delfin
     unzip
     zip

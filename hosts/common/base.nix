@@ -183,5 +183,14 @@
     };
   };
 
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    sarasa-gothic
+  ];
+
+  services.power-profiles-daemon.enable = true;
+
   system.stateVersion = "25.11";
 }
