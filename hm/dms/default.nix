@@ -696,7 +696,7 @@
           height = 160;
           width = 100;
           x = 40;
-          y = 560;
+          y = 600;
         };
       };
       widgetType = "desktopClock";
