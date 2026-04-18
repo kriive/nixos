@@ -162,6 +162,24 @@
       "Super+Shift+S" = {
         action.screenshot-screen = [ ];
       };
+      "Super+Shift+H" = {
+        action.move-column-to-monitor-left = [];
+      };
+      "Super+Shift+J" = {
+        action.move-column-to-monitor-down = [];
+      };
+      "Super+Shift+K" = {
+        action.move-column-to-monitor-up = [];
+      };
+      "Super+Shift+L" = {
+        action.move-column-to-monitor-right = [];
+      };
+      "Super+Shift+U" = {
+        action.focus-monitor-down = [];
+      };
+      "Super+Shift+I" = {
+        action.focus-monitor-up = [];
+      };
     };
   };
 }

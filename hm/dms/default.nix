@@ -618,6 +618,9 @@
     DP-4 = {
       enabled = true;
     };
+    eDP-1 = {
+      enabled = true;
+    };
   };
   desktopWidgetInstances = [
     {
@@ -657,10 +660,10 @@
           y = 80;
         };
         eDP-1 = {
-          width = 320;
           height = 480;
-          x = 608;
-          y = 192;
+          width = 320;
+          x = 40;
+          y = 80;
         };
       };
       widgetType = "systemMonitor";
@@ -690,10 +693,10 @@
           y = 560;
         };
         eDP-1 = {
-          width = 100;
           height = 160;
-          x = 718;
-          y = 352;
+          width = 100;
+          x = 40;
+          y = 560;
         };
       };
       widgetType = "desktopClock";
