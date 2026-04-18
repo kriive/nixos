@@ -25,13 +25,6 @@ let
   moduleBlacklist = inputs.nix-mineral.lib.fetchGhFile inputs.nix-mineral.lib.sources.module-blacklist;
 in
 {
-  security.doas.enable = lib.mkForce false;
-  security.sudo-rs = {
-    enable = true;
-    wheelNeedsPassword = true;
-    defaultOptions = [ ];
-  };
-
   environment.etc."modprobe.d/nm-disable-intelme-kmodules.conf".text = lib.mkForce (
     lib.concatStringsSep "\n" (map (module: "install ${module} ${helperPath}") intelmeModules) + "\n"
   );

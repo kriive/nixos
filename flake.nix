@@ -50,41 +50,21 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       go-librespot,
       niri,
-      dms,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
-    in
-    {
-      nixosConfigurations = {
-        thinkpad = nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = { inherit inputs self; };
+      mkHost =
+        hostName: hostPath:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/thinkpad
-            home-manager.nixosModules.home-manager
-            go-librespot.nixosModules.default
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.kriive = ./hm/home.nix;
-              home-manager.extraSpecialArgs = {
-                inherit inputs;
-              };
-            }
-          ];
-        };
-        t14 = nixpkgs.lib.nixosSystem {
-          system = system;
-          specialArgs = { inherit inputs self; };
-          modules = [
-            ./hosts/t14
+            hostPath
             home-manager.nixosModules.home-manager
             go-librespot.nixosModules.default
             niri.nixosModules.niri
@@ -93,11 +73,16 @@
               home-manager.useUserPackages = true;
               home-manager.users.kriive = ./hm/home.nix;
               home-manager.extraSpecialArgs = {
-                inherit inputs;
+                inherit inputs hostName;
               };
             }
           ];
         };
+    in
+    {
+      nixosConfigurations = {
+        t15 = mkHost "t15" ./hosts/thinkpad;
+        t14 = mkHost "t14" ./hosts/t14;
       };
     };
 }

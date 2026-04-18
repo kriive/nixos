@@ -1,4 +1,18 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  hostName,
+  lib,
+  ...
+}:
+
+let
+  dmsOverridePath = ./. + "/dms/${hostName}.nix";
+  dmsSettings =
+    lib.recursiveUpdate
+      (import ./dms/default.nix)
+      (if builtins.pathExists dmsOverridePath then import dmsOverridePath else { });
+in
 
 {
   imports = [
@@ -38,7 +52,7 @@
       };
     };
 
-    settings = import ./dms.nix;
+    settings = dmsSettings;
 
     # Core features
     enableSystemMonitoring = true; # System monitoring widgets (dgop)
@@ -101,7 +115,7 @@
     zip
     p7zip
     ethtool
-    inputs.codex.packages.${pkgs.system}.default
+    inputs.codex.packages.${pkgs.stdenv.hostPlatform.system}.default
     dig
     mtr
     jujutsu
