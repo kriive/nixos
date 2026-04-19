@@ -2,6 +2,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    pwndbg = {
+      url = "github:pwndbg/pwndbg";
+    };
+
     go-librespot = {
       url = "github:kriive/go-librespot";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -9,6 +18,11 @@
 
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -50,6 +64,7 @@
 
   outputs =
     {
+      self,
       nixpkgs,
       home-manager,
       go-librespot,
@@ -58,31 +73,33 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      mkHost =
-        hostName: hostPath:
+      mkSystem =
+        modules:
         nixpkgs.lib.nixosSystem {
-          inherit system;
+          inherit system modules;
           specialArgs = { inherit inputs; };
-          modules = [
-            hostPath
-            home-manager.nixosModules.home-manager
-            go-librespot.nixosModules.default
-            niri.nixosModules.niri
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.kriive = ./hm/home.nix;
-              home-manager.extraSpecialArgs = {
-                inherit inputs hostName;
-              };
-            }
-          ];
         };
+      mkHost =
+        hostName: hostPath: homePath:
+        mkSystem [
+          hostPath
+          home-manager.nixosModules.home-manager
+          go-librespot.nixosModules.default
+          niri.nixosModules.niri
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.kriive = homePath;
+            home-manager.extraSpecialArgs = {
+              inherit inputs hostName;
+            };
+          }
+        ];
     in
     {
       nixosConfigurations = {
-        t15 = mkHost "t15" ./hosts/t15;
-        t14 = mkHost "t14" ./hosts/t14;
+        t15 = mkHost "t15" ./hosts/t15 ./hm/hosts/t15;
+        t14 = mkHost "t14" ./hosts/t14 ./hm/hosts/t14;
       };
     };
 }

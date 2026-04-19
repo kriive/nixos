@@ -6,14 +6,6 @@
   ...
 }:
 
-let
-  dmsOverridePath = ./. + "/dms/${hostName}.nix";
-  dmsSettings =
-    lib.recursiveUpdate
-      (import ./dms/default.nix)
-      (if builtins.pathExists dmsOverridePath then import dmsOverridePath else { });
-in
-
 {
   imports = [
     ./ghidra.nix
@@ -53,7 +45,7 @@ in
       };
     };
 
-    settings = dmsSettings;
+    settings = import ./dms;
 
     # Core features
     enableSystemMonitoring = true; # System monitoring widgets (dgop)

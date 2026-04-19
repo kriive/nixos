@@ -1,6 +1,8 @@
 { inputs, pkgs, ... }:
 
 {
+  imports = [ inputs.nix-index-database.homeModules.default ];
+
   programs.tmux = {
     enable = true;
     clock24 = true;
@@ -157,5 +159,13 @@
     bash = {
       enable = true;
     };
+
+    nix-index = {
+      enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+    };
+
+    nix-index-database.comma.enable = true;
   };
 }

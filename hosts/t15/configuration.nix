@@ -8,6 +8,7 @@
 {
   imports = [
     ../common/base.nix
+    ../common/pwnvm-host.nix
     ./hardware-configuration.nix
     ./intelme-blacklist.nix
   ];
@@ -24,12 +25,7 @@
     vpl-gpu-rt
   ];
 
-  users.users.kriive = {
-    extraGroups = lib.mkAfter [ "libvirtd" ];
-  };
-
   nix-mineral.enable = true;
-  virtualisation.libvirtd.enable = true;
 
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Touchpad Pressure Override]

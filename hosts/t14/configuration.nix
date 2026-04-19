@@ -6,6 +6,7 @@
 {
   imports = [
     ../common/base.nix
+    ../common/pwnvm-host.nix
     ./hardware-configuration.nix
   ];
 
@@ -39,6 +40,8 @@
 
   nix-mineral.enable = true;
   nix-mineral.settings.kernel.amd-iommu-force-isolation = false;
+  nix-mineral.settings.kernel.intel-iommu = false;
+
   xdg.portal = {
     enable = true;
 
@@ -55,10 +58,4 @@
       };
     };
   };
-  #environment.etc."libinput/local-overrides.quirks".text = ''
-  #  [Touchpad Pressure Override]
-  #  MatchUdevType=touchpad
-  #  MatchName=*Synaptics TM3512-010*
-  #  AttrPressureRange=10:8
-  #'';
 }

@@ -139,7 +139,6 @@
     quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
   };
 
-  programs.virt-manager.enable = true;
   programs.seahorse.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -173,15 +172,6 @@
   };
 
   virtualisation.docker.enable = true;
-  virtualisation.libvirtd = {
-    enable = lib.mkDefault false;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      vhostUserPackages = with pkgs; [ virtiofsd ];
-    };
-  };
 
   fonts.packages = with pkgs; [
     noto-fonts
