@@ -45,6 +45,7 @@
   };
 
   microvm.vms.pwnvm = {
+    autostart = false;
     specialArgs = { inherit inputs; };
     config = import ../../hosts/microvms/pwnvm;
   };

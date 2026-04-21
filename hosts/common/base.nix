@@ -171,7 +171,10 @@
     extras.network.tcp-window-scaling = true;
   };
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+  };
 
   fonts.packages = with pkgs; [
     noto-fonts
