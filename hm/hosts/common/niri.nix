@@ -72,6 +72,26 @@
           "5"
         ];
       };
+      "XF86MonBrightnessDown" = {
+        action.spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "brightness"
+          "decrement"
+          "5"
+        ];
+      };
+      "XF86MonBrightnessUp" = {
+        action.spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "brightness"
+          "increment"
+          "5"
+        ];
+      };
       "Super+1" = {
         action.focus-workspace = 1;
       };
