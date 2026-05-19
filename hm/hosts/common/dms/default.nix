@@ -41,6 +41,8 @@
   modalAnimationSpeed = 1;
   modalCustomAnimationDuration = 150;
   enableRippleEffects = true;
+  animationVariant = 0;
+  motionEffect = 0;
   m3ElevationEnabled = true;
   m3ElevationIntensity = 12;
   m3ElevationOpacity = 30;
@@ -51,6 +53,8 @@
   popoutElevationEnabled = true;
   barElevationEnabled = true;
   blurEnabled = false;
+  blurForegroundLayers = true;
+  blurLayerOutlineOpacity = 0.12;
   blurBorderColor = "outline";
   blurBorderCustomColor = "#ffffff";
   blurBorderOpacity = 0.14;
@@ -72,6 +76,9 @@
   
   ];
   showSystemTray = true;
+  systemTrayIconTintMode = "none";
+  systemTrayIconTintSaturation = 50;
+  systemTrayIconTintStrength = 135;
   showClock = true;
   showNotificationButton = true;
   showBattery = true;
@@ -132,6 +139,11 @@
     {
       enabled = true;
       id = "darkMode";
+      width = 50;
+    }
+    {
+      id = "builtin_tailscale";
+      enabled = true;
       width = 50;
     }
   ];
@@ -228,6 +240,7 @@
   dankLauncherV2UnloadOnClose = false;
   dankLauncherV2IncludeFilesInAll = false;
   dankLauncherV2IncludeFoldersInAll = false;
+  launcherStyle = "full";
   useAutoLocation = false;
   weatherEnabled = true;
   networkPreference = "auto";
@@ -259,6 +272,8 @@
   monoFontFamily = "Fira Code";
   fontWeight = 400;
   fontScale = 1;
+  textRenderType = 0;
+  textRenderQuality = 0;
   notepadUseMonospace = true;
   notepadFontFamily = "";
   notepadFontSize = 14;
@@ -325,6 +340,7 @@
   matugenTemplatePywalfox = true;
   matugenTemplateZenBrowser = true;
   matugenTemplateVesktop = true;
+  matugenTemplateVencord = true;
   matugenTemplateEquibop = true;
   matugenTemplateGhostty = true;
   matugenTemplateKitty = true;
@@ -351,6 +367,7 @@
   showDock = false;
   dockAutoHide = false;
   dockSmartAutoHide = false;
+  dockHideOnFullscreen = true;
   dockGroupByApp = false;
   dockRestoreSpecialWorkspaceOnClick = false;
   dockOpenOnOverview = false;
@@ -375,6 +392,9 @@
   dockMaxVisibleApps = 0;
   dockMaxVisibleRunningApps = 0;
   dockShowOverflowBadge = true;
+  dockShowTrash = false;
+  dockTrashFileManager = "default";
+  dockTrashCustomCommand = "";
   notificationOverlayEnabled = false;
   notificationPopupShadowEnabled = true;
   notificationPopupPrivacyMode = false;
@@ -446,12 +466,18 @@
   customPowerActionReboot = "";
   customPowerActionPowerOff = "";
   updaterHideWidget = false;
+  updaterCheckOnStart = false;
   updaterUseCustomCommand = false;
   updaterCustomCommand = "";
   updaterTerminalAdditionalParams = "";
+  updaterIntervalSeconds = 1800;
+  updaterIncludeFlatpak = true;
+  updaterAllowAUR = true;
   displayNameMode = "system";
   screenPreferences = {
-  
+    wallpaper = [
+      "all"
+    ];
   };
   showOnLastDisplay = {
   
@@ -471,6 +497,9 @@
   displayProfileAutoSelect = false;
   displayShowDisconnected = false;
   displaySnapToEdge = true;
+  connectedFrameBarStyleBackups = {
+  
+  };
   barConfigs = [
     {
       autoHide = false;
@@ -481,9 +510,18 @@
       borderThickness = 1;
       bottomGap = 0;
       centerWidgets = [
-        "music"
-        "clock"
-        "weather"
+        {
+          enabled = true;
+          id = "music";
+        }
+        {
+          enabled = true;
+          id = "clock";
+        }
+        {
+          enabled = true;
+          id = "weather";
+        }
       ];
       clickThrough = false;
       enabled = true;
@@ -495,9 +533,18 @@
       id = "default";
       innerPadding = 4;
       leftWidgets = [
-        "launcherButton"
-        "workspaceSwitcher"
-        "focusedWindow"
+        {
+          enabled = true;
+          id = "launcherButton";
+        }
+        {
+          enabled = true;
+          id = "workspaceSwitcher";
+        }
+        {
+          enabled = true;
+          id = "focusedWindow";
+        }
       ];
       maximizeDetection = true;
       maximizeWidgetIcons = false;
@@ -510,13 +557,22 @@
       position = 0;
       removeWidgetPadding = false;
       rightWidgets = [
-        "systemTray"
-        "clipboard"
-        "cpuUsage"
-        "memUsage"
-        "notificationButton"
-        "battery"
-        "controlCenterButton"
+        {
+          enabled = true;
+          id = "systemTray";
+        }
+        {
+          enabled = true;
+          id = "notificationButton";
+        }
+        {
+          enabled = true;
+          id = "battery";
+        }
+        {
+          enabled = true;
+          id = "controlCenterButton";
+        }
       ];
       screenPreferences = [
         "all"
@@ -721,5 +777,21 @@
   launcherPluginOrder = [
   
   ];
-  configVersion = 5;
+  frameEnabled = false;
+  frameThickness = 16;
+  frameRounding = 23;
+  frameColor = "";
+  frameOpacity = 1;
+  frameScreenPreferences = [
+    "all"
+  ];
+  frameBarSize = 40;
+  frameShowOnOverview = false;
+  frameBlurEnabled = true;
+  frameCloseGaps = true;
+  frameLauncherEmergeSide = "bottom";
+  frameLauncherArcExtender = false;
+  frameUseSpotlightLauncher = false;
+  frameMode = "connected";
+  configVersion = 11;
 }

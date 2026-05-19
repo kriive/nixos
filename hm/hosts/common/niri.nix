@@ -92,6 +92,15 @@
           "5"
         ];
       };
+      "Super+Alt+L" = {
+        action.spawn = [
+          "dms"
+          "ipc"
+          "call"
+          "lock"
+          "lock"
+        ];
+      };
       "Super+1" = {
         action.focus-workspace = 1;
       };

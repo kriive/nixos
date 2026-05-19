@@ -16,6 +16,7 @@
     ./imv.nix
     ./niri.nix
     ./opencode.nix
+    ./rbw.nix
     ./go-librespot.nix
     ./spotify-player.nix
     ./vesktop.nix
@@ -96,6 +97,10 @@
   home.username = "kriive";
   home.homeDirectory = "/home/kriive";
 
+  home.shellAliases = {
+    k = "kubecolor";
+  };
+  
   home.packages = with pkgs; [
     adw-gtk3
     telegram-desktop
@@ -111,6 +116,7 @@
     dig
     mtr
     jujutsu
+    kubectl
   ];
 
   programs = {
@@ -128,6 +134,10 @@
         { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
         { id = "hfjbmagddngcpeloejdejnfgbamkjaeg"; }
       ];
+    };
+    kubecolor = {
+      enable = true;
+      enableAlias = true;
     };
   };
 
