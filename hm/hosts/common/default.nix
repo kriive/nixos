@@ -11,6 +11,7 @@
     ./ghidra.nix
     ./shell-goodies.nix
     ./foot.nix
+    ./fonts.nix
     ./zathura.nix
     ./mpv.nix
     ./imv.nix
@@ -24,11 +25,14 @@
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
     inputs.danksearch.homeModules.dsearch
+    inputs.hunk.homeManagerModules.default
   ];
 
   programs.niri = {
     package = pkgs.niri-unstable;
   };
+
+  programs.git.enable = true;
 
   programs.dsearch.enable = true;
 
@@ -94,17 +98,27 @@
     longitude = "10.33";
   };
 
+  programs.hunk = {
+    enable = true;
+    enableGitIntegration = true; # Optional: set hunk as default git pager
+    settings = {
+      theme = "graphite";
+      mode = "split";
+      line_numbers = true;
+    };
+  };
+
   home.username = "kriive";
   home.homeDirectory = "/home/kriive";
 
   home.shellAliases = {
     k = "kubecolor";
   };
-  
+
   home.packages = with pkgs; [
     adw-gtk3
     telegram-desktop
-    nerd-fonts.jetbrains-mono
+    ioskeley-mono.normal-term-NF
     wineWow64Packages.waylandFull
     winetricks
     delfin

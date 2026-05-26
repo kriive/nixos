@@ -142,8 +142,8 @@
       width = 50;
     }
     {
-      id = "builtin_tailscale";
       enabled = true;
+      id = "builtin_tailscale";
       width = 50;
     }
   ];
@@ -179,6 +179,7 @@
   audioWheelScrollAmount = 5;
   clockCompactMode = false;
   focusedWindowCompactMode = false;
+  focusedWindowSize = 1;
   runningAppsCompactMode = true;
   barMaxVisibleApps = 0;
   barMaxVisibleRunningApps = 0;
@@ -225,6 +226,7 @@
   appLauncherGridColumns = 4;
   spotlightCloseNiriOverview = true;
   rememberLastQuery = false;
+  rememberLastMode = true;
   spotlightSectionViewModes = {
   
   };
@@ -240,7 +242,9 @@
   dankLauncherV2UnloadOnClose = false;
   dankLauncherV2IncludeFilesInAll = false;
   dankLauncherV2IncludeFoldersInAll = false;
+  launcherUseOverlayLayer = false;
   launcherStyle = "full";
+  spotlightBarShowModeChips = false;
   useAutoLocation = false;
   weatherEnabled = true;
   networkPreference = "auto";
@@ -367,7 +371,7 @@
   showDock = false;
   dockAutoHide = false;
   dockSmartAutoHide = false;
-  dockHideOnFullscreen = true;
+  dockUseOverlayLayer = false;
   dockGroupByApp = false;
   dockRestoreSpecialWorkspaceOnClick = false;
   dockOpenOnOverview = false;
@@ -423,6 +427,7 @@
   notificationTimeoutNormal = 5000;
   notificationTimeoutCritical = 0;
   notificationCompactMode = false;
+  notificationDedupeEnabled = true;
   notificationPopupPosition = 0;
   notificationAnimationSpeed = 1;
   notificationCustomAnimationDuration = 400;
@@ -498,7 +503,12 @@
   displayShowDisconnected = false;
   displaySnapToEdge = true;
   connectedFrameBarStyleBackups = {
-  
+    default = {
+      shadowIntensity = 0;
+      squareCorners = false;
+      gothCornersEnabled = false;
+      borderEnabled = false;
+    };
   };
   barConfigs = [
     {
@@ -677,6 +687,9 @@
     eDP-1 = {
       enabled = true;
     };
+    DP-5 = {
+      enabled = true;
+    };
   };
   desktopWidgetInstances = [
     {
@@ -721,6 +734,12 @@
           x = 40;
           y = 80;
         };
+        DP-5 = {
+          width = 320;
+          height = 480;
+          x = 40;
+          y = 80;
+        };
       };
       widgetType = "systemMonitor";
     }
@@ -754,6 +773,12 @@
           x = 40;
           y = 600;
         };
+        DP-5 = {
+          width = 100;
+          height = 160;
+          x = 40;
+          y = 600;
+        };
       };
       widgetType = "desktopClock";
     }
@@ -777,8 +802,8 @@
   launcherPluginOrder = [
   
   ];
-  frameEnabled = false;
-  frameThickness = 16;
+  frameEnabled = true;
+  frameThickness = 2;
   frameRounding = 23;
   frameColor = "";
   frameOpacity = 1;
@@ -786,12 +811,11 @@
     "all"
   ];
   frameBarSize = 40;
-  frameShowOnOverview = false;
+  frameShowOnOverview = true;
   frameBlurEnabled = true;
-  frameCloseGaps = true;
+  frameCloseGaps = false;
   frameLauncherEmergeSide = "bottom";
   frameLauncherArcExtender = false;
-  frameUseSpotlightLauncher = false;
   frameMode = "connected";
   configVersion = 11;
 }

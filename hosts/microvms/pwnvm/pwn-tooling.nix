@@ -7,13 +7,15 @@
 
 let
   pwndbgBase = inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  pwndbg = lib.hiPrio (pkgs.symlinkJoin {
-    name = "pwndbg-with-gdb";
-    paths = [ pwndbgBase ];
-    postBuild = ''
-      ln -s $out/bin/pwndbg $out/bin/gdb
-    '';
-  });
+  pwndbg = lib.hiPrio (
+    pkgs.symlinkJoin {
+      name = "pwndbg-with-gdb";
+      paths = [ pwndbgBase ];
+      postBuild = ''
+        ln -s $out/bin/pwndbg $out/bin/gdb
+      '';
+    }
+  );
 
   pwnPython = pkgs.python3.withPackages (
     ps: with ps; [
@@ -45,6 +47,7 @@ let
     file
     gnumake
     gcc
+    clang-tools
     socat
     netcat
     curl

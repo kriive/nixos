@@ -38,6 +38,8 @@
     '';
   };
 
+  boot.initrd.kernelModules = [ "rmi_smbus" ];
+
   nix-mineral.enable = true;
   nix-mineral.settings.kernel.amd-iommu-force-isolation = false;
   nix-mineral.settings.kernel.intel-iommu = false;

@@ -30,12 +30,23 @@
     enable = true;
     defaultEditor = true;
     languages = {
+      language-server.clangd = {
+        command = "clangd";
+      };
       language = [
         {
           name = "nix";
           formatter = {
             command = "nixfmt";
           };
+        }
+        {
+          name = "c";
+          language-servers = [ "clangd" ];
+        }
+        {
+          name = "cpp";
+          language-servers = [ "clangd" ];
         }
       ];
     };
@@ -136,6 +147,7 @@
     btop
     ripgrep
     nixfmt
+    clang-tools
     fishPlugins.tide
   ];
 

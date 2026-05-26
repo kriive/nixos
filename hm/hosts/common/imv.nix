@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       options = {
-        overlay_font = "JetBrainsMono Nerd Font:10";
+        overlay_font = "IoskeleyMonoTerm Nerd Font:10";
         background = "282c34";
       };
       binds = {
