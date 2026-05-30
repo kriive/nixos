@@ -201,5 +201,6 @@
 
   services.power-profiles-daemon.enable = true;
 
+  virtualisation.multipass-ng.enable = true;
   system.stateVersion = "25.11";
 }

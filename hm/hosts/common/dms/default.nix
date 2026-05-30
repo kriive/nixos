@@ -5,8 +5,8 @@
   registryThemeVariants = {
   
   };
-  matugenScheme = "scheme-expressive";
-  matugenContrast = 0;
+  matugenScheme = "scheme-fidelity";
+  matugenContrast = 0.3;
   runUserMatugenTemplates = true;
   matugenTargetMonitor = "";
   popupTransparency = 1;
@@ -504,10 +504,10 @@
   displaySnapToEdge = true;
   connectedFrameBarStyleBackups = {
     default = {
+      borderEnabled = false;
+      gothCornersEnabled = false;
       shadowIntensity = 0;
       squareCorners = false;
-      gothCornersEnabled = false;
-      borderEnabled = false;
     };
   };
   barConfigs = [
@@ -684,10 +684,10 @@
     DP-4 = {
       enabled = true;
     };
-    eDP-1 = {
+    DP-5 = {
       enabled = true;
     };
-    DP-5 = {
+    eDP-1 = {
       enabled = true;
     };
   };
@@ -728,15 +728,15 @@
           x = 40;
           y = 80;
         };
-        eDP-1 = {
+        DP-5 = {
           height = 480;
           width = 320;
           x = 40;
           y = 80;
         };
-        DP-5 = {
-          width = 320;
+        eDP-1 = {
           height = 480;
+          width = 320;
           x = 40;
           y = 80;
         };
@@ -767,15 +767,15 @@
           x = 40;
           y = 560;
         };
-        eDP-1 = {
+        DP-5 = {
           height = 160;
           width = 100;
           x = 40;
           y = 600;
         };
-        DP-5 = {
-          width = 100;
+        eDP-1 = {
           height = 160;
+          width = 100;
           x = 40;
           y = 600;
         };

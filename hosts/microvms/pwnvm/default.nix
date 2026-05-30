@@ -113,7 +113,7 @@ in
     isNormalUser = true;
     description = "Pwn user";
     group = "users";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" ];
     uid = 1000;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMiWlG8ftLKl0tcuSjOsEMcxMM1Kmrl/cSwHavpnf6k7 kriive@nix-thinkpad"
@@ -144,6 +144,10 @@ in
         Gateway = vmGateway;
       }
     ];
+  };
+
+  virtualisation.docker = {
+    enable = true;
   };
 
   environment.systemPackages = pwnCliPkgs;
