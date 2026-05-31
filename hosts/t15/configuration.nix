@@ -8,7 +8,6 @@
 {
   imports = [
     ../common/base.nix
-    ../common/pwnvm-host.nix
     ./hardware-configuration.nix
     ./intelme-blacklist.nix
   ];
