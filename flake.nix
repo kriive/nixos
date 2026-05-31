@@ -84,6 +84,7 @@
     }@inputs:
     let
       system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
       mkSystem =
         modules:
         nixpkgs.lib.nixosSystem {
@@ -109,6 +110,16 @@
         ];
     in
     {
+      homeConfigurations = {
+        pwn = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./hm/profiles/pwn ];
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+        };
+      };
+
       nixosConfigurations = {
         t15 = mkHost "t15" ./hosts/t15 ./hm/hosts/t15;
         t14 = mkHost "t14" ./hosts/t14 ./hm/hosts/t14;
