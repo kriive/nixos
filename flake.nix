@@ -74,7 +74,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       go-librespot,
@@ -91,17 +90,21 @@
           inherit system modules;
           specialArgs = { inherit inputs; };
         };
+      pwnPackages = import ./hm/profiles/pwn/packages.nix {
+        inherit inputs pkgs;
+      };
       mkHost =
-        hostName: hostPath: homePath:
+        hostName: hostPath:
         mkSystem [
           hostPath
           home-manager.nixosModules.home-manager
           go-librespot.nixosModules.default
           niri.nixosModules.niri
           {
+            networking.hostName = hostName;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.kriive = homePath;
+            home-manager.users.kriive = ./hm/hosts/common;
             home-manager.extraSpecialArgs = {
               inherit inputs hostName;
             };
@@ -121,8 +124,38 @@
       };
 
       nixosConfigurations = {
-        t15 = mkHost "t15" ./hosts/t15 ./hm/hosts/t15;
-        t14 = mkHost "t14" ./hosts/t14 ./hm/hosts/t14;
+        t15 = mkHost "t15" ./hosts/t15/configuration.nix;
+        t14 = mkHost "t14" ./hosts/t14/configuration.nix;
+      };
+
+      devShells.${system} = {
+        default = pkgs.mkShell {
+          packages = with pkgs; [
+            nixfmt
+            nil
+            statix
+            deadnix
+            git
+          ];
+        };
+
+        homelab = pkgs.mkShell {
+          packages = with pkgs; [
+            kubectl
+            kubernetes-helm
+            kustomize
+            fluxcd
+            talosctl
+            sops
+            age
+            jq
+            yq
+          ];
+        };
+
+        pwn = pkgs.mkShell {
+          packages = pwnPackages;
+        };
       };
     };
 }

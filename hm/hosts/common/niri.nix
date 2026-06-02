@@ -1,11 +1,8 @@
-{
-  inputs,
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, ... }:
 
 {
+  programs.niri.package = pkgs.niri-unstable;
+
   programs.niri.settings = {
     input.keyboard.xkb = {
       layout = "us";
@@ -192,25 +189,25 @@
         action.screenshot-screen = [ ];
       };
       "Super+Shift+H" = {
-        action.move-column-to-monitor-left = [];
+        action.move-column-to-monitor-left = [ ];
       };
       "Super+Shift+J" = {
-        action.move-column-to-monitor-down = [];
+        action.move-column-to-monitor-down = [ ];
       };
       "Super+Shift+K" = {
-        action.move-column-to-monitor-up = [];
+        action.move-column-to-monitor-up = [ ];
       };
       "Super+Shift+L" = {
-        action.move-column-to-monitor-right = [];
+        action.move-column-to-monitor-right = [ ];
       };
       "Super+Shift+U" = {
-        action.focus-monitor-down = [];
+        action.focus-monitor-down = [ ];
       };
       "Super+Shift+I" = {
-        action.focus-monitor-up = [];
+        action.focus-monitor-up = [ ];
       };
       "Super+Shift+F" = {
-        action.fullscreen-window = [];
+        action.fullscreen-window = [ ];
       };
     };
   };

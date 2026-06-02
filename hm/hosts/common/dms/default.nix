@@ -5,8 +5,8 @@
   registryThemeVariants = {
   
   };
-  matugenScheme = "scheme-fidelity";
-  matugenContrast = 0.3;
+  matugenScheme = "scheme-neutral";
+  matugenContrast = 0.54;
   runUserMatugenTemplates = true;
   matugenTargetMonitor = "";
   popupTransparency = 1;
