@@ -209,6 +209,9 @@
       "Super+Shift+I" = {
         action.focus-monitor-up = [];
       };
+      "Super+Shift+F" = {
+        action.fullscreen-window = [];
+      };
     };
   };
 }
