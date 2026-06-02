@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/shell-core.nix
+    ../../shared/shell-core.nix
     inputs.nix-index-database.homeModules.default
   ];
 

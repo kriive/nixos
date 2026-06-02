@@ -6,7 +6,7 @@
 
 {
   imports = [
-    ../../modules/shell-core.nix
+    ../../shared/shell-core.nix
   ];
 
   home.username = "ubuntu";
