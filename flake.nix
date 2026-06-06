@@ -70,6 +70,11 @@
       url = "github:AvengeMedia/danksearch";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pwntools-src = {
+      url = "github:Gallopsled/pwntools/dev";
+      flake = false;
+    };
   };
 
   outputs =
@@ -79,11 +84,32 @@
       go-librespot,
       niri,
       multipass,
+      pwntools-src,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pwntoolsOverlay = final: prev: {
+        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+          (pyFinal: pyPrev: {
+            pwntools = pyPrev.pwntools.overridePythonAttrs (old: {
+              version = "dev";
+
+              src = pwntools-src;
+
+              meta = old.meta // {
+                changelog = "https://github.com/Gallopsled/pwntools/commits/dev";
+              };
+            });
+          })
+        ];
+      };
+      overlays = [
+        pwntoolsOverlay
+      ];
+      pkgs = import nixpkgs {
+        inherit system overlays;
+      };
       mkSystem =
         modules:
         nixpkgs.lib.nixosSystem {
@@ -127,6 +153,8 @@
         t15 = mkHost "t15" ./hosts/t15/configuration.nix;
         t14 = mkHost "t14" ./hosts/t14/configuration.nix;
       };
+
+      overlays.default = pwntoolsOverlay;
 
       devShells.${system} = {
         default = pkgs.mkShell {

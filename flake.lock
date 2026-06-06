@@ -566,6 +566,23 @@
         "type": "github"
       }
     },
+    "pwntools-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780417821,
+        "narHash": "sha256-qGhOVny48BphkdzhY2instRIz35vxblPImpItrhVuz8=",
+        "owner": "Gallopsled",
+        "repo": "pwntools",
+        "rev": "4c39ca92f2f2d75c4ec957fdefa28d8094ead8ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gallopsled",
+        "ref": "dev",
+        "repo": "pwntools",
+        "type": "github"
+      }
+    },
     "pyproject-build-systems": {
       "inputs": {
         "nixpkgs": [
@@ -651,6 +668,7 @@
         "nix-mineral": "nix-mineral",
         "nixpkgs": "nixpkgs",
         "pwndbg": "pwndbg",
+        "pwntools-src": "pwntools-src",
         "quickshell": "quickshell",
         "tx02-fonts": "tx02-fonts"
       }
