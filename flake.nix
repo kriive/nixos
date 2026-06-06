@@ -114,7 +114,7 @@
         modules:
         nixpkgs.lib.nixosSystem {
           inherit system modules;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs overlays; };
         };
       pwnPackages = import ./hm/profiles/pwn/packages.nix {
         inherit inputs pkgs;
@@ -122,6 +122,9 @@
       mkHost =
         hostName: hostPath:
         mkSystem [
+          {
+            nixpkgs.overlays = overlays;
+          }
           hostPath
           home-manager.nixosModules.home-manager
           go-librespot.nixosModules.default

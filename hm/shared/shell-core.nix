@@ -1,5 +1,13 @@
 { pkgs, ... }:
 
+let
+  pythonLsp = pkgs.python3.withPackages (
+    ps: with ps; [
+      python-lsp-server
+      pwntools
+    ]
+  );
+in
 {
   programs.tmux = {
     enable = true;
@@ -28,6 +36,18 @@
     enable = true;
     defaultEditor = true;
     languages = {
+      language-server.pylsp = {
+        command = "${pythonLsp}/bin/pylsp";
+        config.pylsp.plugins = {
+          autopep8.enabled = false;
+          flake8.enabled = false;
+          mccabe.enabled = false;
+          pycodestyle.enabled = false;
+          pyflakes.enabled = false;
+          pylint.enabled = false;
+          yapf.enabled = false;
+        };
+      };
       language-server.ruff = {
         command = "ruff";
         args = [ "server" ];
@@ -45,7 +65,16 @@
         }
         {
           name = "python";
-          language-servers = [ "ruff" ];
+          language-servers = [
+            "ruff"
+            {
+              name = "pylsp";
+              except-features = [
+                "diagnostics"
+                "format"
+              ];
+            }
+          ];
         }
       ];
     };
