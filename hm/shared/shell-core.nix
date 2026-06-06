@@ -28,6 +28,14 @@
     enable = true;
     defaultEditor = true;
     languages = {
+      language-server.ruff = {
+        command = "ruff";
+        args = [ "server" ];
+        config.settings.lint.ignore = [
+          "F403"
+          "F405"
+        ];
+      };
       language = [
         {
           name = "nix";
@@ -35,14 +43,20 @@
             command = "nixfmt";
           };
         }
+        {
+          name = "python";
+          language-servers = [ "ruff" ];
+        }
       ];
     };
     settings = {
-      theme = "base16_transparent";
+      theme = "ayu_evolve";
       editor = {
         true-color = true;
         color-modes = true;
+        cursorline = true;
         idle-timeout = 75;
+        inline-diagnostics.cursor-line = "hint";
         indent-guides.render = true;
         cursor-shape = {
           insert = "bar";
@@ -50,6 +64,9 @@
           select = "underline";
         };
         soft-wrap.enable = true;
+        lsp = {
+          display-inlay-hints = true;
+        };
       };
 
       keys.normal = {
@@ -58,6 +75,10 @@
         };
         "0" = "goto_line_start";
         "$" = "goto_line_end";
+        "ret" = "goto_word";
+        "space" = {
+          o = "file_picker_in_current_buffer_directory";
+        };
       };
 
       keys.select = {
@@ -133,6 +154,7 @@
     htop
     btop
     ripgrep
+    ruff
     nixfmt
     fishPlugins.tide
   ];
