@@ -7,11 +7,6 @@
       flake = false;
     };
 
-    hunk = {
-      url = "github:modem-dev/hunk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     pwndbg = {
       url = "github:pwndbg/pwndbg";
     };
