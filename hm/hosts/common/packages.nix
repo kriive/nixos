@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     adw-gtk3
     telegram-desktop
+    gnome-podcasts
     ioskeley-mono.normal-term-NF
     wineWow64Packages.waylandFull
     winetricks

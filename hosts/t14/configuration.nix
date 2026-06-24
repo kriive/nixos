@@ -39,6 +39,9 @@
 
   boot.initrd.kernelModules = [ "rmi_smbus" ];
 
+  boot.initrd.luks.devices."luks-a36cdc1c-1230-4c91-9ad8-123d54c26969".crypttabExtraOpts = [
+    "tpm2-device=auto"
+  ];
   nix-mineral.enable = true;
   nix-mineral.settings.kernel.amd-iommu-force-isolation = false;
   nix-mineral.settings.kernel.intel-iommu = false;
