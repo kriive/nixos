@@ -8,6 +8,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "incus-admin"
     ];
   };
 }
