@@ -51,11 +51,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    multipass = {
-      url = "github:kriive/multipass";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     dms = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,7 +73,6 @@
       home-manager,
       go-librespot,
       niri,
-      multipass,
       pwntools-src,
       ...
     }@inputs:
@@ -133,7 +127,6 @@
               inherit inputs hostName;
             };
           }
-          multipass.nixosModules.multipass
         ];
     in
     {

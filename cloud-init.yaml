@@ -1,0 +1,23 @@
+#cloud-config
+users:
+  - name: kriive
+    uid: 1000
+    gecos: kriive
+    homedir: /home/kriive
+    shell: /bin/bash
+    groups: sudo
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMiWlG8ftLKl0tcuSjOsEMcxMM1Kmrl/cSwHavpnf6k7 kriive@nix-thinkpad
+
+package_update: true
+packages:
+  - git
+  - curl
+
+runcmd:
+  - [ mkdir, -p, /home/kriive/pwn ]
+  - [ bash, -lc, "groupmod -g 100 kriive || true" ]
+  - [ bash, -lc, "usermod -u 1000 -g 100 kriive || true" ]
+  - [ bash, -lc, "chown 1000:100 /home/kriive" ]

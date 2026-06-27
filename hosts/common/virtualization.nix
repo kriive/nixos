@@ -81,5 +81,4 @@ in
 
   systemd.services.incus.path = lib.mkBefore [ incusPrlimit ];
 
-  virtualisation.multipass-ng.enable = true;
 }
