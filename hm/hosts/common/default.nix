@@ -2,9 +2,11 @@
 
 {
   imports = [
+    ./aliases.nix
     ./appearance.nix
     ./chromium.nix
     ./dms.nix
+    ./fonts.nix
     ./foot.nix
     ./ghidra.nix
     ./git.nix
@@ -22,6 +24,5 @@
     ./vesktop.nix
     ./zathura.nix
     ./zed.nix
-    ./fonts.nix
   ];
 }
