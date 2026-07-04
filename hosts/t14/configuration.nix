@@ -9,6 +9,10 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.29.2"
+  ];
+
   systemd.services.battery-charge-thresholds = {
     description = "Apply battery charge thresholds";
     wantedBy = [ "multi-user.target" ];
