@@ -12,6 +12,8 @@
   popupTransparency = 1;
   dockTransparency = 1;
   widgetBackgroundColor = "sch";
+  widgetBackgroundCustomColor = "#6750A4";
+  widgetBackgroundCustomStrength = 0.5;
   widgetColorMode = "default";
   controlCenterTileColorMode = "primary";
   buttonColorMode = "primary";
@@ -20,13 +22,18 @@
   niriLayoutRadiusOverride = 0;
   niriLayoutBorderSize = (-1);
   hyprlandLayoutGapsOverride = (-1);
+  hyprlandLayoutGapsOutOverride = (-1);
   hyprlandLayoutRadiusOverride = (-1);
   hyprlandLayoutBorderSize = (-1);
+  hyprlandResizeOnBorder = false;
   mangoLayoutGapsOverride = (-1);
+  mangoLayoutGapsOutOverride = (-1);
   mangoLayoutRadiusOverride = (-1);
   mangoLayoutBorderSize = (-1);
+  mangoTrackpadNaturalScrolling = true;
   firstDayOfWeek = (-1);
   showWeekNumber = false;
+  calendarBackend = "auto";
   use24HourClock = true;
   showSeconds = false;
   padHours12Hour = false;
@@ -61,6 +68,8 @@
   wallpaperFillMode = "Fill";
   blurredWallpaperLayer = false;
   blurWallpaperOnOverview = false;
+  wallpaperBackgroundColorMode = "black";
+  wallpaperBackgroundCustomColor = "#000000";
   showLauncherButton = true;
   showWorkspaceSwitcher = true;
   showFocusedWindow = true;
@@ -82,6 +91,12 @@
   showClock = true;
   showNotificationButton = true;
   showBattery = true;
+  showBatteryPercent = true;
+  showBatteryPercentOnlyOnBattery = false;
+  showBatteryTime = false;
+  showBatteryTimeOnlyOnBattery = false;
+  batteryPillStyle = false;
+  batteryPillPercentSign = false;
   showControlCenterButton = true;
   showCapsLockIndicator = true;
   controlCenterShowNetworkIcon = true;
@@ -96,6 +111,8 @@
   controlCenterShowBatteryIcon = false;
   controlCenterShowPrinterIcon = false;
   controlCenterShowScreenSharingIcon = true;
+  controlCenterShowIdleInhibitorIcon = false;
+  controlCenterShowDoNotDisturbIcon = false;
   showPrivacyButton = true;
   privacyShowMicIcon = false;
   privacyShowCameraIcon = false;
@@ -156,18 +173,37 @@
   maxWorkspaceIcons = 3;
   workspaceAppIconSizeOffset = 0;
   groupWorkspaceApps = true;
+  groupActiveWorkspaceApps = false;
   workspaceFollowFocus = false;
   showOccupiedWorkspacesOnly = false;
   reverseScrolling = false;
   dwlShowAllTags = false;
   workspaceActiveAppHighlightEnabled = false;
   workspaceColorMode = "default";
+  workspaceFocusedCustomColor = "#6750A4";
   workspaceOccupiedColorMode = "none";
+  workspaceOccupiedCustomColor = "#625B71";
   workspaceUnfocusedColorMode = "default";
+  workspaceUnfocusedCustomColor = "#49454E";
   workspaceUrgentColorMode = "default";
+  workspaceUrgentCustomColor = "#B3261E";
   workspaceFocusedBorderEnabled = false;
   workspaceFocusedBorderColor = "primary";
+  workspaceFocusedBorderCustomColor = "#6750A4";
   workspaceFocusedBorderThickness = 2;
+  workspaceUnfocusedMonitorSeparateAppearance = false;
+  workspaceUnfocusedMonitorColorMode = "default";
+  workspaceUnfocusedMonitorFocusedCustomColor = "#6750A4";
+  workspaceUnfocusedMonitorOccupiedColorMode = "none";
+  workspaceUnfocusedMonitorOccupiedCustomColor = "#625B71";
+  workspaceUnfocusedMonitorUnfocusedColorMode = "default";
+  workspaceUnfocusedMonitorUnfocusedCustomColor = "#49454E";
+  workspaceUnfocusedMonitorUrgentColorMode = "default";
+  workspaceUnfocusedMonitorUrgentCustomColor = "#B3261E";
+  workspaceUnfocusedMonitorBorderEnabled = false;
+  workspaceUnfocusedMonitorBorderColor = "primary";
+  workspaceUnfocusedMonitorBorderCustomColor = "#6750A4";
+  workspaceUnfocusedMonitorBorderThickness = 2;
   workspaceNameIcons = {
   
   };
@@ -177,13 +213,21 @@
   audioVisualizerEnabled = true;
   audioScrollMode = "volume";
   audioWheelScrollAmount = 5;
+  audioDeviceScrollVolumeEnabled = false;
+  mediaExcludePlayers = [
+  
+  ];
   clockCompactMode = false;
   focusedWindowCompactMode = false;
   focusedWindowSize = 1;
+  focusedWindowShowIcon = true;
   runningAppsCompactMode = true;
   barMaxVisibleApps = 0;
   barMaxVisibleRunningApps = 0;
   barShowOverflowBadge = true;
+  trayAutoOverflow = true;
+  trayPopupSingleLine = true;
+  trayMaxVisibleItems = 0;
   appsDockHideIndicators = false;
   appsDockColorizeActive = false;
   appsDockActiveColorMode = "primary";
@@ -191,6 +235,7 @@
   appsDockEnlargePercentage = 125;
   appsDockIconSizePercentage = 100;
   keyboardLayoutNameCompactMode = false;
+  keyboardLayoutNameShowIcon = false;
   runningAppsCurrentWorkspace = true;
   runningAppsGroupByApp = false;
   runningAppsCurrentMonitor = false;
@@ -202,6 +247,7 @@
   lockDateFormat = "";
   greeterRememberLastSession = true;
   greeterRememberLastUser = true;
+  greeterAutoLogin = false;
   greeterEnableFprint = false;
   greeterEnableU2f = false;
   greeterWallpaperPath = "";
@@ -211,6 +257,10 @@
   greeterLockDateFormat = "";
   greeterFontFamily = "";
   greeterWallpaperFillMode = "";
+  greeterSyncPending = false;
+  greeterSyncBaseline = {
+  
+  };
   mediaSize = 1;
   appLauncherViewMode = "list";
   spotlightModalViewMode = "list";
@@ -235,6 +285,7 @@
   };
   niriOverviewOverlayEnabled = true;
   dankLauncherV2Size = "compact";
+  dankLauncherV2ShowSourceBadges = true;
   dankLauncherV2BorderEnabled = false;
   dankLauncherV2BorderThickness = 2;
   dankLauncherV2BorderColor = "primary";
@@ -245,10 +296,36 @@
   launcherUseOverlayLayer = false;
   launcherStyle = "full";
   spotlightBarShowModeChips = false;
+  keybindsFloatingWindow = false;
   useAutoLocation = false;
   weatherEnabled = true;
+  dashTabs = [
+    {
+      id = "overview";
+      enabled = true;
+    }
+    {
+      id = "media";
+      enabled = true;
+    }
+    {
+      id = "wallpaper";
+      enabled = true;
+    }
+    {
+      id = "weather";
+      enabled = true;
+    }
+    {
+      id = "settings";
+      enabled = true;
+    }
+  ];
   networkPreference = "auto";
-  iconTheme = "System Default";
+  iconThemeDark = "System Default";
+  iconThemeLight = "System Default";
+  iconThemePerMode = false;
+  lastAppliedIconTheme = "";
   cursorSettings = {
     dwl = {
       cursorHideTimeout = 0;
@@ -281,21 +358,29 @@
   notepadUseMonospace = true;
   notepadFontFamily = "";
   notepadFontSize = 14;
+  notificationSummaryFontSize = 0;
+  notificationBodyFontSize = 0;
   notepadShowLineNumbers = false;
+  notepadAutoSave = false;
+  notepadSlideoutSide = "right";
+  notepadDefaultMode = "slideout";
   notepadTransparencyOverride = (-1);
   notepadLastCustomTransparency = 0.7;
+  notepadUseCompositorGap = false;
+  notepadEdgeGap = 0;
   soundsEnabled = true;
   useSystemSoundTheme = false;
   soundLogin = false;
   soundNewNotification = true;
   soundVolumeChanged = true;
   soundPluggedIn = true;
-  acMonitorTimeout = 0;
-  acLockTimeout = 0;
+  muteSoundsWhenMediaPlaying = true;
+  acMonitorTimeout = 180;
+  acLockTimeout = 900;
   acSuspendTimeout = 0;
   acSuspendBehavior = 0;
   acProfileName = "";
-  acPostLockMonitorTimeout = 0;
+  acPostLockMonitorTimeout = 60;
   batteryMonitorTimeout = 0;
   batteryLockTimeout = 0;
   batterySuspendTimeout = 0;
@@ -303,6 +388,15 @@
   batteryProfileName = "";
   batteryPostLockMonitorTimeout = 0;
   batteryChargeLimit = 100;
+  batteryNotifyChargeLimit = false;
+  batteryCriticalThreshold = 10;
+  batteryNotifyCritical = true;
+  batteryLowThreshold = 10;
+  batteryNotifyLow = false;
+  batteryChargeLimitNotificationType = 0;
+  batteryLowNotificationType = 0;
+  batteryCriticalNotificationType = 1;
+  batteryAutoPowerSaver = false;
   lockBeforeSuspend = false;
   loginctlLockIntegration = true;
   fadeToLockEnabled = true;
@@ -329,7 +423,7 @@
   qtThemingEnabled = false;
   syncModeWithPortal = true;
   terminalsAlwaysDark = false;
-  muxType = "tmux";
+  muxType = "zellij";
   muxUseCustomCommand = false;
   muxCustomCommand = "";
   muxSessionFilter = "";
@@ -416,17 +510,20 @@
   maxFprintTries = 15;
   enableU2f = false;
   u2fMode = "or";
-  lockScreenActiveMonitor = "all";
   lockScreenInactiveColor = "#000000";
   lockScreenNotificationMode = 2;
   lockScreenVideoEnabled = false;
   lockScreenVideoPath = "";
   lockScreenVideoCycling = false;
+  lockScreenWallpaperPath = "";
+  lockScreenWallpaperFillMode = "";
+  lockScreenFontFamily = "";
   hideBrightnessSlider = false;
   notificationTimeoutLow = 5000;
   notificationTimeoutNormal = 5000;
   notificationTimeoutCritical = 0;
   notificationCompactMode = false;
+  notificationShowTimeoutBar = false;
   notificationDedupeEnabled = true;
   notificationPopupPosition = 0;
   notificationAnimationSpeed = 1;
@@ -441,7 +538,7 @@
   
   ];
   notificationFocusedMonitor = false;
-  osdAlwaysShowValue = false;
+  osdAlwaysShowValue = true;
   osdPosition = 5;
   osdVolumeEnabled = true;
   osdMediaVolumeEnabled = true;
@@ -504,10 +601,10 @@
   displaySnapToEdge = true;
   connectedFrameBarStyleBackups = {
     default = {
-      borderEnabled = false;
-      gothCornersEnabled = false;
       shadowIntensity = 0;
       squareCorners = false;
+      gothCornersEnabled = false;
+      borderEnabled = false;
     };
   };
   barConfigs = [
@@ -782,6 +879,29 @@
       };
       widgetType = "desktopClock";
     }
+    {
+      id = "dw_1783460459861_8z9nperrz";
+      widgetType = "activateLinux";
+      name = "Activate Linux Watermark";
+      enabled = true;
+      config = {
+        displayPreferences = [
+          "all"
+        ];
+        showOnOverlay = false;
+        clickThrough = true;
+        firstLineSize = 15;
+        secondLineSize = 10;
+      };
+      positions = {
+        DP-5 = {
+          width = 400;
+          height = 200;
+          x = 1520;
+          y = 880;
+        };
+      };
+    }
   ];
   desktopWidgetGroups = [
     {
@@ -795,7 +915,15 @@
       trigger = "?";
     };
   };
+  clipboardClickToPaste = false;
   clipboardEnterToPaste = false;
+  clipboardRememberTypeFilter = false;
+  clipboardTypeFilter = "all";
+  clipboardVisibleEntryActions = [
+    "pin"
+    "edit"
+    "delete"
+  ];
   launcherPluginVisibility = {
   
   };
@@ -816,6 +944,10 @@
   frameCloseGaps = false;
   frameLauncherEmergeSide = "bottom";
   frameLauncherArcExtender = false;
+  frameLauncherEdgeHover = false;
   frameMode = "connected";
-  configVersion = 11;
+  barInsetPaddingShared = (-1);
+  barInsetPaddingSyncAll = false;
+  frameBarInsetPadding = (-1);
+  configVersion = 12;
 }
