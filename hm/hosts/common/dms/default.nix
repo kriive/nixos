@@ -301,24 +301,24 @@
   weatherEnabled = true;
   dashTabs = [
     {
+      enabled = true;
       id = "overview";
-      enabled = true;
     }
     {
+      enabled = true;
       id = "media";
-      enabled = true;
     }
     {
+      enabled = true;
       id = "wallpaper";
-      enabled = true;
     }
     {
+      enabled = true;
       id = "weather";
-      enabled = true;
     }
     {
-      id = "settings";
       enabled = true;
+      id = "settings";
     }
   ];
   networkPreference = "auto";
@@ -601,10 +601,10 @@
   displaySnapToEdge = true;
   connectedFrameBarStyleBackups = {
     default = {
+      borderEnabled = false;
+      gothCornersEnabled = false;
       shadowIntensity = 0;
       squareCorners = false;
-      gothCornersEnabled = false;
-      borderEnabled = false;
     };
   };
   barConfigs = [
@@ -787,6 +787,9 @@
     eDP-1 = {
       enabled = true;
     };
+    HDMI-A-1 = {
+      enabled = true;
+    };
   };
   desktopWidgetInstances = [
     {
@@ -837,6 +840,12 @@
           x = 40;
           y = 80;
         };
+        HDMI-A-1 = {
+          width = 320;
+          height = 480;
+          x = 40;
+          y = 80;
+        };
       };
       widgetType = "systemMonitor";
     }
@@ -876,31 +885,49 @@
           x = 40;
           y = 600;
         };
+        HDMI-A-1 = {
+          width = 100;
+          height = 160;
+          x = 40;
+          y = 600;
+        };
       };
       widgetType = "desktopClock";
     }
     {
-      id = "dw_1783460459861_8z9nperrz";
-      widgetType = "activateLinux";
-      name = "Activate Linux Watermark";
-      enabled = true;
       config = {
+        clickThrough = false;
         displayPreferences = [
           "all"
         ];
-        showOnOverlay = false;
-        clickThrough = true;
         firstLineSize = 15;
         secondLineSize = 10;
+        showOnOverlay = false;
       };
+      enabled = true;
+      id = "dw_1783460459861_8z9nperrz";
+      name = "Activate Linux Watermark";
       positions = {
         DP-5 = {
+          height = 200;
+          width = 400;
+          x = 1520;
+          y = 880;
+        };
+        eDP-1 = {
           width = 400;
           height = 200;
           x = 1520;
           y = 880;
         };
+        HDMI-A-1 = {
+          width = 400;
+          height = 200;
+          x = 1120;
+          y = 664;
+        };
       };
+      widgetType = "activateLinux";
     }
   ];
   desktopWidgetGroups = [

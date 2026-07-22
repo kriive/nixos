@@ -127,6 +127,8 @@ in
     enable = true;
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
+      # Use combined git/jj VCS item (tide-item-jj) instead of the git item
+      set -U tide_left_prompt_items pwd vcs newline character
       # Colorscheme: Current
       set -U fish_color_normal B3B1AD
       set -U fish_color_command 39BAE6
@@ -172,6 +174,15 @@ in
       {
         name = "tide";
         inherit (tide) src;
+      }
+      {
+        name = "tide-item-jj";
+        src = pkgs.fetchFromGitHub {
+          owner = "lucasadelino";
+          repo = "tide-item-jj";
+          rev = "e1150b7332b85149b468cb10c2844f082f33975b";
+          hash = "sha256-vLSrHPoytZ/kXQh0Bp/4AWe8YLlyufRjepfXUAuWCB8=";
+        };
       }
     ];
   };
