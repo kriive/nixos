@@ -1,4 +1,10 @@
-{ inputs, pkgs, ... }:
+{
+  hostName,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -19,7 +25,18 @@
       includes.enable = true;
     };
 
-    settings = import ./dms;
+    settings =
+      import ./dms
+      // lib.optionalAttrs (hostName == "t14") {
+        acProfileName = "";
+        batteryAutoPowerSaver = true;
+        batteryLockTimeout = 600;
+        batteryLowThreshold = 20;
+        batteryMonitorTimeout = 300;
+        batteryProfileName = "";
+        batterySuspendTimeout = 1800;
+        lockBeforeSuspend = true;
+      };
 
     enableSystemMonitoring = true;
     enableVPN = true;

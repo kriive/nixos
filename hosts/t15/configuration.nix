@@ -16,6 +16,7 @@
     "module_blacklist=i915"
     "iommu=pt"
     "intel_iommu=on"
+    "btusb.enable_autosuspend=0"
   ];
   hardware.graphics.extraPackages = with pkgs; [
     intel-media-driver

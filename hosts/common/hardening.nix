@@ -38,8 +38,14 @@
     extras.network.bluetooth-kmodules = true;
     settings.debug.coredump = true;
     settings.etc.kicksecure-bluetooth = false;
-    settings.network.ip-forwarding = true;
     filesystems.enable = false;
+    settings.network = {
+      ip-forwarding = true;
+      arp = {
+        ignore = "none";
+        filter = false;
+      };
+    };
     settings.system.multilib = true;
     extras.network.tcp-window-scaling = true;
   };

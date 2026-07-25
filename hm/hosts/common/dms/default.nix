@@ -34,7 +34,7 @@
   firstDayOfWeek = (-1);
   showWeekNumber = false;
   calendarBackend = "auto";
-  use24HourClock = true;
+  clockFormat = "24h";
   showSeconds = false;
   padHours12Hour = false;
   useFahrenheit = false;
@@ -62,6 +62,7 @@
   blurEnabled = false;
   blurForegroundLayers = true;
   blurLayerOutlineOpacity = 0.12;
+  blurBorderEnabled = true;
   blurBorderColor = "outline";
   blurBorderCustomColor = "#ffffff";
   blurBorderOpacity = 0.14;
@@ -163,6 +164,11 @@
       id = "builtin_tailscale";
       width = 50;
     }
+    {
+      id = "idleInhibitor";
+      enabled = true;
+      width = 50;
+    }
   ];
   showWorkspaceIndex = false;
   showWorkspaceName = false;
@@ -211,6 +217,7 @@
   scrollTitleEnabled = true;
   mediaAdaptiveWidthEnabled = true;
   audioVisualizerEnabled = true;
+  mediaUseAlbumArtAccent = false;
   audioScrollMode = "volume";
   audioWheelScrollAmount = 5;
   audioDeviceScrollVolumeEnabled = false;
@@ -251,12 +258,10 @@
   greeterEnableFprint = false;
   greeterEnableU2f = false;
   greeterWallpaperPath = "";
-  greeterUse24HourClock = true;
-  greeterShowSeconds = false;
-  greeterPadHours12Hour = false;
   greeterLockDateFormat = "";
   greeterFontFamily = "";
   greeterWallpaperFillMode = "";
+  greeterPamExternallyManaged = false;
   greeterSyncPending = false;
   greeterSyncBaseline = {
   
@@ -284,6 +289,7 @@
   
   };
   niriOverviewOverlayEnabled = true;
+  niriOverviewLauncherStyle = "full";
   dankLauncherV2Size = "compact";
   dankLauncherV2ShowSourceBadges = true;
   dankLauncherV2BorderEnabled = false;
@@ -381,9 +387,9 @@
   acSuspendBehavior = 0;
   acProfileName = "";
   acPostLockMonitorTimeout = 60;
-  batteryMonitorTimeout = 0;
-  batteryLockTimeout = 0;
-  batterySuspendTimeout = 0;
+  batteryMonitorTimeout = 300;
+  batteryLockTimeout = 600;
+  batterySuspendTimeout = 1800;
   batterySuspendBehavior = 0;
   batteryProfileName = "";
   batteryPostLockMonitorTimeout = 0;
@@ -391,13 +397,14 @@
   batteryNotifyChargeLimit = false;
   batteryCriticalThreshold = 10;
   batteryNotifyCritical = true;
-  batteryLowThreshold = 10;
+  batteryLowThreshold = 20;
   batteryNotifyLow = false;
   batteryChargeLimitNotificationType = 0;
   batteryLowNotificationType = 0;
   batteryCriticalNotificationType = 1;
-  batteryAutoPowerSaver = false;
-  lockBeforeSuspend = false;
+  batteryAutoPowerSaver = true;
+  lowerDisplayRefreshRateOnBattery = false;
+  lockBeforeSuspend = true;
   loginctlLockIntegration = true;
   fadeToLockEnabled = true;
   fadeToLockGracePeriod = 5;
@@ -496,6 +503,7 @@
   notificationOverlayEnabled = false;
   notificationPopupShadowEnabled = true;
   notificationPopupPrivacyMode = false;
+  notificationForegroundLayers = true;
   modalDarkenBackground = true;
   lockScreenShowPowerActions = true;
   lockScreenShowSystemIcons = true;
@@ -510,6 +518,11 @@
   maxFprintTries = 15;
   enableU2f = false;
   u2fMode = "or";
+  lockPamPath = "";
+  lockPamInlineFprint = false;
+  lockPamInlineU2f = false;
+  lockPamExternallyManaged = false;
+  lockU2fPamPath = "";
   lockScreenInactiveColor = "#000000";
   lockScreenNotificationMode = 2;
   lockScreenVideoEnabled = false;
@@ -575,6 +588,9 @@
   updaterIntervalSeconds = 1800;
   updaterIncludeFlatpak = true;
   updaterAllowAUR = true;
+  updaterIgnoredPackages = [
+  
+  ];
   displayNameMode = "system";
   screenPreferences = {
     wallpaper = [
@@ -594,6 +610,12 @@
   
   };
   activeDisplayProfile = {
+  
+  };
+  activeDisplayProfileModes = {
+  
+  };
+  displayPreviousRefreshModes = {
   
   };
   displayProfileAutoSelect = false;
@@ -784,10 +806,10 @@
     DP-5 = {
       enabled = true;
     };
-    eDP-1 = {
+    HDMI-A-1 = {
       enabled = true;
     };
-    HDMI-A-1 = {
+    eDP-1 = {
       enabled = true;
     };
   };
@@ -834,15 +856,15 @@
           x = 40;
           y = 80;
         };
-        eDP-1 = {
+        HDMI-A-1 = {
           height = 480;
           width = 320;
           x = 40;
           y = 80;
         };
-        HDMI-A-1 = {
-          width = 320;
+        eDP-1 = {
           height = 480;
+          width = 320;
           x = 40;
           y = 80;
         };
@@ -879,15 +901,15 @@
           x = 40;
           y = 600;
         };
-        eDP-1 = {
+        HDMI-A-1 = {
           height = 160;
           width = 100;
           x = 40;
           y = 600;
         };
-        HDMI-A-1 = {
-          width = 100;
+        eDP-1 = {
           height = 160;
+          width = 100;
           x = 40;
           y = 600;
         };
@@ -914,17 +936,17 @@
           x = 1520;
           y = 880;
         };
-        eDP-1 = {
-          width = 400;
-          height = 200;
-          x = 1520;
-          y = 880;
-        };
         HDMI-A-1 = {
-          width = 400;
           height = 200;
+          width = 400;
           x = 1120;
           y = 664;
+        };
+        eDP-1 = {
+          height = 200;
+          width = 400;
+          x = 1520;
+          y = 880;
         };
       };
       widgetType = "activateLinux";
