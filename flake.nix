@@ -87,7 +87,7 @@
         pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
           (pyFinal: pyPrev: {
             pwntools = pyPrev.pwntools.overridePythonAttrs (old: {
-              version = "dev";
+              version = "5.0.0.dev0";
 
               src = pwntools-src;
 
