@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, ... }:
 
 {
   imports = [
@@ -78,21 +74,4 @@
   nix-mineral.enable = true;
   nix-mineral.settings.kernel.amd-iommu-force-isolation = false;
   nix-mineral.settings.kernel.intel-iommu = false;
-
-  xdg.portal = {
-    enable = true;
-
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gnome
-      pkgs.xdg-desktop-portal-gtk
-    ];
-
-    config = {
-      common = {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
-      };
-    };
-  };
 }
