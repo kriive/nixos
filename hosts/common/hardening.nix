@@ -31,6 +31,7 @@
   nix-mineral = {
     enable = lib.mkDefault false;
     preset = "maximum";
+    extras.kernel.load-kernel-modules = true;
     extras.system.hardened-malloc = true;
     extras.system.unprivileged-userns = true;
     extras.system.secure-chrony = true;
@@ -42,8 +43,7 @@
     settings.network = {
       ip-forwarding = true;
       arp = {
-        ignore = "none";
-        filter = false;
+        ignore = "local";
       };
     };
     settings.system.multilib = true;
