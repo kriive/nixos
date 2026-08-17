@@ -66,6 +66,9 @@
     serviceConfig.Type = "oneshot";
   };
 
+  # Keep the system awake with the lid closed while using a powered dock.
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "ignore";
+
   boot.initrd.kernelModules = [ "rmi_smbus" ];
 
   boot.initrd.luks.devices."luks-a36cdc1c-1230-4c91-9ad8-123d54c26969".crypttabExtraOpts = [

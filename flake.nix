@@ -133,6 +133,9 @@
             };
           }
         ];
+      t14System = mkHost "t14" ./hosts/t14/configuration.nix;
+      t15System = mkHost "t15" ./hosts/t15/configuration.nix;
+      touchpadKernel = t14System.config.boot.kernelPackages.kernel;
     in
     {
       homeConfigurations = {
@@ -146,8 +149,8 @@
       };
 
       nixosConfigurations = {
-        t15 = mkHost "t15" ./hosts/t15/configuration.nix;
-        t14 = mkHost "t14" ./hosts/t14/configuration.nix;
+        t14 = t14System;
+        t15 = t15System;
       };
 
       overlays.default = pwntoolsOverlay;
@@ -179,6 +182,22 @@
 
         pwn = pkgs.mkShell {
           packages = pwnPackages;
+        };
+
+        touchpad-smbus = pkgs.mkShell {
+          nativeBuildInputs = touchpadKernel.moduleBuildDependencies;
+          packages = with pkgs; [
+            acpica-tools
+            i2c-tools
+            kmod
+            pciutils
+            shellcheck
+          ];
+
+          KERNEL_BUILD = "${touchpadKernel.dev}/lib/modules/${touchpadKernel.modDirVersion}/build";
+          KERNEL_DEV = touchpadKernel.dev;
+          KERNEL_RELEASE = touchpadKernel.modDirVersion;
+          KERNEL_SOURCE = touchpadKernel.src;
         };
       };
     };
