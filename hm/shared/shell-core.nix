@@ -94,7 +94,7 @@ in
         };
         soft-wrap.enable = true;
         lsp = {
-          display-inlay-hints = true;
+          display-inlay-hints = false;
         };
       };
 

@@ -12,6 +12,8 @@
     defaultOptions = [ ];
   };
 
+  services.usbguard.enable = false;
+
   # nix-mineral still uses the removed systemd.coredump.extraConfig option here.
   # Keep the same hardening with the current NixOS option instead.
   systemd.coredump.settings.Coredump.Storage = lib.mkDefault "none";
@@ -33,9 +35,7 @@
     preset = "maximum";
     extras.kernel.load-kernel-modules = true;
     extras.system.hardened-malloc = true;
-    extras.system.unprivileged-userns = true;
     extras.system.secure-chrony = true;
-    extras.misc.usbguard.enable = false;
     extras.network.bluetooth-kmodules = true;
     settings.debug.coredump = true;
     settings.etc.kicksecure-bluetooth = false;
