@@ -14,10 +14,7 @@
     checkReversePath = "loose";
 
     interfaces.incusbr0 = {
-      allowedTCPPorts = [
-        53
-        67
-      ];
+      allowedTCPPorts = [ 53 ];
       allowedUDPPorts = [
         53
         67
