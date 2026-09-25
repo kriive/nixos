@@ -1,4 +1,4 @@
-{ inputs, pkgs }:
+{ pkgs }:
 
 let
   pwnPython = pkgs.python3.withPackages (
@@ -20,7 +20,7 @@ let
 in
 with pkgs;
 [
-  inputs.codex.packages.${pkgs.stdenv.hostPlatform.system}.default
+  codex
   pwnPython
   clang-tools
   gcc

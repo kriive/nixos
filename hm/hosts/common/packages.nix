@@ -13,9 +13,10 @@
     zip
     p7zip
     ethtool
-    inputs.codex.packages.${pkgs.stdenv.hostPlatform.system}.default
+    codex
     dig
     mtr
     jujutsu
+    signal-desktop
   ];
 }

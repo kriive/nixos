@@ -75,10 +75,13 @@
     }
   ];
   currentThemeCategory = "dynamic";
-  matugenScheme = "scheme-expressive";
+  matugenScheme = "scheme-content";
   matugenSourceMode = "colorful";
   matugenContrast = 0.54;
   matugenSpec = "2025";
+  dmsWindowsFloatingSeeded = [
+    "niri"
+  ];
   niriLayoutGapsOverride = 15;
   niriLayoutRadiusOverride = 0;
   springBounce = 0;
@@ -151,11 +154,11 @@
   
   ];
   dashOptions = {
-    media = {
-      animatedArt = true;
-    };
     clock = {
       tone = "tertiary";
+    };
+    media = {
+      animatedArt = true;
     };
     weather = {
       city = true;
@@ -401,5 +404,5 @@
   frameThickness = 2;
   frameShowOnOverview = true;
   frameCloseGaps = false;
-  configVersion = 29;
+  configVersion = 30;
 }

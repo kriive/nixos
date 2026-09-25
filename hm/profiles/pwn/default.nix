@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   ...
 }:
@@ -13,7 +12,7 @@
   home.homeDirectory = "/home/ubuntu";
   home.stateVersion = "26.05";
 
-  home.packages = import ./packages.nix { inherit inputs pkgs; };
+  home.packages = import ./packages.nix { inherit pkgs; };
 
   home.sessionVariables = {
     EDITOR = "hx";

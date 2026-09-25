@@ -42,11 +42,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    codex = {
-      url = "github:openai/codex";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     dms = {
       url = "github:AvengeMedia/DankMaterialShell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -107,7 +102,7 @@
           specialArgs = { inherit inputs overlays; };
         };
       pwnPackages = import ./hm/profiles/pwn/packages.nix {
-        inherit inputs pkgs;
+        inherit pkgs;
       };
       mkHost =
         hostName: hostPath:
@@ -138,9 +133,6 @@
         pwn = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./hm/profiles/pwn ];
-          extraSpecialArgs = {
-            inherit inputs;
-          };
         };
       };
 

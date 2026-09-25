@@ -9,6 +9,8 @@
 
   documentation.man.enable = true;
 
+  programs.nix-ld.enable = true;
+
   nix.settings = {
     trusted-users = [
       "root"

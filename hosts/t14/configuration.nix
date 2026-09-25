@@ -6,6 +6,8 @@
     ./hardware-configuration.nix
   ];
 
+  boot.tmp.useTmpfs = true;
+
   nixpkgs.config.permittedInsecurePackages = [
     "pnpm-10.29.2"
   ];

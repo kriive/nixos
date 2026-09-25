@@ -1,26 +1,5 @@
 {
   "nodes": {
-    "codex": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1790345742,
-        "narHash": "sha256-dRI4ASpHvhQGGvE/9VFZiXt5J96RMGRd7d6b1wpIHnw=",
-        "owner": "openai",
-        "repo": "codex",
-        "rev": "6d083e3bc4caabf547e0f492f0faa628f3210697",
-        "type": "github"
-      },
-      "original": {
-        "owner": "openai",
-        "repo": "codex",
-        "type": "github"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1781825982,
@@ -264,7 +243,7 @@
           "nixpkgs"
         ],
         "pre-commit": "pre-commit",
-        "rust-overlay": "rust-overlay_2"
+        "rust-overlay": "rust-overlay"
       },
       "locked": {
         "lastModified": 1782141370,
@@ -490,7 +469,6 @@
     },
     "root": {
       "inputs": {
-        "codex": "codex",
         "dank-greeter": "dank-greeter",
         "danksearch": "danksearch",
         "dms": "dms",
@@ -507,27 +485,6 @@
       }
     },
     "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "codex",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769828398,
-        "narHash": "sha256-zmnvRUm15QrlKH0V1BZoiT3U+Q+tr+P5Osi8qgtL9fY=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "a1d32c90c8a4ea43e9586b7e5894c179d5747425",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
           "lanzaboote",
