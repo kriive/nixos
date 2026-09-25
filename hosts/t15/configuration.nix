@@ -12,6 +12,7 @@
 
   boot.initrd.kernelModules = [ "xe" ];
   boot.kernelParams = [
+    "psmouse.synaptics_intertouch=1"
     "xe.force_probe=9a49"
     "module_blacklist=i915"
     "iommu=pt"

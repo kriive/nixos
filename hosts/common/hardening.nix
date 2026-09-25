@@ -33,10 +33,12 @@
   nix-mineral = {
     enable = lib.mkDefault false;
     preset = "maximum";
-    extras.kernel.load-kernel-modules = true;
+    kernel-modules.load = true;
     extras.system.hardened-malloc = true;
     extras.system.secure-chrony = true;
-    extras.network.bluetooth-kmodules = true;
+    # The old option enabled Bluetooth kernel modules; the replacement is
+    # inverted, so false preserves that behavior.
+    kernel-modules.disable.bluetooth-related = false;
     settings.debug.coredump = true;
     settings.etc.kicksecure-bluetooth = false;
     filesystems.enable = false;

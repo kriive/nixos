@@ -7,10 +7,6 @@
       flake = false;
     };
 
-    pwndbg = {
-      url = "github:pwndbg/pwndbg";
-    };
-
     go-librespot = {
       url = "github:kriive/go-librespot";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,7 +43,7 @@
     };
 
     codex = {
-      url = "github:sadjow/codex-cli-nix";
+      url = "github:openai/codex";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -107,7 +103,7 @@
       mkSystem =
         modules:
         nixpkgs.lib.nixosSystem {
-          inherit system modules;
+          inherit modules;
           specialArgs = { inherit inputs overlays; };
         };
       pwnPackages = import ./hm/profiles/pwn/packages.nix {

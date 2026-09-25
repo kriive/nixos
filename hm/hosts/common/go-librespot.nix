@@ -1,5 +1,6 @@
 {
   inputs,
+  pkgs,
   ...
 }:
 
@@ -9,6 +10,7 @@
   ];
   services.go-librespot = {
     enable = true;
+    package = inputs.go-librespot.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
       zeroconf_enabled = false;
       credentials = {
