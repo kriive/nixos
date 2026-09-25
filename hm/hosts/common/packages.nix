@@ -5,7 +5,7 @@
     adw-gtk3
     telegram-desktop
     gnome-podcasts
-    ioskeley-mono.normal-term-NF
+    ioskeley-mono.term-nf
     wineWow64Packages.waylandFull
     winetricks
     delfin

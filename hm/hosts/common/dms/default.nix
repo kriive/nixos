@@ -1,71 +1,167 @@
 {
   currentThemeName = "dynamic";
-  currentThemeCategory = "dynamic";
-  matugenScheme = "scheme-neutral";
-  matugenContrast = 0.54;
-  cornerRadius = 12;
-  niriLayoutGapsOverride = 15;
-  niriLayoutRadiusOverride = 0;
   clockFormat = "24h";
   blurBorderOpacity = 0.14;
-  blurredWallpaperLayer = true;
   wallpaperBackgroundColorMode = "surface";
-  controlCenterShowMicPercent = true;
+  monoFontFamily = "TX02 Nerd Font";
+  dockConfigs = [
+    {
+      id = "dock";
+      name = "Dock";
+      enabled = false;
+      screenPreferences = [
+        "all"
+      ];
+      showOnLastDisplay = true;
+      position = 1;
+      mode = "compact";
+      taskbarAlign = "center";
+      widgetExpansion = "popout";
+      iconSize = 40;
+      spacing = 4;
+      itemSpacing = 4;
+      margin = 0;
+      bottomGap = 0;
+      transparency = 1;
+      followInterfaceStyle = true;
+      autoHide = false;
+      smartAutoHide = false;
+      useOverlayLayer = false;
+      editOnRightClick = false;
+      showOnFullscreen = false;
+      openOnOverview = false;
+      groupByApp = false;
+      separatePinnedAndRunningApps = false;
+      restoreSpecialWorkspaceOnClick = false;
+      isolateDisplays = false;
+      indicatorStyle = "circle";
+      borderEnabled = false;
+      borderColor = "surfaceText";
+      borderOpacity = 1;
+      borderThickness = 1;
+      launcherEnabled = false;
+      launcherLogoMode = "apps";
+      launcherLogoCustomPath = "";
+      launcherLogoColorOverride = "";
+      launcherLogoSizeOffset = 0;
+      launcherLogoBrightness = 0.5;
+      launcherLogoContrast = 1;
+      maxVisibleApps = 0;
+      maxVisibleRunningApps = 0;
+      showOverflowBadge = true;
+      showTrash = false;
+      trashFileManager = "default";
+      trashCustomCommand = "";
+      order = [
+      
+      ];
+      widgets = [
+        {
+          enabled = true;
+          id = "dock_launcher";
+          widgetId = "dockLauncher";
+        }
+        {
+          enabled = true;
+          id = "dock_apps";
+          widgetId = "appsDock";
+        }
+        {
+          enabled = true;
+          id = "dock_trash";
+          widgetId = "dockTrash";
+        }
+      ];
+    }
+  ];
+  currentThemeCategory = "dynamic";
+  matugenScheme = "scheme-expressive";
+  matugenSourceMode = "colorful";
+  matugenContrast = 0.54;
+  matugenSpec = "2025";
+  niriLayoutGapsOverride = 15;
+  niriLayoutRadiusOverride = 0;
+  springBounce = 0;
+  motionEffect = 3;
+  blurredWallpaperLayer = true;
+  blurWallpaperOnOverview = true;
   controlCenterWidgets = [
     {
       enabled = true;
+      h = 1;
       id = "volumeSlider";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "brightnessSlider";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "wifi";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "bluetooth";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "audioOutput";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "audioInput";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "nightMode";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "darkMode";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "builtin_tailscale";
-      width = 50;
+      w = 4;
     }
     {
       enabled = true;
+      h = 1;
       id = "idleInhibitor";
-      width = 50;
+      w = 4;
     }
   ];
   appIdSubstitutions = [
   
   ];
+  dashOptions = {
+    media = {
+      animatedArt = true;
+    };
+    clock = {
+      tone = "tertiary";
+    };
+    weather = {
+      city = true;
+      forecast = "cards";
+    };
+  };
   cursorSettings = {
     dwl = {
       cursorHideTimeout = 0;
@@ -91,8 +187,10 @@
   batteryAutoPowerSaver = true;
   lockBeforeSuspend = true;
   muxType = "zellij";
+  notificationPopupBodyInvokesAction = true;
   lockScreenNotificationMode = 2;
   osdAlwaysShowValue = true;
+  osdPosition = 0;
   osdMediaPlaybackEnabled = true;
   osdPowerProfileEnabled = true;
   screenPreferences = {
@@ -102,6 +200,7 @@
   };
   connectedFrameBarStyleBackups = {
     default = {
+      attachToScreenEdge = false;
       borderEnabled = false;
       gothCornersEnabled = false;
       shadowIntensity = 0;
@@ -133,6 +232,7 @@
       ];
       clickThrough = false;
       enabled = true;
+      followInterfaceStyle = true;
       fontScale = 1;
       gothCornerRadiusOverride = false;
       gothCornerRadiusValue = 12;
@@ -140,6 +240,9 @@
       iconScale = 1;
       id = "default";
       innerPadding = 4;
+      islandHighContrast = false;
+      islandHomeCompactTight = false;
+      islandPalette = "bright";
       leftWidgets = [
         {
           enabled = true;
@@ -163,7 +266,6 @@
       popupGapsAuto = true;
       popupGapsManual = 4;
       position = 0;
-      removeWidgetPadding = false;
       rightWidgets = [
         {
           enabled = true;
@@ -180,6 +282,7 @@
         {
           enabled = true;
           id = "controlCenterButton";
+          showMicPercent = true;
         }
       ];
       screenPreferences = [
@@ -206,32 +309,6 @@
       widgetTransparency = 1;
     }
   ];
-  desktopClockCustomColor = {
-    r = 1;
-    g = 1;
-    b = 1;
-    a = 1;
-    hsvHue = (-1);
-    hsvSaturation = 0;
-    hsvValue = 1;
-    hslHue = (-1);
-    hslSaturation = 0;
-    hslLightness = 1;
-    valid = true;
-  };
-  systemMonitorCustomColor = {
-    r = 1;
-    g = 1;
-    b = 1;
-    a = 1;
-    hsvHue = (-1);
-    hsvSaturation = 0;
-    hsvValue = 1;
-    hslHue = (-1);
-    hslSaturation = 0;
-    hslLightness = 1;
-    valid = true;
-  };
   desktopWidgetInstances = [
     {
       config = {
@@ -307,6 +384,15 @@
     }
   ];
   builtInPluginSettings = {
+    dms_clipboard_search = {
+      trigger = "cb";
+    };
+    dms_power = {
+      trigger = "pw";
+    };
+    dms_qr_generator = {
+      trigger = "qrg";
+    };
     dms_settings_search = {
       trigger = "?";
     };
@@ -315,5 +401,5 @@
   frameThickness = 2;
   frameShowOnOverview = true;
   frameCloseGaps = false;
-  configVersion = 15;
+  configVersion = 29;
 }

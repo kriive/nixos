@@ -42,7 +42,7 @@
     };
 
     niri = {
-      url = "github:sodiboo/niri-flake?rev=6bb99ff875919f03ea6054026619d999061e1170";
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -182,22 +182,6 @@
 
         pwn = pkgs.mkShell {
           packages = pwnPackages;
-        };
-
-        touchpad-smbus = pkgs.mkShell {
-          nativeBuildInputs = touchpadKernel.moduleBuildDependencies;
-          packages = with pkgs; [
-            acpica-tools
-            i2c-tools
-            kmod
-            pciutils
-            shellcheck
-          ];
-
-          KERNEL_BUILD = "${touchpadKernel.dev}/lib/modules/${touchpadKernel.modDirVersion}/build";
-          KERNEL_DEV = touchpadKernel.dev;
-          KERNEL_RELEASE = touchpadKernel.modDirVersion;
-          KERNEL_SOURCE = touchpadKernel.src;
         };
       };
     };

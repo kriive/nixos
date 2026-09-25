@@ -38,6 +38,8 @@
   environment.systemPackages = with pkgs; [
     xwayland-satellite
     bibata-cursors
+    quickemu
+    virt-viewer
   ];
 
   environment.sessionVariables = {
