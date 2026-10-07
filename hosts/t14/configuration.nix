@@ -12,34 +12,6 @@
     "pnpm-10.29.2"
   ];
 
-  systemd.services.battery-charge-thresholds = {
-    description = "Apply battery charge thresholds";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "systemd-udev-settle.service" ];
-    wants = [ "systemd-udev-settle.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      start_threshold="/sys/class/power_supply/BAT0/charge_start_threshold"
-      stop_threshold="/sys/class/power_supply/BAT0/charge_stop_threshold"
-
-      [ -w "$start_threshold" ] || {
-        echo "Missing or unwritable $start_threshold" >&2
-        exit 1
-      }
-
-      [ -w "$stop_threshold" ] || {
-        echo "Missing or unwritable $stop_threshold" >&2
-        exit 1
-      }
-
-      echo 40 > "$start_threshold"
-      echo 75 > "$stop_threshold"
-    '';
-  };
-
   systemd.services.power-profiles-daemon-settings = {
     description = "Configure power-profiles-daemon actions";
     wantedBy = [ "graphical.target" ];

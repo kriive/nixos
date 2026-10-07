@@ -52,6 +52,10 @@
       showTrash = false;
       trashFileManager = "default";
       trashCustomCommand = "";
+      magnification = false;
+      magnificationScale = 130;
+      magnificationProfile = "parabolic";
+      magnificationExpand = false;
       order = [
       
       ];
@@ -89,6 +93,33 @@
   blurredWallpaperLayer = true;
   blurWallpaperOnOverview = true;
   controlCenterWidgets = [
+    {
+      id = "user";
+      enabled = true;
+      w = 5;
+      h = 1;
+    }
+    {
+      id = "settings";
+      enabled = true;
+      w = 1;
+      h = 1;
+      small = true;
+    }
+    {
+      id = "lock";
+      enabled = true;
+      w = 1;
+      h = 1;
+      small = true;
+    }
+    {
+      id = "power";
+      enabled = true;
+      w = 1;
+      h = 1;
+      small = true;
+    }
     {
       enabled = true;
       h = 1;
@@ -149,6 +180,22 @@
       id = "idleInhibitor";
       w = 4;
     }
+    {
+      id = "runningApps";
+      enabled = true;
+      w = 4;
+      h = 1;
+      footer = true;
+    }
+    {
+      id = "edit";
+      enabled = true;
+      w = 1;
+      h = 1;
+      small = true;
+      footer = true;
+      footerEnd = true;
+    }
   ];
   appIdSubstitutions = [
   
@@ -165,6 +212,7 @@
       forecast = "cards";
     };
   };
+  networkPreference = "wifi";
   cursorSettings = {
     dwl = {
       cursorHideTimeout = 0;
@@ -191,7 +239,6 @@
   lockBeforeSuspend = true;
   muxType = "zellij";
   notificationPopupBodyInvokesAction = true;
-  lockScreenNotificationMode = 2;
   osdAlwaysShowValue = true;
   osdPosition = 0;
   osdMediaPlaybackEnabled = true;
@@ -310,6 +357,7 @@
       widgetOutlineThickness = 1;
       widgetPadding = 8;
       widgetTransparency = 1;
+      widgetFollowInterfaceStyle = true;
     }
   ];
   desktopWidgetInstances = [
@@ -404,5 +452,5 @@
   frameThickness = 2;
   frameShowOnOverview = true;
   frameCloseGaps = false;
-  configVersion = 30;
+  configVersion = 38;
 }

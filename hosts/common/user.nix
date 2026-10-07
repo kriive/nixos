@@ -11,4 +11,9 @@
       "incus-admin"
     ];
   };
+
+  services.accounts-daemon.enable = true;
+  systemd.services.accounts-daemon.serviceConfig = {
+    PrivateTmp = false;
+  };
 }
