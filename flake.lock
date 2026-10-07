@@ -480,8 +480,7 @@
         "nix-mineral": "nix-mineral",
         "nixpkgs": "nixpkgs",
         "pwntools-src": "pwntools-src",
-        "quickshell": "quickshell",
-        "tx02-fonts": "tx02-fonts"
+        "quickshell": "quickshell"
       }
     },
     "rust-overlay": {
@@ -503,19 +502,6 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
-      }
-    },
-    "tx02-fonts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1779825292,
-        "narHash": "sha256-XBEhaNYnYmQWhgazM963hYsy+VN7HNV7Z2UTcz/WFnk=",
-        "path": "/home/kriive/.local/share/private-fonts/tx-02",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/kriive/.local/share/private-fonts/tx-02",
-        "type": "path"
       }
     },
     "xwayland-satellite-stable": {

@@ -2,11 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    tx02-fonts = {
-      url = "path:/home/kriive/.local/share/private-fonts/tx-02";
-      flake = false;
-    };
-
     go-librespot = {
       url = "github:kriive/go-librespot";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,81 +62,66 @@
     {
       nixpkgs,
       home-manager,
-      go-librespot,
-      niri,
-      pwntools-src,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
-      pwntoolsOverlay = final: prev: {
-        pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-          (pyFinal: pyPrev: {
-            pwntools = pyPrev.pwntools.overridePythonAttrs (old: {
-              version = "5.0.0.dev0";
-
-              src = pwntools-src;
-
-              meta = old.meta // {
-                changelog = "https://github.com/Gallopsled/pwntools/commits/dev";
-              };
-            });
-          })
-        ];
-      };
-      overlays = [
-        pwntoolsOverlay
-      ];
+      pwntoolsOverlay = import ./overlays/pwntools.nix { inherit (inputs) pwntools-src; };
+      overlays = [ pwntoolsOverlay ];
       pkgs = import nixpkgs {
         inherit system overlays;
+        config.allowUnfree = true;
       };
-      mkSystem =
-        modules:
-        nixpkgs.lib.nixosSystem {
-          inherit modules;
-          specialArgs = { inherit inputs overlays; };
-        };
-      pwnPackages = import ./hm/profiles/pwn/packages.nix {
-        inherit pkgs;
-      };
+      pwnPackages = import ./pkgs/pwn-tools.nix { inherit pkgs; };
       mkHost =
-        hostName: hostPath:
-        mkSystem [
-          {
-            nixpkgs.overlays = overlays;
-          }
-          hostPath
-          home-manager.nixosModules.home-manager
-          go-librespot.nixosModules.default
-          niri.nixosModules.niri
-          {
-            networking.hostName = hostName;
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.kriive = ./hm/hosts/common;
-            home-manager.extraSpecialArgs = {
-              inherit inputs hostName;
-            };
-          }
-        ];
-      t14System = mkHost "t14" ./hosts/t14/configuration.nix;
-      t15System = mkHost "t15" ./hosts/t15/configuration.nix;
-      touchpadKernel = t14System.config.boot.kernelPackages.kernel;
+        hostName:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/${hostName}
+            home-manager.nixosModules.home-manager
+            {
+              networking.hostName = hostName;
+              nixpkgs.overlays = overlays;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+              };
+            }
+          ];
+        };
+      hosts = {
+        t14 = mkHost "t14";
+        t15 = mkHost "t15";
+      };
+      pwnHome = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home/pwnbox.nix ];
+      };
     in
     {
-      homeConfigurations = {
-        pwn = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = [ ./hm/profiles/pwn ];
-        };
-      };
-
-      nixosConfigurations = {
-        t14 = t14System;
-        t15 = t15System;
-      };
-
+      homeConfigurations.pwn = pwnHome;
+      nixosConfigurations = hosts;
       overlays.default = pwntoolsOverlay;
+      formatter.${system} = pkgs.nixfmt-tree;
+
+      packages.${system} = {
+        tx02-fonts = pkgs.callPackage ./pkgs/tx02-fonts.nix { };
+        t14-kernel = hosts.t14.config.boot.kernelPackages.kernel;
+      };
+
+      checks.${system} = import ./checks {
+        inherit pkgs;
+        src = nixpkgs.lib.fileset.toSource {
+          root = ./.;
+          fileset = nixpkgs.lib.fileset.unions [
+            ./statix.toml
+            (nixpkgs.lib.fileset.fileFilter (file: file.hasExt "nix") ./.)
+          ];
+        };
+        pwnActivation = pwnHome.activationPackage;
+      };
 
       devShells.${system} = {
         default = pkgs.mkShell {

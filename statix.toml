@@ -1,0 +1,3 @@
+# Flat option paths keep independent NixOS/Home Manager settings easy to scan.
+# This is a style choice; all correctness-oriented lints remain enabled.
+disabled = ["repeated_keys"]
