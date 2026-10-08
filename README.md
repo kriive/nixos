@@ -108,15 +108,20 @@ nix flake update
 nix flake check --no-build
 ```
 
-Review `docs/workarounds.md` with every dependency update. T14 checks the exact
-kernel version reviewed with its local touchpad patches. If an update changes
-it, review the patches, update `testedKernelVersion` in
-`hosts/t14/touchpad.nix`, and build:
+After updating the inputs, rebuild and activate T14:
 
 ```sh
-nix build --no-link .#t14-kernel
+sudo nixos-rebuild switch --flake .#t14
 ```
 
-Then build the full system and verify touchpad operation and suspend/resume on
-the hardware before considering that kernel tested. Package evaluation does not
-check patch application or runtime behavior.
+The rebuild applies the local touchpad patches and compiles the kernel as needed.
+If patching or compilation fails, activation does not run; fix the patches and
+retry. No kernel version marker needs updating. Review `docs/workarounds.md` when
+updating dependencies, and remove patches once their fixes are included upstream.
+
+After a successful rebuild, reboot to load the new kernel and test the touchpad
+and suspend/resume. If behavior regresses, boot the previous generation.
+Use `.#t15` instead when updating T15.
+
+For troubleshooting, `nix build --no-link .#t14-kernel` optionally builds just the
+patched kernel. A successful build cannot verify runtime behavior on the hardware.

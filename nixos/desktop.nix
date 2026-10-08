@@ -72,7 +72,10 @@
     pulse.enable = true;
   };
   security.rtkit.enable = true;
-  security.polkit.enable = true;
+  security.polkit = {
+    enable = true;
+    enablePkexecWrapper = true;
+  };
   services.printing.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.flatpak.enable = true;

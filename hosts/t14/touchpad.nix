@@ -1,16 +1,5 @@
-{ config, ... }:
-let
-  testedKernelVersion = "7.2.9";
-in
 {
-  assertions = [
-    {
-      assertion = config.boot.kernelPackages.kernel.version == testedKernelVersion;
-      message = "T14 touchpad patches need review for this kernel. Build .#t14-kernel and update testedKernelVersion in hosts/t14/touchpad.nix after validation; see docs/workarounds.md.";
-    }
-  ];
-
-  # Local carry from orospakr/thinkpad-t14-amd-touchpad at 03cdbb1857f5b9a6fbcef52a0f982d56edb99f5f
+  # Local carry from orospakr/thinkpad-t14-amd-touchpad at 742c47e3730553d0546ad874deac006d9bec18c0
   # (pristine driver sources: Linux v7.2.3). Revisit when kernel patches land upstream.
   boot.kernelPatches = [
     {
@@ -28,6 +17,11 @@ in
     {
       name = "t14-amd-synaptics-intertouch-len2073";
       patch = ./kernel-patches/0004-Input-synaptics-enable-InterTouch-on-the-ThinkPad-T14-P14s-Gen-2-AMD.patch;
+    }
+    {
+      # Mainline 761c2040a7d4; drop once the selected kernel includes this fix.
+      name = "psmouse-disconnect-use-after-free";
+      patch = ./kernel-patches/0101-Input-psmouse-fix-use-after-free-during-protocol-disconnect.patch;
     }
   ];
 

@@ -175,6 +175,7 @@
   acLockTimeout = 900;
   acPostLockMonitorTimeout = 60;
   batteryMonitorTimeout = 300;
+  batteryChargeLimit = 80;
   batteryLockTimeout = 600;
   batterySuspendTimeout = 1800;
   batteryAutoPowerSaver = true;
