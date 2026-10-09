@@ -8,6 +8,7 @@ file when updating `flake.lock`.
 
 | Configuration | Reason and scope | Review/removal condition |
 | --- | --- | --- |
+| `home/programs/allocator-compat.nix` | Scope a `free_sized` compatibility shim and `hardened_malloc` preload to Chromium and Vesktop. GLib rebuilt against glibc 2.44 uses `free_sized`, which can bypass Chromium/Electron’s `free` shim. Chromium startup was tested successfully with the C shim. | Remove after Chromium/Electron export compatible C23 allocation symbols or after a replacement is validated. The shim discards the size/alignment check; preload presence does not prove that PartitionAlloc was replaced. |
 | `hosts/t14/touchpad.nix` | Four touchpad patches from `orospakr/thinkpad-t14-amd-touchpad` at `742c47e3730553d0546ad874deac006d9bec18c0`, originally based on Linux 7.2.3, plus its backport of mainline `761c2040a7d4` fixing a psmouse disconnect use-after-free. Patch 0004 uses the refreshed context; the unrelated FocalTech backport is omitted. | The normal T14 rebuild checks patch application and compilation. Reboot after kernel updates and verify touchpad and suspend/resume. Remove individual patches, including the psmouse backport, once the selected kernel contains their fixes. |
 | `hosts/t14/power.nix` | Configures battery-aware power-profiles-daemon actions through its CLI; the pinned NixOS module exposes only enable/package options. | Replace the script when equivalent declarative options become available. Verify the CLI output and action names after daemon updates. |
 | `hosts/t15/default.nix` | Forces the Xe driver for device `9a49`, blacklists i915, disables Bluetooth USB autosuspend, and supplies touchpad pressure thresholds. | Preserve until tested on T15 with newer kernel/driver defaults; original issue references were not recorded. |
@@ -25,9 +26,12 @@ remain host-local.
 
 Global hardened-malloc is disabled. The pinned upstream module labels it
 testing-only, and the previous setup required namespace wrappers for Chromium,
-Vesktop, and Incus/qemu-img. Removing the global preload removes that compatibility
-problem without obscuring `/etc` from individual applications. Related browser
-issue: <https://issues.chromium.org/issues/486362478>.
+Vesktop, and Incus/qemu-img. Instead, Chromium and Vesktop opt in to a scoped
+preload via `home/programs/allocator-compat.nix`; all other applications keep
+the default allocator. This workaround prevents the observed startup abort but
+does not establish that browser allocations use `hardened_malloc` rather than
+PartitionAlloc. Related browser issue:
+<https://issues.chromium.org/issues/486362478>.
 
 `wheel`, `docker`, `incus-admin`, and Nix trusted-user access remain intentional
 administrative privileges for `kriive`; they are not an isolation boundary from

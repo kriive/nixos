@@ -19,7 +19,7 @@
     kernel-modules.disable.bluetooth-related = false;
     # Global allocator preloading broke Chromium/Electron and qemu-img.
     # Use the system allocator rather than maintaining per-application namespaces.
-    extras.system.hardened-malloc = false;
+    extras.system.hardened-malloc = true;
     extras.system.secure-chrony = true;
     settings.debug.coredump = false;
     settings.etc.kicksecure-bluetooth = false;

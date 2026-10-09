@@ -4,6 +4,7 @@
     ./profiles/shell.nix
     ./profiles/development.nix
     ./profiles/desktop.nix
+    ./programs/allocator-compat.nix
     ./programs/kubernetes.nix
     ./programs/nix-index.nix
     ./programs/opencode.nix
