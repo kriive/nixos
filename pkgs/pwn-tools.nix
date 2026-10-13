@@ -21,6 +21,7 @@ in
 with pkgs;
 [
   codex
+  opencode
   pwnPython
   clang-tools
   gcc
@@ -43,6 +44,8 @@ with pkgs;
   curl
   wget
   git
+  jujutsu
+  uv
   tmux
   ripgrep
   jq
