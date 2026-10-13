@@ -14,7 +14,8 @@
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
-    configurationLimit = 8;
+    # PCR policies allow at most eight alternatives; specialisations add variants.
+    configurationLimit = 4;
     measuredBoot = {
       enable = true;
       pcrs = [

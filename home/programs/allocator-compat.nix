@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
-  # GLib built against glibc >= 2.43 uses free_sized(). Chromium/Electron may
-  # redirect malloc/free to PartitionAlloc without exporting free_sized().
+  # GLib built against glibc >= 2.43 uses free_sized(). Chromium/Electron apps
+  # may redirect malloc/free to PartitionAlloc without exporting free_sized().
   freeSizedCompat = pkgs.runCommandCC "free-sized-compat" { } ''
     mkdir -p "$out/lib"
     cat > compat.c <<'EOF'
@@ -56,4 +56,5 @@ in
 {
   programs.chromium.package = wrapApplication "chromium" pkgs.chromium;
   programs.vesktop.package = wrapApplication "vesktop" pkgs.vesktop;
+  home.packages = [ (wrapApplication "signal-desktop" pkgs.signal-desktop) ];
 }

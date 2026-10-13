@@ -6,6 +6,7 @@
     ../../nixos/desktop.nix
     ../../nixos/containers.nix
     ../../nixos/hardening.nix
+    ../../nixos/virtualization.nix
     ./hardware-configuration.nix
     ./power.nix
     ./touchpad.nix

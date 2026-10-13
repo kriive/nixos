@@ -23,6 +23,5 @@
     wineWow64Packages.waylandFull
     winetricks
     delfin
-    signal-desktop
   ];
 }
