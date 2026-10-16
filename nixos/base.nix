@@ -18,6 +18,7 @@
   environment.systemPackages = with pkgs; [
     helix
     git
+    bubblewrap
   ];
 
   users.users.kriive = {
