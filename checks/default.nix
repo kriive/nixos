@@ -1,7 +1,7 @@
 {
   pkgs,
-  src,
   pwnActivation,
+  src,
 }:
 {
   formatting = pkgs.runCommand "nix-formatting" { nativeBuildInputs = [ pkgs.nixfmt ]; } ''

@@ -16,8 +16,6 @@
     ../../home/kriive.nix
     ./home.nix
   ];
-  # Preserve the existing bridge subnet on this machine.
-  local.containers.ipv4Address = "10.46.142.1/24";
   boot.initrd.luks.devices."luks-a36cdc1c-1230-4c91-9ad8-123d54c26969".crypttabExtraOpts = [
     "tpm2-device=auto"
   ];

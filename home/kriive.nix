@@ -15,7 +15,6 @@
   home.homeDirectory = "/home/kriive";
   home.stateVersion = "25.11";
   programs.home-manager.enable = true;
-  home.shellAliases.pwnbox = "incus exec pwnbox --mode=interactive -- sudo -iu kriive fish -l";
   home.packages = with pkgs; [
     unzip
     zip

@@ -26,16 +26,15 @@ remain host-local.
 
 Global hardened-malloc is disabled. The pinned upstream module labels it
 testing-only, and the previous setup required namespace wrappers for Chromium,
-Vesktop, and Incus/qemu-img. Instead, Chromium, Vesktop, and Signal Desktop opt
+Vesktop, and qemu-img. Chromium, Vesktop, and Signal Desktop opt
 in to a scoped preload via `home/programs/allocator-compat.nix`; all other
 applications keep the default allocator. This workaround prevents the observed
 startup abort but does not establish that Chromium/Electron allocations use
 `hardened_malloc` rather than PartitionAlloc. Related browser issue:
 <https://issues.chromium.org/issues/486362478>.
 
-`wheel`, `docker`, `incus-admin`, and Nix trusted-user access remain intentional
-administrative privileges for `kriive`; they are not an isolation boundary from
-host root.
+`wheel`, `docker`, and Nix trusted-user access remain intentional administrative
+privileges for `kriive`; they are not an isolation boundary from host root.
 
 ## Retired workarounds
 

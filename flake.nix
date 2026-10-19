@@ -97,7 +97,7 @@
       };
       pwnHome = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home/pwnbox.nix ];
+        modules = [ ./home/pwn.nix ];
       };
     in
     {
@@ -113,6 +113,7 @@
 
       checks.${system} = import ./checks {
         inherit pkgs;
+        pwnActivation = pwnHome.activationPackage;
         src = nixpkgs.lib.fileset.toSource {
           root = ./.;
           fileset = nixpkgs.lib.fileset.unions [
@@ -120,7 +121,6 @@
             (nixpkgs.lib.fileset.fileFilter (file: file.hasExt "nix") ./.)
           ];
         };
-        pwnActivation = pwnHome.activationPackage;
       };
 
       devShells.${system} = {

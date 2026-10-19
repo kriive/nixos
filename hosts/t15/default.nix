@@ -31,9 +31,6 @@
   system.stateVersion = "25.11";
   home-manager.users.kriive = import ../../home/kriive.nix;
 
-  # Retain the address previously used by this host's Ghidra proxy.
-  local.containers.ipv4Address = "10.53.43.1/24";
-
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Touchpad Pressure Override]
     MatchUdevType=touchpad
