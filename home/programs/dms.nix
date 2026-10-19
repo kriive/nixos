@@ -9,6 +9,7 @@
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
     inputs.danksearch.homeModules.dsearch
+    ./dms/settings.nix
   ];
 
   programs.dsearch.enable = true;
@@ -16,14 +17,6 @@
   programs.dank-material-shell = {
     enable = true;
     systemd.enable = true;
-
-    niri = {
-      enableSpawn = false;
-      enableKeybinds = false;
-      includes.enable = true;
-    };
-
-    settings = import ./dms/settings.nix;
 
     enableSystemMonitoring = true;
     enableVPN = true;

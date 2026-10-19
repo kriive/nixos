@@ -2,6 +2,14 @@
   pkgs,
   ...
 }:
+let
+  paneNavigation = {
+    "ctrl-h" = "workspace::ActivatePaneLeft";
+    "ctrl-l" = "workspace::ActivatePaneRight";
+    "ctrl-k" = "workspace::ActivatePaneUp";
+    "ctrl-j" = "workspace::ActivatePaneDown";
+  };
+in
 {
   programs.zed-editor = {
     enable = true;
@@ -56,11 +64,6 @@
             path_lookup = true;
           };
         };
-
-        settings = {
-          # This is for other LSP servers, keep it separate
-          dialyzerEnabled = true;
-        };
       };
     };
 
@@ -85,11 +88,7 @@
       }
       {
         context = "Editor && vim_mode == normal && !VimWaiting && !menu";
-        bindings = {
-          "ctrl-h" = "workspace::ActivatePaneLeft";
-          "ctrl-l" = "workspace::ActivatePaneRight";
-          "ctrl-k" = "workspace::ActivatePaneUp";
-          "ctrl-j" = "workspace::ActivatePaneDown";
+        bindings = paneNavigation // {
           "space c a" = "editor::ToggleCodeActions";
           "space ." = "editor::ToggleCodeActions";
           "space c r" = "editor::Rename";
@@ -177,17 +176,12 @@
       }
       {
         context = "Terminal";
-        bindings = {
-          "ctrl-h" = "workspace::ActivatePaneLeft";
-          "ctrl-l" = "workspace::ActivatePaneRight";
-          "ctrl-k" = "workspace::ActivatePaneUp";
-          "ctrl-j" = "workspace::ActivatePaneDown";
-        };
+        bindings = paneNavigation;
       }
       # File panel (netrw)
       {
         context = "ProjectPanel && not_editing";
-        bindings = {
+        bindings = paneNavigation // {
           "a" = "project_panel::NewFile";
           "A" = "project_panel::NewDirectory";
           "r" = "project_panel::Rename";
@@ -198,11 +192,6 @@
           # Close project panel as project file panel on the right
           "q" = "workspace::ToggleRightDock";
           "space e" = "workspace::ToggleRightDock";
-          # Navigate between panel
-          "ctrl-h" = "workspace::ActivatePaneLeft";
-          "ctrl-l" = "workspace::ActivatePaneRight";
-          "ctrl-k" = "workspace::ActivatePaneUp";
-          "ctrl-j" = "workspace::ActivatePaneDown";
         };
       }
       # Panel navigation

@@ -1,6 +1,10 @@
 { pkgs, ... }:
 {
-  imports = [ ../programs/fish.nix ];
+  imports = [
+    ../programs/fish.nix
+    ../programs/nix-index.nix
+    ../programs/rbw.nix
+  ];
 
   home.packages = with pkgs; [
     eza
@@ -8,6 +12,12 @@
     fastfetch
     htop
     btop
+    unzip
+    zip
+    p7zip
+    ethtool
+    dig
+    mtr
   ];
 
   home.shellAliases = {
@@ -20,8 +30,6 @@
 
     zoxide = {
       enable = true;
-      enableFishIntegration = true;
-      enableBashIntegration = true;
       options = [
         "--cmd cd"
       ];

@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ../programs/allocator-compat.nix
     ../programs/appearance.nix
     ../programs/chromium.nix
     ../programs/dms.nix

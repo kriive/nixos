@@ -1,4 +1,6 @@
 {
+  imports = [ ./helix/languages.nix ];
+
   programs.helix = {
     enable = true;
     defaultEditor = true;

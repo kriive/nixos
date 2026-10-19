@@ -3,9 +3,10 @@
     ../../nixos/base.nix
     ../../nixos/laptop.nix
     ../../nixos/desktop.nix
-    ../../nixos/containers.nix
+    ../../nixos/docker.nix
     ../../nixos/hardening.nix
-    ../../nixos/virtualization.nix
+    ../../nixos/virtualization/tools.nix
+    ../../nixos/virtualization/libvirt.nix
     ./hardware-configuration.nix
     ./power.nix
     ./touchpad.nix
