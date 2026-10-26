@@ -67,7 +67,15 @@
     let
       system = "x86_64-linux";
       pwntoolsOverlay = import ./overlays/pwntools.nix { inherit (inputs) pwntools-src; };
-      overlays = [ pwntoolsOverlay ];
+      overlays = [
+        pwntoolsOverlay
+        (_final: prev: {
+          khal = prev.khal.overrideAttrs {
+            # sphinxHook reads a string; structured attributes turn lists into Bash arrays.
+            sphinxBuilders = "html man";
+          };
+        })
+      ];
       pkgs = import nixpkgs {
         inherit system overlays;
         config.allowUnfree = true;

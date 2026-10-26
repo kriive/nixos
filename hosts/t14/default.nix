@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     ./power.nix
     ./touchpad.nix
+    ./fingerprint.nix
   ];
 
   system.stateVersion = "25.11";

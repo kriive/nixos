@@ -18,11 +18,6 @@
       name = "t14-amd-synaptics-intertouch-len2073";
       patch = ./kernel-patches/0004-Input-synaptics-enable-InterTouch-on-the-ThinkPad-T14-P14s-Gen-2-AMD.patch;
     }
-    {
-      # Mainline 761c2040a7d4; drop once the selected kernel includes this fix.
-      name = "psmouse-disconnect-use-after-free";
-      patch = ./kernel-patches/0101-Input-psmouse-fix-use-after-free-during-protocol-disconnect.patch;
-    }
   ];
 
   boot.initrd.kernelModules = [ "rmi_smbus" ];

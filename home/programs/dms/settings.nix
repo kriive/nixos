@@ -17,6 +17,7 @@
     muxType = "zellij";
     notificationPopupBodyInvokesAction = true;
     osdAlwaysShowValue = true;
+    enableFprint = true;
     osdPosition = 0;
     osdMediaPlaybackEnabled = true;
     osdPowerProfileEnabled = true;

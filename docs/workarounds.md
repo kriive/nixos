@@ -15,6 +15,11 @@ Nix trusted users also have administrator access.
 
 ## After package updates
 
+The pinned nix-mineral quiet-boot setting still defines the removed
+`boot.initrd.verbose` option. It is disabled in `nixos/security/nix-mineral.nix`;
+`nixos/boot.nix` preserves its supported console and kernel logging settings.
+Remove this workaround when nix-mineral stops defining the removed option.
+
 | Updated software | Action |
 | --- | --- |
 | Linux or graphics drivers | Test graphics and the touchpad. Test suspend, resume, and Bluetooth. |
@@ -23,6 +28,11 @@ Nix trusted users also have administrator access.
 | DMS | Test the bar, widgets, and lock screen. |
 
 Keep the existing `system.stateVersion` and `home.stateVersion` values during package updates.
+
+The `khal` override in `flake.nix` passes `sphinxBuilders` as a string.
+The pinned Sphinx hook reads only the first builder when this value is a Bash array
+under structured attributes, so the manual output is never created.
+Remove the override once the Sphinx hook handles arrays correctly.
 
 Before you change the DMS `configVersion`, convert the settings to the new format.
 

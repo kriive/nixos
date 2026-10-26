@@ -14,6 +14,8 @@
     # Keep global preloading; Chromium/Electron additionally need allocator-compat.nix.
     extras.system.hardened-malloc = true;
     settings.debug.coredump = false;
+    # This preset still defines boot.initrd.verbose; quiet boot is configured in ../boot.nix.
+    settings.debug.quiet-boot = false;
     settings.etc.harden-bluetooth = false;
     filesystems.enable = false;
     settings.network = {
