@@ -40,6 +40,15 @@ Remove a [T14 touchpad patch](../hosts/t14/touchpad.nix) only when the kernel in
 Keep the T15 driver settings until the default settings work on that laptop.
 Keep the AccountsService exception until the login screen works with the default sandbox.
 
+If the touchpad stops tracking small movements, run `touchpad-reset` in a terminal.
+This shell alias unloads `psmouse`, waits five seconds, and loads it again using sudo.
+The touchpad and TrackPoint are unavailable during the reset.
+
+Use `charge-100` to allow a full battery charge, or `charge-80` to stop charging at 80%.
+The latter resumes charging below 75%; full charging resumes below 99%.
+Both shell aliases use sudo to update the BAT0 charge thresholds immediately.
+Setting the 80% limit does not discharge a battery that is already above 80%.
+
 For kernel errors on T14, build the kernel separately:
 
 ```sh

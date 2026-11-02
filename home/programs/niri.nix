@@ -24,6 +24,8 @@ in
     input.warp-mouse-to-focus.enable = true;
     hotkey-overlay.skip-at-startup = true;
     prefer-no-csd = true;
+    # DMS's Niri integration expects a Boolean rather than the default null.
+    layout.border.enable = false;
     binds = {
       "Super+Return".action.spawn = [ "footclient" ];
       "Super+C" = dmsCall [

@@ -6,6 +6,8 @@
       set fish_greeting # Disable greeting
       # Use combined git/jj VCS item (tide-item-jj) instead of the git item
       set -g tide_left_prompt_items pwd vcs newline character
+      # Tide only caches this for the git item; vcs needs it for branch names too.
+      set -gx _tide_location_color (set_color $tide_git_color_branch)
       # Colorscheme: Current
       set -g fish_color_normal B3B1AD
       set -g fish_color_command 39BAE6
