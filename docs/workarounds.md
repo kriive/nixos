@@ -29,10 +29,18 @@ Remove this workaround when nix-mineral stops defining the removed option.
 
 Keep the existing `system.stateVersion` and `home.stateVersion` values during package updates.
 
+The Codex override in `flake.nix` adds AWS-LC, Oniguruma, SQLite, and zstd to its
+build inputs. The pinned Rust setup hook requires these system libraries, but
+Codex 0.167.0 omits them. Remove the override when nixpkgs supplies these dependencies.
+
 The `khal` override in `flake.nix` passes `sphinxBuilders` as a string.
 The pinned Sphinx hook reads only the first builder when this value is a Bash array
 under structured attributes, so the manual output is never created.
 Remove the override once the Sphinx hook handles arrays correctly.
+
+The OpenCode override in `flake.nix` corrects the `node_modules` hash for version 2.2.5.
+It applies only to the affected version and original hash, so upstream updates take precedence.
+Remove it once nixpkgs updates OpenCode or corrects the dependency hash.
 
 Before you change the DMS `configVersion`, convert the settings to the new format.
 

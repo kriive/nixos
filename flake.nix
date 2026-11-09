@@ -17,11 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-mineral = {
       url = "github:cynicsketch/nix-mineral";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,17 +33,17 @@
     };
 
     dms = {
-      url = "github:AvengeMedia/DankMaterialShell";
+      url = "github:duxlabs-dev/dux-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     dank-greeter = {
-      url = "github:AvengeMedia/dank-greeter";
+      url = "github:duxlabs-dev/dux-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     danksearch = {
-      url = "github:AvengeMedia/danksearch";
+      url = "github:duxlabs-dev/dux-search";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -70,10 +65,32 @@
       overlays = [
         pwntoolsOverlay
         (_final: prev: {
+          # Codex 0.167.0 omits libraries required by the Rust setup hook.
+          codex = prev.codex.overrideAttrs (old: {
+            buildInputs = (old.buildInputs or [ ]) ++ [
+              prev.aws-lc
+              prev.oniguruma
+              prev.sqlite
+              prev.zstd
+            ];
+          });
           khal = prev.khal.overrideAttrs {
             # sphinxHook reads a string; structured attributes turn lists into Bash arrays.
             sphinxBuilders = "html man";
           };
+          # Work around the node_modules hash mismatch in nixpkgs' OpenCode 2.2.5.
+          opencode =
+            if
+              prev.opencode.version == "2.2.5"
+              && prev.opencode.node_modules.outputHash == "sha256-xfOVcw1+waLVNhFDwzOtzxrUSQEogvn88YomydOlhwc="
+            then
+              prev.opencode.overrideAttrs (old: {
+                node_modules = old.node_modules.overrideAttrs {
+                  outputHash = "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";
+                };
+              })
+            else
+              prev.opencode;
         })
       ];
       pkgs = import nixpkgs {

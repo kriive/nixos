@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   ...
 }:
 
@@ -24,7 +23,5 @@
     enableAudioWavelength = true;
     enableCalendarEvents = true;
     enableClipboardPaste = true;
-
-    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
   };
 }

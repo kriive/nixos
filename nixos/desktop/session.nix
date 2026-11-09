@@ -24,7 +24,6 @@
     enable = true;
     compositor.name = "niri";
     configHome = config.users.users.kriive.home;
-    quickshell.package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
   };
 
   hardware.graphics.enable32Bit = true;
