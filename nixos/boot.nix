@@ -7,6 +7,7 @@
 
 {
   imports = [
+    inputs.bootvine.nixosModules.default
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
@@ -42,8 +43,6 @@
     "udev.log_priority=3"
   ];
 
-  boot.plymouth = {
-    enable = true;
-    theme = "bgrt";
-  };
+  boot.plymouth.enable = false;
+  services.bootvine.enable = true;
 }

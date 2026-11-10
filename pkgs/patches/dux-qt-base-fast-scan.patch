@@ -1,0 +1,56 @@
+diff --git a/src/core/scan.hpp b/src/core/scan.hpp
+--- a/src/core/scan.hpp
++++ b/src/core/scan.hpp
+@@ -6,6 +6,7 @@
+ #include <qhash.h>
+ #include <qjsengine.h>
+ #include <qloggingcategory.h>
++#include <qset.h>
+ #include <qvector.h>
+ 
+ #include "logcat.hpp"
+@@ -44,6 +45,7 @@ public:
+ 
+ private:
+ 	QDir rootPath;
++	QSet<QString> scannedDirPaths;
+ 
+ 	bool scanQmlFile(const QString& path, bool& singleton, bool& internal);
+ 	bool scanQmlJson(const QString& path);
+diff --git a/src/core/scan.cpp b/src/core/scan.cpp
+--- a/src/core/scan.cpp
++++ b/src/core/scan.cpp
+@@ -42,7 +42,12 @@ bool QmlScanner::hasFileContentChanged(const QString& path) const {
+ }
+ 
+ void QmlScanner::scanDir(const QDir& dir) {
+-	if (this->scannedDirs.contains(dir)) return;
++	// QDir equality performs filesystem lookups for each previously visited directory.
++	auto identity = dir.canonicalPath();
++	if (identity.isEmpty()) identity = dir.absolutePath();
++	if (this->scannedDirPaths.contains(identity)) return;
++	this->scannedDirPaths.insert(identity);
++
+ 	this->scannedDirs.push_back(dir);
+ 
+ 	const auto& path = dir.path();
+@@ -135,6 +135,10 @@ bool QmlScanner::scanQmlFile(const QString& path, bool& singleton, bool& internal) {
+ 		return false;
+ 	}
+ 
++	// Without conditionals, only the header affects imports and type metadata.
++	const bool hasConditionals =
++	    fileData.contains("//@ if ") || fileData.contains("//@ endif");
++
+ 	auto stream = QTextStream(&fileData);
+ 	auto imports = QVector<QString>();
+ 
+@@ -153,6 +157,8 @@ bool QmlScanner::scanQmlFile(const QString& path, bool& singleton, bool& internal) {
+ 	};
+ 
+ 	while (!stream.atEnd()) {
++		if (!inHeader && !hasConditionals) break;
++
+ 		++lineNum;
+ 		bool hideMask = false;
+ 		auto rawLine = stream.readLine();

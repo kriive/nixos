@@ -8,6 +8,7 @@ The nix-mineral project marks this allocator option for tests only.
 Some applications use their own memory allocator.
 
 Chromium, Vesktop, and Signal Desktop also use [startup fixes](../home/programs/allocator-compat.nix).
+Firefox instead hides the system preload list in a mount namespace, because its bundled mozjemalloc is incompatible with hardened malloc.
 Keep these fixes until the applications start correctly without them.
 
 The `wheel` and `docker` groups give administrator access.
@@ -24,7 +25,7 @@ Remove this workaround when nix-mineral stops defining the removed option.
 | --- | --- |
 | Linux or graphics drivers | Test graphics and the touchpad. Test suspend, resume, and Bluetooth. |
 | power-profiles-daemon | Test the T14 power profiles on battery power and external power. |
-| Chromium, Vesktop, or Signal Desktop | Start each application. |
+| Chromium, Firefox, Vesktop, or Signal Desktop | Start each application. |
 | DMS | Test the bar, widgets, and lock screen. |
 
 Keep the existing `system.stateVersion` and `home.stateVersion` values during package updates.
@@ -43,6 +44,18 @@ It applies only to the affected version and original hash, so upstream updates t
 Remove it once nixpkgs updates OpenCode or corrects the dependency hash.
 
 Before you change the DMS `configVersion`, convert the settings to the new format.
+
+DMS runs on `dux-qt-base`, the Quickshell fork it embeds. The fork already
+contains [upstream PR #1049](https://github.com/quickshell-mirror/quickshell/pull/1049)
+at commit `97b62b85767bcdc3dc6c818e3584aca50fbf48e4`, which enables QML disk caching.
+`home/programs/dms.nix` adds one patch on top through
+`programs.dank-material-shell.duxQtBase.package`: the scanner patch tracks visited
+directories by canonical path and skips QML bodies without conditional preprocessing
+directives. File hashing, dependency discovery, and conditional preprocessing remain
+enabled. Recheck the patch when `dux-qt-base` updates; remove it when the fork includes
+an equivalent scanner change.
+The first launch populates the QML cache, so measure a later launch or reboot too.
+See the [DMS startup measurements](dms-startup.md) for validation and timing details.
 
 Remove a [T14 touchpad patch](../hosts/t14/touchpad.nix) only when the kernel includes its fix.
 Keep the T15 driver settings until the default settings work on that laptop.

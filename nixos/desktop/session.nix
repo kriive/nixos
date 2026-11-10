@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -25,6 +26,9 @@
     compositor.name = "niri";
     configHome = config.users.users.kriive.home;
   };
+
+  # Start the greeter without systemd's five-second idle delay.
+  systemd.services.greetd.serviceConfig.Type = lib.mkForce "exec";
 
   hardware.graphics.enable32Bit = true;
   # Niri supplies the GNOME portal, Polkit, and GNOME Keyring.

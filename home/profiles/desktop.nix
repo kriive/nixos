@@ -5,6 +5,7 @@
     ../programs/appearance.nix
     ../programs/chromium.nix
     ../programs/dms.nix
+    ../programs/firefox.nix
     ../programs/fonts.nix
     ../programs/foot.nix
     ../programs/ghidra.nix

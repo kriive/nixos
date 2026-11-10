@@ -3,6 +3,8 @@
     enable = true;
     dns = "systemd-resolved";
   };
+  # Local filesystems do not need connectivity before login.
+  systemd.services.NetworkManager-wait-online.enable = false;
   networking.nftables.enable = true;
   networking.firewall.enable = true;
   services.resolved.enable = true;

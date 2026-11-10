@@ -2,7 +2,6 @@
 {
   systemd.services.power-profiles-daemon-settings = {
     description = "Configure power-profiles-daemon actions";
-    wantedBy = [ "graphical.target" ];
     after = [ "power-profiles-daemon.service" ];
     requires = [ "power-profiles-daemon.service" ];
     script = ''
@@ -26,6 +25,15 @@
       enable_action amdgpu_panel_power
     '';
     serviceConfig.Type = "oneshot";
+  };
+
+  systemd.timers.power-profiles-daemon-settings = {
+    description = "Configure power-profiles-daemon actions after boot";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "30s";
+      AccuracySec = "1s";
+    };
   };
 
   # Keep the system awake with the lid closed while using a powered dock.

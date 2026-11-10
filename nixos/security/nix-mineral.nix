@@ -11,7 +11,7 @@
     # Hot-plugged devices and virtual machines require runtime module loading.
     kernel-modules.load = true;
     kernel-modules.disable.bluetooth-related = false;
-    # Keep global preloading; Chromium/Electron additionally need allocator-compat.nix.
+    # Keep global preloading; allocator-compat.nix handles incompatible applications.
     extras.system.hardened-malloc = true;
     settings.debug.coredump = false;
     # This preset still defines boot.initrd.verbose; quiet boot is configured in ../boot.nix.
