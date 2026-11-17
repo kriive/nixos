@@ -4,8 +4,10 @@ Measured on T14 on 2026-11-10, with the existing hardened allocator and DMS
 settings, widgets, and plugins retained.
 
 The figures below come from the previous runtime: nixpkgs Quickshell 0.3.2 with
-both patches applied. DMS now embeds `dux-qt-base`, which already contains the
-disk-cache fix, so the startup profile needs re-measuring.
+both the disk-cache fix and a local scanner optimization applied. DMS now uses
+its default `dux-qt-base` runtime, which includes the disk-cache fix, without the
+local scanner patch. These historical figures do not describe the current
+configuration; its startup profile needs re-measuring.
 
 ## Results
 
@@ -21,22 +23,18 @@ the QML cache. The live measurements compare the earlier boot with subsequent
 restarts; they are not measurements of another complete reboot. The separate
 controlled probe confirms the improvement without boot-time contention.
 
-## Changes
+## Historical changes
 
 DMS embeds `dux-qt-base`, its Quickshell fork. The fork is built from
 post-0.3.2 Quickshell plus the [upstream disk-cache fix](https://github.com/quickshell-mirror/quickshell/pull/1049)
 at commit `97b62b85767bcdc3dc6c818e3584aca50fbf48e4`, so it creates the
 file-backed mirror with content-based timestamps that lets Qt cache the QML.
 
-`home/programs/dms.nix` replaces `programs.dank-material-shell.duxQtBase.package`
-with the runtime the flake pins plus one local patch:
-
-- A scanner optimization that indexes visited directories by canonical path,
-  avoiding repeated filesystem-aware `QDir` comparisons. Files without
-  conditional directives also stop scanning after their imports and pragmas.
-
-File hashing, dependency discovery, generated module definitions, conditional
-preprocessing, and file watching remain supported.
+The measured runtime also carried a local scanner optimization that indexed
+visited directories by canonical path, avoiding repeated filesystem-aware
+`QDir` comparisons. Files without conditional directives stopped scanning after
+their imports and pragmas. The patch preserved file hashing, dependency discovery,
+generated module definitions, conditional preprocessing, and file watching.
 
 ## Validation
 
@@ -44,8 +42,7 @@ The original and optimized scanners produced identical file lists, directory
 lists, hashes, generated modules, and errors for all 1,097 files scanned from the
 installed DMS tree. Additional cases cover singleton/internal declarations,
 generated JSON-backed QML, nested conditionals, malformed conditionals, and
-symlinked directory aliases. `dux-qt-base` keeps the same `scan.cpp` and
-`scan.hpp` as Quickshell 0.3.2, so the comparison carries over.
+symlinked directory aliases.
 
 The controlled probe compiles `ShellCore` and `DMSShell` inside uninstantiated QML
 components. It creates no windows and uses private configuration, cache, runtime,
@@ -53,21 +50,15 @@ and D-Bus directories. Recreating its runtime directory between launches retaine
 the cache benefit. Probe timings exclude process teardown and are not complete
 desktop-readiness measurements.
 
-The full T14 system build, formatting, lint, and `nix flake check --no-build`
-passed. Two approved live DMS restarts also succeeded. The final live process
-uses the patched runtime, and its temporary systemd override was removed.
+At the time of the investigation, the full T14 system build, formatting, lint,
+and `nix flake check --no-build` passed. Two approved live DMS restarts also
+succeeded. The measured process used the patched runtime, and its temporary
+systemd override was removed.
 
-## Persistence and further measurement
+## Further measurement
 
-Install the repository configuration to retain the change across service
-restarts and reboots:
-
-```sh
-sudo nixos-rebuild switch --flake .#t14
-```
-
-The patched shell was running in the measured session. A new DMS version
-or a cleared QML cache can make the first launch slower while rebuilding caches.
+A new DMS version or a cleared QML cache can make the first launch slower while
+rebuilding caches.
 
 For later comparisons:
 

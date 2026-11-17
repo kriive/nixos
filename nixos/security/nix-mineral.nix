@@ -14,8 +14,6 @@
     # Keep global preloading; allocator-compat.nix handles incompatible applications.
     extras.system.hardened-malloc = true;
     settings.debug.coredump = false;
-    # This preset still defines boot.initrd.verbose; quiet boot is configured in ../boot.nix.
-    settings.debug.quiet-boot = false;
     settings.etc.harden-bluetooth = false;
     filesystems.enable = false;
     settings.network = {

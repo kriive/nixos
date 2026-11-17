@@ -20,6 +20,8 @@
   # DMS provides the session's polkit agent.
   systemd.user.services.niri-flake-polkit.enable = false;
   security.polkit.enablePkexecWrapper = true;
+  # rbw supplies the SSH agent; GNOME Keyring still provides Secret Service.
+  services.gnome.gcr-ssh-agent.enable = false;
 
   programs.dms-greeter = {
     enable = true;

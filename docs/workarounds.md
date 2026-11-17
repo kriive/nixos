@@ -16,11 +16,6 @@ Nix trusted users also have administrator access.
 
 ## After package updates
 
-The pinned nix-mineral quiet-boot setting still defines the removed
-`boot.initrd.verbose` option. It is disabled in `nixos/security/nix-mineral.nix`;
-`nixos/boot.nix` preserves its supported console and kernel logging settings.
-Remove this workaround when nix-mineral stops defining the removed option.
-
 | Updated software | Action |
 | --- | --- |
 | Linux or graphics drivers | Test graphics and the touchpad. Test suspend, resume, and Bluetooth. |
@@ -30,32 +25,14 @@ Remove this workaround when nix-mineral stops defining the removed option.
 
 Keep the existing `system.stateVersion` and `home.stateVersion` values during package updates.
 
-The Codex override in `flake.nix` adds AWS-LC, Oniguruma, SQLite, and zstd to its
-build inputs. The pinned Rust setup hook requires these system libraries, but
-Codex 0.167.0 omits them. Remove the override when nixpkgs supplies these dependencies.
-
-The `khal` override in `flake.nix` passes `sphinxBuilders` as a string.
-The pinned Sphinx hook reads only the first builder when this value is a Bash array
-under structured attributes, so the manual output is never created.
-Remove the override once the Sphinx hook handles arrays correctly.
-
-The OpenCode override in `flake.nix` corrects the `node_modules` hash for version 2.2.5.
-It applies only to the affected version and original hash, so upstream updates take precedence.
-Remove it once nixpkgs updates OpenCode or corrects the dependency hash.
-
 Before you change the DMS `configVersion`, convert the settings to the new format.
 
 DMS runs on `dux-qt-base`, the Quickshell fork it embeds. The fork already
 contains [upstream PR #1049](https://github.com/quickshell-mirror/quickshell/pull/1049)
 at commit `97b62b85767bcdc3dc6c818e3584aca50fbf48e4`, which enables QML disk caching.
-`home/programs/dms.nix` adds one patch on top through
-`programs.dank-material-shell.duxQtBase.package`: the scanner patch tracks visited
-directories by canonical path and skips QML bodies without conditional preprocessing
-directives. File hashing, dependency discovery, and conditional preprocessing remain
-enabled. Recheck the patch when `dux-qt-base` updates; remove it when the fork includes
-an equivalent scanner change.
+DMS uses the default runtime supplied by its module, without local patches.
 The first launch populates the QML cache, so measure a later launch or reboot too.
-See the [DMS startup measurements](dms-startup.md) for validation and timing details.
+See the [historical DMS startup measurements](dms-startup.md) for earlier timing details.
 
 Remove a [T14 touchpad patch](../hosts/t14/touchpad.nix) only when the kernel includes its fix.
 Keep the T15 driver settings until the default settings work on that laptop.

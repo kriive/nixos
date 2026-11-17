@@ -62,6 +62,43 @@ If the update causes a problem, select an earlier system version from the boot m
 | Kubernetes and Talos | `nix develop .#homelab` |
 | Reverse engineering | `nix develop .#pwn` |
 
+## Password vaults
+
+The default rbw profile uses the personal Bitwarden account:
+
+```sh
+rbw login
+rbw list
+```
+
+The `havce` profile uses the Havce vault:
+
+```sh
+env RBW_PROFILE=havce rbw login
+env RBW_PROFILE=havce rbw list
+```
+
+Each profile has its own login, local vault, and agent.
+Both agents start locked with the desktop session. The first vault or SSH use
+asks for the vault password in a graphical Qt pinentry dialog. DMS's polkit
+dialog is separate and handles system permissions.
+
+SSH uses the personal vault's agent by default. To use the Havce agent:
+
+```sh
+env SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/rbw-havce/ssh-agent-socket" ssh user@host
+```
+
+Store keys as SSH-key items in the matching vault, and log in to each profile
+once before using it as an SSH agent. The agents lock after one hour without
+use and stop at logout. Screen locking does not separately lock the vaults.
+To lock them immediately:
+
+```sh
+rbw lock
+env RBW_PROFILE=havce rbw lock
+```
+
 ## Alternative pwn configuration
 
 This command replaces the active Home Manager configuration for `kriive`:

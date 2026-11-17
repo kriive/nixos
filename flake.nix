@@ -67,37 +67,7 @@
     let
       system = "x86_64-linux";
       pwntoolsOverlay = import ./overlays/pwntools.nix { inherit (inputs) pwntools-src; };
-      overlays = [
-        pwntoolsOverlay
-        (_final: prev: {
-          # Codex 0.167.0 omits libraries required by the Rust setup hook.
-          codex = prev.codex.overrideAttrs (old: {
-            buildInputs = (old.buildInputs or [ ]) ++ [
-              prev.aws-lc
-              prev.oniguruma
-              prev.sqlite
-              prev.zstd
-            ];
-          });
-          khal = prev.khal.overrideAttrs {
-            # sphinxHook reads a string; structured attributes turn lists into Bash arrays.
-            sphinxBuilders = "html man";
-          };
-          # Work around the node_modules hash mismatch in nixpkgs' OpenCode 2.2.5.
-          opencode =
-            if
-              prev.opencode.version == "2.2.5"
-              && prev.opencode.node_modules.outputHash == "sha256-xfOVcw1+waLVNhFDwzOtzxrUSQEogvn88YomydOlhwc="
-            then
-              prev.opencode.overrideAttrs (old: {
-                node_modules = old.node_modules.overrideAttrs {
-                  outputHash = "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";
-                };
-              })
-            else
-              prev.opencode;
-        })
-      ];
+      overlays = [ pwntoolsOverlay ];
       pkgs = import nixpkgs {
         inherit system overlays;
         config.allowUnfree = true;
