@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ../programs/go.nix
     ../programs/helix.nix
     ../programs/kubernetes.nix
     ../programs/opencode.nix

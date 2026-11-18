@@ -10,6 +10,7 @@
     matugenSourceMode = "colorful";
     matugenContrast = 0.54;
     matugenSpec = "2025";
+    matugenTemplateZed = true;
     niriLayoutGapsOverride = 15;
     niriLayoutRadiusOverride = 0;
     springBounce = 0;

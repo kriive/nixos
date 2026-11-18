@@ -18,12 +18,48 @@ in
       "toml"
       "lua"
       "basher"
-      "modest-dark"
     ];
     extraPackages = [ pkgs.nixd ];
+    mutableUserKeymaps = false;
 
     userSettings = {
       helix_mode = true;
+      theme = {
+        mode = "system";
+        dark = "DankShell Dark";
+        light = "DankShell Light";
+      };
+      buffer_font_family = "TX02 Nerd Font Mono";
+      buffer_font_size = 16;
+      soft_wrap = "editor_width";
+      current_line_highlight = "all";
+      hover_popover_delay = 75;
+      vim.cursor_shape = {
+        normal = "block";
+        insert = "bar";
+        visual = "underline";
+      };
+      diagnostics.inline = {
+        enabled = true;
+        max_severity = "hint";
+      };
+      terminal = {
+        font_family = "TX02 Nerd Font Mono";
+        font_size = 16;
+        shell.program = "${pkgs.zellij}/bin/zellij";
+        working_directory = "current_project_directory";
+      };
+      languages.Go = {
+        language_servers = [ "gopls" ];
+        format_on_save = "on";
+        formatter = "language_server";
+        code_actions_on_format."source.organizeImports" = true;
+      };
+      languages.YAML = {
+        language_servers = [ "yaml-language-server" ];
+        formatter = "language_server";
+      };
+      dap.Delve.binary = "${pkgs.delve}/bin/dlv";
       file_finder = {
         modal_width = "medium";
       };
@@ -38,10 +74,9 @@ in
         coloring = "indent_aware";
       };
       inlay_hints = {
-        enabled = true;
+        enabled = false;
       };
-      inactive_opacity = "0.5";
-      auto_install_extensions = true;
+      active_pane_modifiers.inactive_opacity = 0.5;
 
       assistant = {
         enabled = false;
@@ -59,6 +94,23 @@ in
         ];
       };
       lsp = {
+        yaml-language-server = {
+          binary = {
+            path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+            arguments = [ "--stdio" ];
+          };
+          settings.yaml = {
+            format.enable = true;
+            schemaStore.enable = true;
+          };
+        };
+        gopls = {
+          binary = {
+            path = "${pkgs.gopls}/bin/gopls";
+            arguments = [ ];
+          };
+          initialization_options.staticcheck = true;
+        };
         nix = {
           binary = {
             path_lookup = true;
@@ -67,148 +119,34 @@ in
       };
     };
 
+    # Keep Helix's built-in selection and leader bindings intact.
     userKeymaps = [
       {
-        context = "Editor && (vim_mode == normal || vim_mode == visual)";
-        bindings = {
-          "space g h d" = "editor::ToggleHunkDiff";
-          "space g h r" = "editor::RevertSelectedHunks";
+        context = "Editor && (vim_mode == helix_normal || vim_mode == helix_select) && !menu";
+        bindings = paneNavigation // {
+          "0" = "vim::StartOfLine";
+          "$" = "vim::EndOfLine";
+          "g a" = "editor::ToggleCodeActions";
+          "space o" = "file_finder::Toggle";
           "space t i" = "editor::ToggleInlayHints";
           "space u w" = "editor::ToggleSoftWrap";
-          "space c z" = "workspace::ToggleCenteredLayout";
-          "space m p" = "markdown::OpenPreview";
-          "space m P" = "markdown::OpenPreviewToTheSide";
-          "space f p" = "projects::OpenRecent";
-          "space f m" = "editor::Format";
-          "space f M" = "editor::FormatSelections";
-          "space s w" = "pane::DeploySearch";
-          "space a c" = "assistant::ToggleFocus";
-          "g f" = "editor::OpenExcerpts";
         };
       }
       {
-        context = "Editor && vim_mode == normal && !VimWaiting && !menu";
-        bindings = paneNavigation // {
-          "space c a" = "editor::ToggleCodeActions";
-          "space ." = "editor::ToggleCodeActions";
-          "space c r" = "editor::Rename";
-          "g d" = "editor::GoToDefinition";
-          "g D" = "editor::GoToDefinitionSplit";
-          "g i" = "editor::GoToImplementation";
-          "g I" = "editor::GoToImplementationSplit";
-          "g t" = "editor::GoToTypeDefinition";
-          "g T" = "editor::GoToTypeDefinitionSplit";
-          "g r" = "editor::FindAllReferences";
-          "] d" = "editor::GoToDiagnostic";
-          "[ d" = "editor::GoToPrevDiagnostic";
-          # TODO: Go to next/prev error
-          "] e" = "editor::GoToDiagnostic";
-          "[ e" = "editor::GoToPrevDiagnostic";
-          # Symbol search
-          "s s" = "outline::Toggle";
-          "s S" = "project_symbols::Toggle";
-          # Diagnostic
-          "space x x" = "diagnostics::Deploy";
-
-          # +Git
-          # Git prev/next hunk
-          "] h" = "editor::GoToHunk";
-          "[ h" = "editor::GoToPrevHunk";
-
-          # Buffers
-          # Switch between buffers
-          "shift-h" = "pane::ActivatePrevItem";
-          "shift-l" = "pane::ActivateNextItem";
-          # Close active panel
-          "shift-q" = "pane::CloseActiveItem";
-          "ctrl-q" = "pane::CloseActiveItem";
-          "space b d" = "pane::CloseActiveItem";
-          # Close other items
-          "space b o" = "pane::CloseInactiveItems";
-          # Save file
-          "ctrl-s" = "workspace::Save";
-          # File finder
-          "space space" = "file_finder::Toggle";
-          # Project search
-          "space /" = "pane::DeploySearch";
-          # TODO: Open other files
-          # Show project panel with current file
-          "space e" = "pane::RevealInProjectPanel";
-        };
+        context = "Editor && vim_mode == helix_normal && !menu";
+        bindings.enter = "vim::HelixJumpToWord";
       }
       {
-        context = "EmptyPane || SharedScreen";
-        bindings = {
-          # Open file finder
-          "space space" = "file_finder::Toggle";
-          # Open recent projects
-          "space f p" = "projects::OpenRecent";
-        };
+        context = "Editor && vim_mode == insert";
+        bindings."j k" = "vim::NormalBefore";
       }
-      {
-        context = "Editor && vim_mode == visual && !VimWaiting && !menu";
-        bindings = {
-          "g c" = "editor::ToggleComments";
-        };
-      }
-      # Better escape
-      {
-        context = "Editor && vim_mode == insert && !menu";
-        bindings = {
-          "j j" = "vim::NormalBefore"; # remap jj in insert mode to escape
-          "j k" = "vim::NormalBefore"; # remap jk in insert mode to escape
-        };
-      }
-      # Rename
-      {
-        context = "Editor && vim_operator == c";
-        bindings = {
-          "c" = "vim::CurrentLine";
-          "a" = "editor::ToggleCodeActions"; # zed specific
-        };
-      }
-      # Toggle Terminal
       {
         context = "Workspace";
-        bindings = {
-          "ctrl-\\" = "terminal_panel::ToggleFocus";
-        };
+        bindings."ctrl-\\" = "terminal_panel::ToggleFocus";
       }
       {
         context = "Terminal";
         bindings = paneNavigation;
-      }
-      # File panel (netrw)
-      {
-        context = "ProjectPanel && not_editing";
-        bindings = paneNavigation // {
-          "a" = "project_panel::NewFile";
-          "A" = "project_panel::NewDirectory";
-          "r" = "project_panel::Rename";
-          "d" = "project_panel::Delete";
-          "x" = "project_panel::Cut";
-          "c" = "project_panel::Copy";
-          "p" = "project_panel::Paste";
-          # Close project panel as project file panel on the right
-          "q" = "workspace::ToggleRightDock";
-          "space e" = "workspace::ToggleRightDock";
-        };
-      }
-      # Panel navigation
-      {
-        context = "Dock";
-        bindings = {
-          "ctrl-w h" = "workspace::ActivatePaneLeft";
-          "ctrl-w l" = "workspace::ActivatePaneRight";
-          "ctrl-w k" = "workspace::ActivatePaneUp";
-          "ctrl-w j" = "workspace::ActivatePaneDown";
-        };
-      }
-      {
-        context = "Workspace";
-        bindings = {
-          "ctrl-b" = "workspace::ToggleRightDock";
-        };
       }
     ];
   };

@@ -21,6 +21,8 @@
       arp.ignore = "local";
     };
     settings.system.multilib = true;
+    # Delve must be able to trace the Go programs it launches.
+    settings.system.yama = "relaxed";
     extras.network.tcp-window-scaling = true;
   };
 }

@@ -19,6 +19,7 @@
   ];
   programs.vesktop.enable = true;
   home.packages = with pkgs; [
+    audacity
     telegram-desktop
     gnome-podcasts
     ioskeley-mono.term-nf

@@ -12,6 +12,18 @@ in
   programs.helix = {
     languages = {
       language-server.clangd.command = "${pkgs.clang-tools}/bin/clangd";
+      language-server.gopls = {
+        command = "${pkgs.gopls}/bin/gopls";
+        config.staticcheck = true;
+      };
+      language-server.yaml-language-server = {
+        command = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+        args = [ "--stdio" ];
+        config.yaml = {
+          format.enable = true;
+          schemaStore.enable = true;
+        };
+      };
       language-server.pylsp = {
         command = "${pythonLsp}/bin/pylsp";
         config.pylsp.plugins = {
@@ -33,6 +45,10 @@ in
         ];
       };
       language = [
+        {
+          name = "yaml";
+          language-servers = [ "yaml-language-server" ];
+        }
         {
           name = "c";
           language-servers = [ "clangd" ];
