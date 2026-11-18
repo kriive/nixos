@@ -138,11 +138,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1795034088,
-        "narHash": "sha256-dRBHlpDkvjRQcw16VYnxe0z96MwrwQLvWU86+A1lVBY=",
+        "lastModified": 1795034842,
+        "narHash": "sha256-AKdKJ7a3O6WRMLAigM/isUREWILB5AXvVNHGg5MvrzA=",
         "owner": "duxlabs-dev",
         "repo": "dux-shell",
-        "rev": "68b2efc1229f80ed203fa44450e1d8f13b7016e3",
+        "rev": "a7cb656221e4bc885886a90ba608189733655c74",
         "type": "github"
       },
       "original": {
@@ -307,11 +307,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794211514,
-        "narHash": "sha256-NTMlmT9yQstvvvsSlQEsPEfWMkOhaThUmg97T0SuRD0=",
+        "lastModified": 1795040376,
+        "narHash": "sha256-CtPe4f1qtMt/npgUEnWcmPzk0RsG1vRKZYo9DtOcxmI=",
         "owner": "kriive",
         "repo": "go-librespot",
-        "rev": "783caa6598e347aaff617ef50f7676128cb6bc1b",
+        "rev": "f90043f65901f127d2900bc1e67f322a15fd16e6",
         "type": "github"
       },
       "original": {

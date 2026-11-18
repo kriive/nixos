@@ -31,8 +31,10 @@
 
   programs = {
     ripgrep.enable = true;
-    yazi.enable = true;
-
+    yazi = {
+      enable = true;
+      shellWrapperName = "y";
+    };
     zoxide = {
       enable = true;
       options = [
