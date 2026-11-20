@@ -9,7 +9,7 @@
     settings = {
       main = {
         include = "${config.xdg.configHome}/foot/dank-colors.ini";
-        shell = lib.getExe config.programs.zellij.finalPackage;
+        shell = "fish";
         font = "TX02 Nerd Font Mono:size=14";
         dpi-aware = "no";
       };
