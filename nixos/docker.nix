@@ -1,6 +1,11 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
-  users.users.kriive.extraGroups = [ "docker" ];
+  environment.systemPackages = [ pkgs.docker-sbx ];
+
+  users.users.kriive.extraGroups = [
+    "docker"
+    "kvm"
+  ];
 
   virtualisation.docker = {
     enable = true;
